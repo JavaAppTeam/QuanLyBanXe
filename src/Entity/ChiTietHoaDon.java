@@ -38,7 +38,5 @@ public class ChiTietHoaDon {
 	public void setThue(double thue) {
 		this.thue = thue;
 	}
-
-	
 	
 }
