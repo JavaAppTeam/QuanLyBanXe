@@ -55,6 +55,12 @@ public class FrmNhanVien extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmNhanVien() {
+		setTitle("Quản lý nhân viên");
+		setFocusCycleRoot(true);
+		setFocusable(true);
+		setFocusCycleRoot(true);
+		getContentPane().setEnabled(false);
+		setResizable(true);
 		setBounds(-5, -26, 1372, 710);
 		
 		JPanel lblTieuDe = new JPanel();
