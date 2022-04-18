@@ -17,7 +17,7 @@ import javax.swing.JTable;
 public class FrmLoaiXe extends JInternalFrame {
 	private JTextField txtIDLX;
 	private JTextField txtTenLX;
-	private JTable table;
+	private JTable tblLoaiXe;
 
 	/**
 	 * Launch the application.
@@ -116,9 +116,9 @@ public class FrmLoaiXe extends JInternalFrame {
 		pnContext.add(pnTable);
 		pnTable.setLayout(null);
 		
-		table = new JTable();
-		table.setBounds(10, 403, 1291, -392);
-		pnTable.add(table);
+		tblLoaiXe = new JTable();
+		tblLoaiXe.setBounds(10, 403, 1291, -392);
+		pnTable.add(tblLoaiXe);
 		setResizable(true);
 		setBounds(-5, -26, 1372, 710);
 
