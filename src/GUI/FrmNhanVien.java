@@ -218,6 +218,7 @@ public class FrmNhanVien extends JInternalFrame {
 		btnSuaNV.setBounds(367, 205, 240, 39);
 		pnContext.add(btnSuaNV);
 		
+		
 		JButton btnXoaNV = new JButton("Xoá nhân viên");
 		btnXoaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaNV.setBackground(new Color(255, 192, 203));
