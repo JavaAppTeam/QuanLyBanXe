@@ -34,6 +34,8 @@ public class FrmNhanVien extends JInternalFrame {
 	private JTextField txtTrinhDoHocVanNV;
 	private JTextField txtNgayVaoLamNV;
 	private JTable tblDSNV;
+	private JTextField txtmaChucVuNV;
+	private JTextField txtmaCuaHangNV;
 
 	/**
 	 * Launch the application.
@@ -78,7 +80,7 @@ public class FrmNhanVien extends JInternalFrame {
 		
 		JPanel pnControlTrai = new JPanel();
 		pnControlTrai.setBackground(new Color(255, 192, 203));
-		pnControlTrai.setBounds(0, 0, 668, 195);
+		pnControlTrai.setBounds(0, 0, 668, 239);
 		pnControlTrai.setLayout(null);
 		
 		JLabel lblCMND = new JLabel("CMND");
@@ -138,12 +140,23 @@ public class FrmNhanVien extends JInternalFrame {
 		
 		JPanel pnControlPhai = new JPanel();
 		pnControlPhai.setBackground(new Color(255, 192, 203));
-		pnControlPhai.setBounds(669, 0, 681, 195);
+		pnControlPhai.setBounds(669, 0, 681, 239);
 		pnControlPhai.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		pnControlPhai.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		pnControlPhai.setLayout(null);
 		pnContext.setLayout(null);
 		pnContext.add(pnControlTrai);
+		
+		JLabel lbmaChucVuNV = new JLabel("Mã chức vụ");
+		lbmaChucVuNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lbmaChucVuNV.setBounds(5, 205, 120, 24);
+		pnControlTrai.add(lbmaChucVuNV);
+		
+		txtmaChucVuNV = new JTextField();
+		txtmaChucVuNV.setColumns(10);
+		txtmaChucVuNV.setBackground(Color.WHITE);
+		txtmaChucVuNV.setBounds(170, 205, 484, 24);
+		pnControlTrai.add(txtmaChucVuNV);
 		pnContext.add(pnControlPhai);
 		
 		JLabel lblNgayVaoLamNV = new JLabel("Ngày vào làm");
@@ -201,9 +214,20 @@ public class FrmNhanVien extends JInternalFrame {
 		txtNgayVaoLamNV.setBounds(181, 5, 484, 24);
 		pnControlPhai.add(txtNgayVaoLamNV);
 		
+		JLabel lblmaCuaHangNV = new JLabel("Mã cửa hàng");
+		lblmaCuaHangNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblmaCuaHangNV.setBounds(16, 205, 165, 24);
+		pnControlPhai.add(lblmaCuaHangNV);
+		
+		txtmaCuaHangNV = new JTextField();
+		txtmaCuaHangNV.setColumns(10);
+		txtmaCuaHangNV.setBackground(Color.WHITE);
+		txtmaCuaHangNV.setBounds(181, 205, 484, 24);
+		pnControlPhai.add(txtmaCuaHangNV);
+		
 		JPanel pnTable = new JPanel();
 		pnTable.setBackground(new Color(240, 255, 255));
-		pnTable.setBounds(10, 254, 1340, 361);
+		pnTable.setBounds(10, 298, 1340, 317);
 		pnContext.add(pnTable);
 		pnTable.setLayout(null);
 		
@@ -215,26 +239,26 @@ public class FrmNhanVien extends JInternalFrame {
 		JButton btnThemNV = new JButton("Thêm nhân viên");
 		btnThemNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThemNV.setBackground(new Color(255, 192, 203));
-		btnThemNV.setBounds(10, 205, 240, 39);
+		btnThemNV.setBounds(10, 249, 240, 39);
 		pnContext.add(btnThemNV);
 		
 		JButton btnSuaNV = new JButton("Sửa nhân viên");
 		btnSuaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSuaNV.setBackground(new Color(255, 192, 203));
-		btnSuaNV.setBounds(367, 205, 240, 39);
+		btnSuaNV.setBounds(367, 249, 240, 39);
 		pnContext.add(btnSuaNV);
 		
 		
 		JButton btnXoaNV = new JButton("Xoá nhân viên");
 		btnXoaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaNV.setBackground(new Color(255, 192, 203));
-		btnXoaNV.setBounds(741, 205, 240, 39);
+		btnXoaNV.setBounds(741, 249, 240, 39);
 		pnContext.add(btnXoaNV);
 		
 		JButton btnXoaTrangNV = new JButton("Xoá trắng");
 		btnXoaTrangNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaTrangNV.setBackground(new Color(255, 192, 203));
-		btnXoaTrangNV.setBounds(1110, 205, 240, 39);
+		btnXoaTrangNV.setBounds(1110, 249, 240, 39);
 		pnContext.add(btnXoaTrangNV);
 
 	}

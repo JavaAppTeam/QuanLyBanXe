@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class connectDB {
+		private static  connectDB instance = new connectDB();
+		public static  connectDB getInstance() {
+			return instance;
+		}
 public static Connection getConnection() throws ClassNotFoundException, SQLException {
 	Connection conn;
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
