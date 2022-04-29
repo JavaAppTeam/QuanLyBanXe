@@ -10,6 +10,7 @@ public class HoaDon {
 	String maxe;
 	float dongia;
 	float thue;
+	int soluong;
 	public HoaDon() {
 		// TODO Auto-generated constructor stub
 	}
@@ -38,6 +39,15 @@ public class HoaDon {
 		this.maKH = maKH;
 		this.maCH = maCH;
 		this.ngayLap = ngayLap;
+	}
+	public HoaDon(int soLuong) {
+		this.soluong = soLuong;
+	}
+	public int getSoluong() {
+		return soluong;
+	}
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
 	}
 	public String getMaxe() {
 		return maxe;

@@ -38,6 +38,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyVetoException;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.components.JSpinField;
 import javax.swing.event.AncestorListener;
@@ -48,11 +50,10 @@ public class FrmHoaDon extends JFrame {
 	private DefaultTableModel dataModel;
 	private JScrollPane scroll;
 	private JTextField textField;
+	private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
 	private HoaDon_DAO hdDao = new HoaDon_DAO();
-	JTextPane txtMaHD, txtDonGia, txtThue;
+	JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
 	JDateChooser dtNgayLap;
-	JSpinField spinField;
-	JComboBox cbbMaKH,cbbDSXe,cbbmaCuaHang,cbbMSNV,cbbMaXe;
 	/**
 	 * Launch the application.
 	 */
@@ -73,7 +74,7 @@ public class FrmHoaDon extends JFrame {
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
-	public FrmHoaDon() throws SQLException {
+	public FrmHoaDon() throws SQLException, PropertyVetoException {
 		setFont(new Font("Dialog", Font.PLAIN, 15));
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
 		getContentPane().setBackground(Color.PINK);
@@ -84,23 +85,27 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(null);
 		
+		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
+		frmHD_ThemHD.setBounds(5, 26, 1139, 510);
+		getContentPane().add(frmHD_ThemHD);
+		
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.setLayout(null);
 		panel.setForeground(new Color(220, 20, 60));
 		panel.setBorder(new TitledBorder(null, "Thông tin xe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 192, 203));
-		panel.setBounds(10, 10, 1340, 229);
+		panel.setBounds(10, 34, 1340, 178);
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Mã Nhân Viên:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(700, 163, 117, 23);
+		lblNewLabel_1.setBounds(130, 113, 96, 33);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Mã Khách Hàng:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(700, 111, 106, 33);
+		lblNewLabel_1_1.setBounds(700, 55, 106, 33);
 		panel.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ngày lập hóa đơn:");
@@ -116,67 +121,32 @@ public class FrmHoaDon extends JFrame {
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Mã cửa hàng:");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1_1.setBounds(710, 73, 96, 28);
+		lblNewLabel_1_1_1_1.setBounds(710, 95, 96, 28);
 		panel.add(lblNewLabel_1_1_1_1);
 		
 		txtMaHD = new JTextPane();
 		txtMaHD.setBounds(242, 30, 350, 28);
 		panel.add(txtMaHD);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("Mã xe:");
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4_1.setBounds(752, 33, 42, 23);
-		panel.add(lblNewLabel_4_1);
-		
-		JLabel lblNewLabel_4_2 = new JLabel("Đơn giá:");
-		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4_2.setBounds(166, 113, 54, 29);
-		panel.add(lblNewLabel_4_2);
-		
-		txtDonGia = new JTextPane();
-		txtDonGia.setBounds(242, 116, 350, 28);
-		panel.add(txtDonGia);
-		
-		JLabel lblNewLabel_4_3 = new JLabel("Thuế:");
-		lblNewLabel_4_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4_3.setBounds(183, 169, 37, 25);
-		panel.add(lblNewLabel_4_3);
-		
-		txtThue = new JTextPane();
-		txtThue.setBounds(242, 165, 350, 28);
-		panel.add(txtThue);
+		dtNgayLap = new JDateChooser();
+		dtNgayLap.setBounds(240, 73, 352, 30);
+		panel.add(dtNgayLap);
 		
 		dtNgayLap = new JDateChooser();
 		dtNgayLap.setBounds(240, 73, 352, 30);
 		panel.add(dtNgayLap);
 		
-		cbbMaKH = new JComboBox();
-		cbbMaKH.setBounds(827, 113, 336, 31);
-		panel.add(cbbMaKH);
+		txtMaNV = new JTextPane();
+		txtMaNV.setBounds(242, 118, 350, 28);
+		panel.add(txtMaNV);
 		
-		cbbmaCuaHang = new JComboBox();
-		cbbmaCuaHang.setBounds(827, 68, 336, 31);
-		panel.add(cbbmaCuaHang);
+		txtMaKH = new JTextPane();
+		txtMaKH.setBounds(818, 55, 350, 28);
+		panel.add(txtMaKH);
 		
-		cbbMSNV = new JComboBox();
-		cbbMSNV.setBounds(827, 163, 336, 31);
-		panel.add(cbbMSNV);
-		
-		cbbDSXe = new JComboBox();
-		cbbDSXe.setBounds(976, 29, 187, 29);
-		panel.add(cbbDSXe);
-		
-		dtNgayLap = new JDateChooser();
-		dtNgayLap.setBounds(240, 73, 352, 30);
-		panel.add(dtNgayLap);
-		
-		spinField = new JSpinField();
-		spinField.setBounds(924, 30, 42, 28);
-		panel.add(spinField);
-		
-		cbbMaXe = new JComboBox();
-		cbbMaXe.setBounds(827, 30, 96, 28);
-		panel.add(cbbMaXe);
+		txtMaCH = new JTextPane();
+		txtMaCH.setBounds(817, 92, 350, 28);
+		panel.add(txtMaCH);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 378, 1340, 285);
@@ -186,7 +156,7 @@ public class FrmHoaDon extends JFrame {
 		
 		String[] tieuDe = { "Mã HD","Ngày lập hóa đơn", "Mã khách hàng", "Mã nhân viên", "Mã cửa hàng"};
 		panel_1.add(scroll = new JScrollPane(table_1 = new JTable(dataModel = new DefaultTableModel(tieuDe, 0))));
-		table_1.setRowHeight(25);
+		table_1.setRowHeight(30);
 		JTableHeader tableHeader = table_1.getTableHeader();
 		tableHeader.setFont(new Font("Segoe UI", Font.BOLD , 16));
 		
@@ -194,13 +164,16 @@ public class FrmHoaDon extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int rowSelect = table_1.getSelectedRow();
-				String valueRow = (String) table_1.getValueAt(rowSelect, 0);
-				try {
-					loadRowTableToText(valueRow);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				String maHD = (String) table_1.getValueAt(rowSelect, 0);
+				Date ngayLap = (Date) table_1.getValueAt(rowSelect, 1);
+				String maKH = (String) table_1.getValueAt(rowSelect, 2);
+				String maNV = (String) table_1.getValueAt(rowSelect, 3);
+				String maCH = (String) table_1.getValueAt(rowSelect, 4);
+				txtMaHD.setText(maHD);
+				dtNgayLap.setDate(ngayLap);
+				txtMaCH.setText(maCH);
+				txtMaKH.setText(maKH);
+				txtMaNV.setText(maNV);
 			}
 		});
 		
@@ -214,22 +187,22 @@ public class FrmHoaDon extends JFrame {
 		table_1.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
 		
 		JLabel lblNewLabel = new JLabel("DANH SÁCH HÓA ĐƠN BÁN");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(580, 338, 304, 30);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
+		lblNewLabel.setBounds(556, 316, 306, 49);
 		getContentPane().add(lblNewLabel);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(SystemColor.activeCaption);
 		panel_2.setForeground(SystemColor.activeCaption);
 		panel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.setBounds(250, 262, 934, 40);
+		panel_2.setBounds(242, 247, 934, 40);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frmHD_ThemHD.setVisible(true);
 			}
 		});
 		btnThem.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -313,14 +286,12 @@ public class FrmHoaDon extends JFrame {
 		}
 	}
 	
-	private void loadRowTableToText(String rowSelect) throws SQLException {
-		HoaDon hd = (HoaDon) hdDao.getAllHDTotext(rowSelect);
-			txtMaHD.setText(hd.getMaHoaDon());
-			dtNgayLap.setDate(hd.getNgayLap());
-			txtDonGia.setText(hd.getDongia()+"");
-			txtThue.setText(hd.getThue()+"");
-			cbbmaCuaHang.setSelectedItem(hd.getMaCH());
-			cbbMaKH.setSelectedItem(hd.getMaKH());
-			cbbMaXe.setSelectedItem(hd.getMaxe());
-		}
+//	private void loadRowTableToText(String rowSelect) throws SQLException {
+//		HoaDon hd = (HoaDon) hdDao.getAllHDTotext(rowSelect);
+//			txtMaHD.setText(hd.getMaHoaDon());
+//			dtNgayLap.setDate(hd.getNgayLap());
+//			cbbmaCuaHang.setSelectedItem(hd.getMaCH());
+//			cbbMaKH.setSelectedItem(hd.getMaKH());
+//			txtSoLuong.setText((int)hd.getSoluong()+"");
+//		}
 }
