@@ -1,30 +1,20 @@
 package GUI;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.Button;
-import javax.swing.UIManager;
-import java.awt.SystemColor;
-import javax.swing.JTable;
-
-public class FrmNhanVien extends JInternalFrame {
+public class FrmQLNhanVien extends JInternalFrame {
 	private JPanel contentPane;
 	private JTextField txtMaNV;
 	private JTextField txtHoVaTenNV;
@@ -39,7 +29,6 @@ public class FrmNhanVien extends JInternalFrame {
 	private JTable tblDSNV;
 	private JTextField txtmaChucVuNV;
 	private JTextField txtmaCuaHangNV;
-
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +36,7 @@ public class FrmNhanVien extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmNhanVien frame = new FrmNhanVien();
+					FrmQLNhanVien frame = new FrmQLNhanVien();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -59,7 +48,7 @@ public class FrmNhanVien extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrmNhanVien() {
+	public FrmQLNhanVien() {
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(-5, -26, 1372, 710);
 		contentPane = new JPanel();
@@ -267,4 +256,5 @@ public class FrmNhanVien extends JInternalFrame {
 		btnXoaTrangNV.setBounds(1110, 249, 240, 39);
 		pnContext.add(btnXoaTrangNV);
 	}
+
 }
