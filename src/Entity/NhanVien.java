@@ -45,6 +45,10 @@ public class NhanVien {
 		this.trangThai = trangThai;
 	}
 
+	public NhanVien(String maNV) {
+		this.maNhanVien = maNV;
+	}
+
 	public String getMaNhanVien() {
 		return maNhanVien;
 	}

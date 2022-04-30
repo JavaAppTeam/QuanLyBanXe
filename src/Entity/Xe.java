@@ -5,6 +5,16 @@ public class Xe {
 	private int maXe,soLuongTon;
 	private String tenXe,maHangXe,maLoai,mucTieuThu,dungTich;
 	private double giaTien;
+	private String soKhung, soMay;
+	private String maCTXe;
+	private int soluongMua;
+
+	public int getSoluongMua() {
+		return soluongMua;
+	}
+	public void setSoluongMua(int soluongMua) {
+		this.soluongMua = soluongMua;
+	}
 	public Xe() {
 		// TODO Auto-generated constructor stub
 	}
@@ -30,6 +40,34 @@ public class Xe {
 		this.mucTieuThu = mucTieuThu;
 		this.dungTich = dungTich;
 		this.giaTien = giaTien;
+	}
+	public Xe(String maCTXe,String tenxe,Integer soluongMua, String sokhung, String somay, String dungtich, Double giatien) {
+		// TODO Auto-generated constructor stub
+		this.maCTXe = maCTXe;
+		this.tenXe = tenxe;
+		this.soluongMua = soluongMua;
+		this.soKhung = sokhung;
+		this.soMay = somay;
+		this.dungTich = dungtich;
+		this.giaTien = giatien;
+	}
+	public String getSoKhung() {
+		return soKhung;
+	}
+	public void setSoKhung(String soKhung) {
+		this.soKhung = soKhung;
+	}
+	public String getSoMay() {
+		return soMay;
+	}
+	public void setSoMay(String soMay) {
+		this.soMay = soMay;
+	}
+	public String getMaCTXe() {
+		return maCTXe;
+	}
+	public void setMaCTXe(String maCTXe) {
+		this.maCTXe = maCTXe;
 	}
 	public int getMaXe() {
 		return maXe;

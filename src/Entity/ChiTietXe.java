@@ -2,7 +2,7 @@ package Entity;
 
 public class ChiTietXe {
 
-	private String maCTXe,soKhung,soMay,hinhAnh;
+	private String maCTXe,soKhung,soMay,hinhAnh, tenXe;
 	private int maXe,thoiGianBH;
 	private boolean trangThai;
 	public ChiTietXe() {
@@ -27,6 +27,9 @@ public class ChiTietXe {
 		this.maXe = maXe;
 		this.thoiGianBH = thoiGianBH;
 		this.trangThai = trangThai;
+	}
+	public ChiTietXe(String maCTXe) {
+		this.maCTXe =maCTXe;
 	}
 	public String getMaCTXe() {
 		return maCTXe;
@@ -70,7 +73,4 @@ public class ChiTietXe {
 	public void setTrangThai(boolean trangThai) {
 		this.trangThai = trangThai;
 	}
-	
-	
-
 }
