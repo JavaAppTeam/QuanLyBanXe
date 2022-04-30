@@ -1,13 +1,31 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import ConnectDB.connectDB;
 import Entity.NhanVien;
 
 public class NhanVien_DAO {
+	Connection conn;
+	Statement stmt;
+	ResultSet rs;
+	private void closeConnection() throws SQLException {
+		if (rs != null) {
+			rs.close();
+		}
+		if (stmt != null) {
+			stmt.close();
+		}
+		if (conn != null) {
+			conn.close();
+		}
+	}
 	public NhanVien_DAO() {
 			
 	}
@@ -35,5 +53,26 @@ public class NhanVien_DAO {
 			e.printStackTrace();
 		}
 		return dsNV;
+	}
+	public List<NhanVien> getAllMaNV() throws SQLException {
+		NhanVien nv = null;
+		List<NhanVien> dsNV = new ArrayList<>();
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select MaSoNhanVien from NhanVien";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maNV = rs.getString("MaSoNhanVien");
+				nv = new NhanVien(maNV);
+				dsNV.add(nv);
+			}
+			return dsNV;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeConnection();
+		}
+		return null;
 	}
 }

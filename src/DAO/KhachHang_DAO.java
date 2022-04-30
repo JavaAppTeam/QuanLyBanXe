@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ConnectDB.connectDB;
-import Entity.CuaHang;
+import Entity.KhachHang;
 
-public class CuaHang_DAO {
+public class KhachHang_DAO {
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
@@ -25,28 +25,27 @@ public class CuaHang_DAO {
 			conn.close();
 		}
 	}
-	public List<CuaHang> getAllCuaHang() throws SQLException {
+	public List<KhachHang> getAllSdtKH() throws SQLException {
 		// TODO Auto-generated method stub
-		List<CuaHang> dsCuaHang = new ArrayList<>();
-		CuaHang ch = null;
+		KhachHang kh = null;
+		List<KhachHang> dsKH = new ArrayList<>();
 		try {
 			conn = connectDB.getConnection();
-			String sql = "select MaCuaHang from CuaHang";
+			String sql = "select SoDienThoai from KhachHang";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String maCH = rs.getString("MaCuaHang");
-				ch = new CuaHang(maCH);
-				dsCuaHang.add(ch);
+			while(rs.next()) {
+				String sdt = rs.getString("SoDienThoai");
+				kh = new KhachHang(sdt);
+				dsKH.add(kh);
 			}
-			return dsCuaHang;
+			return dsKH;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		}finally {
 			closeConnection();
 		}
-		return null;
+		return dsKH;
 	}
 
 }
