@@ -22,6 +22,8 @@ import Entity.HoaDon;
 
 import java.awt.Font;
 import javax.swing.JTextPane;
+import javax.swing.Timer;
+
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
@@ -33,6 +35,8 @@ import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -41,19 +45,17 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 
 import com.toedter.calendar.JDateChooser;
-import com.toedter.components.JSpinField;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.AncestorEvent;
 
 public class FrmHoaDon extends JFrame {
 	private JTable table_1;
 	private DefaultTableModel dataModel;
 	private JScrollPane scroll;
 	private JTextField textField;
-	private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
+	//private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
 	private HoaDon_DAO hdDao = new HoaDon_DAO();
 	JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
 	JDateChooser dtNgayLap;
+	JButton btnLuu, btnSua, btnXoa;
 	/**
 	 * Launch the application.
 	 */
@@ -85,9 +87,9 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(null);
 		
-		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
-		frmHD_ThemHD.setBounds(5, 26, 1139, 510);
-		getContentPane().add(frmHD_ThemHD);
+		//frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
+		//frmHD_ThemHD.setBounds(5, 26, 1139, 510);
+		//getContentPane().add(frmHD_ThemHD);
 		
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -95,7 +97,7 @@ public class FrmHoaDon extends JFrame {
 		panel.setForeground(new Color(220, 20, 60));
 		panel.setBorder(new TitledBorder(null, "Thông tin xe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 192, 203));
-		panel.setBounds(10, 34, 1340, 178);
+		panel.setBounds(10, 49, 1340, 195);
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Mã Nhân Viên:");
@@ -126,10 +128,12 @@ public class FrmHoaDon extends JFrame {
 		
 		txtMaHD = new JTextPane();
 		txtMaHD.setBounds(242, 30, 350, 28);
+		txtMaHD.setEditable(false);
 		panel.add(txtMaHD);
 		
 		dtNgayLap = new JDateChooser();
 		dtNgayLap.setBounds(240, 73, 352, 30);
+		dtNgayLap.setEnabled(false);
 		panel.add(dtNgayLap);
 		
 		dtNgayLap = new JDateChooser();
@@ -137,19 +141,22 @@ public class FrmHoaDon extends JFrame {
 		panel.add(dtNgayLap);
 		
 		txtMaNV = new JTextPane();
+		txtMaNV.setEditable(false);
 		txtMaNV.setBounds(242, 118, 350, 28);
 		panel.add(txtMaNV);
 		
 		txtMaKH = new JTextPane();
+		txtMaKH.setEditable(false);
 		txtMaKH.setBounds(818, 55, 350, 28);
 		panel.add(txtMaKH);
 		
 		txtMaCH = new JTextPane();
+		txtMaCH.setEditable(false);
 		txtMaCH.setBounds(817, 92, 350, 28);
 		panel.add(txtMaCH);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 378, 1340, 285);
+		panel_1.setBounds(226, 349, 1124, 314);
 		
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -163,6 +170,7 @@ public class FrmHoaDon extends JFrame {
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				btnSua.setEnabled(true);
 				int rowSelect = table_1.getSelectedRow();
 				String maHD = (String) table_1.getValueAt(rowSelect, 0);
 				Date ngayLap = (Date) table_1.getValueAt(rowSelect, 1);
@@ -188,45 +196,12 @@ public class FrmHoaDon extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("DANH SÁCH HÓA ĐƠN BÁN");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblNewLabel.setBounds(556, 316, 306, 49);
+		lblNewLabel.setBounds(644, 290, 306, 49);
 		getContentPane().add(lblNewLabel);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.activeCaption);
-		panel_2.setForeground(SystemColor.activeCaption);
-		panel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel_2.setBounds(242, 247, 934, 40);
-		getContentPane().add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JButton btnThem = new JButton("Thêm");
-		btnThem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmHD_ThemHD.setVisible(true);
-			}
-		});
-		btnThem.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel_2.add(btnThem);
-		
-		JButton btnSua = new JButton("Sửa");
-		btnSua.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel_2.add(btnSua);
-		
-		JButton btnXoa = new JButton("Xóa");
-		btnXoa.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel_2.add(btnXoa);
-		
-		JButton btnLuu = new JButton("Lưu");
-		btnLuu.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel_2.add(btnLuu);
-		
-		JButton btnXoaTrang = new JButton("Xóa Trắng");
-		btnXoaTrang.setFont(new Font("Tahoma", Font.BOLD, 15));
-		panel_2.add(btnXoaTrang);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(SystemColor.activeCaption);
-		panel_3.setBounds(10, 328, 385, 40);
+		panel_3.setBounds(226, 294, 385, 40);
 		getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -242,7 +217,7 @@ public class FrmHoaDon extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.activeCaption);
-		panel_4.setBounds(990, 328, 360, 40);
+		panel_4.setBounds(990, 294, 360, 40);
 		getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -270,9 +245,121 @@ public class FrmHoaDon extends JFrame {
 		btnNewButton.setIcon(new ImageIcon(FrmHoaDon.class.getResource("/image/icons8_bill_32.png")));
 		btnNewButton.setBounds(0, 0, 46, 40);
 		panel_4.add(btnNewButton);
-		setResizable(true);
+		
+		JCalendar calendar_1 = new JCalendar();
+		calendar_1.setBounds(10, 486, 195, 177);
+		getContentPane().add(calendar_1);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.activeCaption);
+		panel_2.setBounds(10, 291, 195, 185);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JButton btnThem = new JButton("Thêm");
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//frmHD_ThemHD.setVisible(true);
+			}
+		});
+		btnThem.setBounds(10, 10, 171, 33);
+		panel_2.add(btnThem);
+		btnThem.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		
+		btnSua = new JButton("Sửa");
+		btnSua.setEnabled(false);
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openEdit();
+				btnLuu.setEnabled(true);
+			}
+		});
+		btnSua.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		btnSua.setBounds(10, 53, 171, 33);
+		panel_2.add(btnSua);
+		
+		btnXoa = new JButton("Xóa");
+		btnXoa.setEnabled(false);
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnXoa.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		btnXoa.setBounds(10, 96, 171, 33);
+		panel_2.add(btnXoa);
+		
+		btnLuu = new JButton("Lưu");
+		btnLuu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String maKH = txtMaKH.getText();
+				String maHD = txtMaHD.getText();
+				HoaDon_DAO hoaDon_DAO = new HoaDon_DAO();
+				Boolean bSuaHD;
+				try {
+					bSuaHD = hoaDon_DAO.suaHD(maKH,maHD);
+					if(bSuaHD == true)
+						JOptionPane.showMessageDialog(null, "Sửa thành công.");
+					loadCTHD();
+					btnLuu.setEnabled(true);
+					return;
+				} catch (ClassNotFoundException | SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnLuu.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		btnLuu.setBounds(10, 142, 171, 33);
+		btnLuu.setEnabled(false);
+		panel_2.add(btnLuu);
+		
+		JLabel clock = new JLabel("clock");
+		clock.setBounds(92, 10, 90, 23);
+		getContentPane().add(clock);
+		clock.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		
+		Timer timer;
+		ActionListener actionListener = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				java.util.Date date = new java.util.Date();
+				DateFormat timDateFormat = new SimpleDateFormat("HH:mm:ss");
+				String time = timDateFormat.format(date);
+				clock.setText(time);
+			}
+		};
+		timer = new Timer(1000, actionListener);
+		timer.setInitialDelay(0);
+		timer.start();
+		java.util.Date date2 = new java.util.Date();
+		DateFormat timDateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
+		String time2 = timDateFormat2.format(date2);
+		
+		JLabel datenow = new JLabel("date");
+		datenow.setBounds(234, 10, 130, 23);
+		getContentPane().add(datenow);
+		datenow.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		datenow.setText(time2);
+				
+		JLabel imgclock = new JLabel("");
+		imgclock.setBounds(52, 5, 30, 28);
+		getContentPane().add(imgclock);
+		imgclock.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/alarm_clock_30px.png")));
+		
+		JLabel imgdate = new JLabel("");
+		imgdate.setBounds(194, 5, 30, 28);
+		getContentPane().add(imgdate);
+		imgdate.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/thursday_30px.png")));
+		
+		setResizable(false);
 		setBounds(-5, -26, 1372, 710);
 		loadCTHD();
+	}
+
+	protected void openEdit() {
+		// TODO Auto-generated method stub
+		txtMaKH.setEditable(true);
 	}
 
 	private void loadCTHD() throws SQLException {
@@ -285,13 +372,4 @@ public class FrmHoaDon extends JFrame {
 			dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
 		}
 	}
-	
-//	private void loadRowTableToText(String rowSelect) throws SQLException {
-//		HoaDon hd = (HoaDon) hdDao.getAllHDTotext(rowSelect);
-//			txtMaHD.setText(hd.getMaHoaDon());
-//			dtNgayLap.setDate(hd.getNgayLap());
-//			cbbmaCuaHang.setSelectedItem(hd.getMaCH());
-//			cbbMaKH.setSelectedItem(hd.getMaKH());
-//			txtSoLuong.setText((int)hd.getSoluong()+"");
-//		}
 }

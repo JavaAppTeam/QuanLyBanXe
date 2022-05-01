@@ -43,6 +43,26 @@ public class HoaDon {
 	public HoaDon(int soLuong) {
 		this.soluong = soLuong;
 	}
+	public HoaDon(String strMaHD, String msnv, String mkh, String mch, java.util.Date ngayLap2) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.maHoaDon = strMaHD;
+		this.maNV = msnv;
+		this.maKH = mkh;
+		this.maCH = mch;
+		this.ngayLap = (Date) ngayLap2;
+	}
+	public HoaDon(String maNV, String maKH, String maCH, String maxe, float dongia, float thue,
+			int soluong) {
+		super();
+		this.maNV = maNV;
+		this.maKH = maKH;
+		this.maCH = maCH;
+		this.maxe = maxe;
+		this.dongia = dongia;
+		this.thue = thue;
+		this.soluong = soluong;
+	}
 	public int getSoluong() {
 		return soluong;
 	}

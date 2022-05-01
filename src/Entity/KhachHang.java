@@ -26,6 +26,9 @@ public class KhachHang {
 		this.gioiTinh = gioiTinh;
 		this.ngaySinh = ngaySinh;
 	}
+	public KhachHang(String ma,String sdt) {
+		this.maKH  = ma;
+	}
 	public KhachHang(String sdt) {
 		this.sdt  = sdt;
 	}
