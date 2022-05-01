@@ -30,6 +30,7 @@ public class FrmTong extends JFrame {
 	private JMenu mnTimKiem, mnHeThong, mnDanhMuc, mnXuLy ;
 	private JMenuItem mntmDangKyCaNhanVien, mntmTrangChu, mntmDM_NV, mntmDM_KH,  mntmTao_DH, mntmTao_HD, mntmTimKiem_KH, mntmTimKiem_SP;
 	private FrmTrangChu frmTrangChu;
+	private FrmQLNhanVien frmQLNhanVien;
 	private JMenuItem mntmNewMenuItem_2;
 	private JMenuItem mntmBaoHanh;
 
@@ -89,6 +90,9 @@ public class FrmTong extends JFrame {
 
 		frmTrangChu = new FrmTrangChu(maNV);
 		desktopPane.add(frmTrangChu);
+		
+		frmQLNhanVien = new FrmQLNhanVien();
+		desktopPane.add(frmQLNhanVien);
 		
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
@@ -181,6 +185,12 @@ public class FrmTong extends JFrame {
 		mntmDM_NV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				anTatCa();
+				chinhMau();
+				
+				frmQLNhanVien.setVisible(true);
+				frmQLNhanVien.setBackground(new Color(135, 206, 250));
+				
 			}
 		});
 		mntmDM_NV.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLNV.png")));
@@ -259,7 +269,7 @@ public class FrmTong extends JFrame {
 	}
 	
 	void chinhMau() {
-		mntmDangKyCaNhanVien.setBackground(new Color(240,240,240));
+		//mntmDangKyCaNhanVien.setBackground(new Color(240,240,240));
 		mntmTrangChu.setBackground(new Color(240,240,240));
 		mntmDM_NV.setBackground(new Color(240,240,240));
 		mntmDM_KH.setBackground(new Color(240,240,240));

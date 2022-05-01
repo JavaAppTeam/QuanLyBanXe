@@ -22,7 +22,6 @@ public class NhanVien {
 		this.cmnd = cmnd;
 		this.sdt = sdt;
 		this.maChucVu = maChucVu;
-
 		this.bacTho = bacTho;
 		this.ngaySinh = ngaySinh;
 		this.ngayVaoLam = ngayVaoLam;
