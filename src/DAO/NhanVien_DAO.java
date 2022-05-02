@@ -4,12 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-=======
 import java.sql.Statement;
->>>>>>> 2484c7167b02d8488aff2bcea14cd370647d4dad
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +14,7 @@ import ConnectDB.connectDB;
 import Entity.NhanVien;
 
 public class NhanVien_DAO {
-<<<<<<< HEAD
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-=======
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
@@ -34,7 +29,6 @@ public class NhanVien_DAO {
 			conn.close();
 		}
 	}
->>>>>>> 2484c7167b02d8488aff2bcea14cd370647d4dad
 	public NhanVien_DAO() {
 			
 	}

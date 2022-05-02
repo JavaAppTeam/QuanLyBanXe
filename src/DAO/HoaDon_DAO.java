@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import Connect.ConnectDB;
 import ConnectDB.connectDB;
 import Entity.HoaDon;
 
@@ -131,6 +129,94 @@ public class HoaDon_DAO {
 			e.printStackTrace();
 		}
 		return i > 0;
+	}
+	public Boolean xoaHD(String maHD) throws ClassNotFoundException, SQLException {
+		conn = connectDB.getConnection();
+		PreparedStatement statement = null;
+		int i = 0;
+		try {
+			String sql = "delete from HoaDon where MaHoaDon='"+maHD+"'";
+			statement = conn.prepareStatement(sql);
+			
+			i = statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i > 0;
+	}
+	public List<HoaDon> getAllMaHD(String maHd) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		HoaDon hd = null;
+		List<HoaDon> dsHD = new ArrayList<HoaDon>();
+		conn = connectDB.getConnection();
+		Statement stmt = null;
+		try {
+			String sql = "select * from HoaDon where MaHoaDon='"+maHd+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maHD = rs.getString("MaHoaDon");
+				Date ngayLap = rs.getDate("NgayLapHoaDon");
+				String maNV = rs.getString("MaSoNhanVien");
+				String maKH = rs.getString("MaKH");
+				String maCH = rs.getString("MaCuaHang");
+				hd = new HoaDon(maHD,maNV,maKH,maCH,ngayLap);
+				dsHD.add(hd);
+			}
+			return dsHD;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dsHD;
+	}
+	public List<HoaDon> getAllMaHDToSdtKH(int iMaHD) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		HoaDon hd = null;
+		List<HoaDon> dsHD = new ArrayList<HoaDon>();
+		conn = connectDB.getConnection();
+		Statement stmt = null;
+		try {
+			String sql = "select * from KhachHang kh join HoaDon hd on kh.MaKH = hd.MaKH where kh.SoDienThoai='0"+iMaHD+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maHD = rs.getString("MaHoaDon");
+				Date ngayLap = rs.getDate("NgayLapHoaDon");
+				String maNV = rs.getString("MaSoNhanVien");
+				String maKH = rs.getString("MaKH");
+				String maCH = rs.getString("MaCuaHang");
+				hd = new HoaDon(maHD,maNV,maKH,maCH,ngayLap);
+				dsHD.add(hd);
+			}
+			return dsHD;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dsHD;
+	}
+	public List<HoaDon> addDshdToCuaHang(String maCh) throws ClassNotFoundException, SQLException {
+		HoaDon hd = null;
+		List<HoaDon> dsHD = new ArrayList<HoaDon>();
+		conn = connectDB.getConnection();
+		Statement stmt = null;
+		try {
+			String sql = "select * from CuaHang ch join HoaDon hd on ch.MaCuaHang = hd.MaCuaHang where ch.MaCuaHang='"+maCh+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maHD = rs.getString("MaHoaDon");
+				Date ngayLap = rs.getDate("NgayLapHoaDon");
+				String maNV = rs.getString("MaSoNhanVien");
+				String maKH = rs.getString("MaKH");
+				String maCH = rs.getString("MaCuaHang");
+				hd = new HoaDon(maHD,maNV,maKH,maCH,ngayLap);
+				dsHD.add(hd);
+			}
+			return dsHD;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return dsHD;
 	}
 
 }

@@ -2,6 +2,7 @@ package Entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 public class HoaDon {
 
@@ -62,6 +63,9 @@ public class HoaDon {
 		this.dongia = dongia;
 		this.thue = thue;
 		this.soluong = soluong;
+	}
+	public HoaDon(String maHD) {
+		this.maCH = maHD;
 	}
 	public int getSoluong() {
 		return soluong;

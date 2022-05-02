@@ -15,9 +15,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
 import com.toedter.calendar.JCalendar;
 
+import DAO.CuaHang_DAO;
 import DAO.HoaDon_DAO;
+import Entity.CuaHang;
 import Entity.HoaDon;
 
 import java.awt.Font;
@@ -37,7 +41,9 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
@@ -50,12 +56,13 @@ public class FrmHoaDon extends JFrame {
 	private JTable table_1;
 	private DefaultTableModel dataModel;
 	private JScrollPane scroll;
-	private JTextField textField;
-	//private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
+	private JTextField txtTimkiem;
+	private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
 	private HoaDon_DAO hdDao = new HoaDon_DAO();
-	JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
-	JDateChooser dtNgayLap;
-	JButton btnLuu, btnSua, btnXoa;
+	private JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
+	private JDateChooser dtNgayLap;
+	private JButton btnLuu, btnSua, btnXoa;
+	private JComboBox cbbMaCuaHang;
 	/**
 	 * Launch the application.
 	 */
@@ -87,9 +94,9 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(null);
 		
-		//frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
-		//frmHD_ThemHD.setBounds(5, 26, 1139, 510);
-		//getContentPane().add(frmHD_ThemHD);
+		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
+		frmHD_ThemHD.setBounds(158, 36, 1139, 510);
+		getContentPane().add(frmHD_ThemHD);
 		
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -206,14 +213,62 @@ public class FrmHoaDon extends JFrame {
 		panel_3.setLayout(null);
 		
 		JButton btnThem_1 = new JButton("Tìm Kiếm");
+		btnThem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String strMaHD = txtTimkiem.getText();
+				int iMaHD = 0;
+				try {
+					iMaHD = Integer.parseInt(strMaHD);
+					System.out.println(iMaHD);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}				
+				if(iMaHD == 0)
+				{
+					List<HoaDon> dsHD = new ArrayList<HoaDon>();
+					HoaDon_DAO hdDao = new HoaDon_DAO();
+					try {
+						dsHD = hdDao.getAllMaHD(strMaHD.trim());
+						int tblRow = table_1.getRowCount();
+						for (int i = tblRow - 1; i >= 0; i--) {
+							dataModel.removeRow(i);
+						}
+						for (HoaDon hd : dsHD) {
+							dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
+						}
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else {
+					List<HoaDon> dsHD = new ArrayList<HoaDon>();
+					HoaDon_DAO hdDao = new HoaDon_DAO();
+					try {
+						dsHD = hdDao.getAllMaHDToSdtKH(iMaHD);
+						int tblRow = table_1.getRowCount();
+						for (int i = tblRow - 1; i >= 0; i--) {
+							dataModel.removeRow(i);
+						}
+						for (HoaDon hd : dsHD) {
+							dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
+						}
+						iMaHD = 0;
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 		btnThem_1.setBounds(259, 4, 117, 29);
 		panel_3.add(btnThem_1);
 		btnThem_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
-		textField = new JTextField();
-		textField.setBounds(10, 5, 239, 28);
-		panel_3.add(textField);
-		textField.setColumns(10);
+		txtTimkiem = new JTextField();
+		txtTimkiem.setBounds(10, 5, 239, 28);
+		panel_3.add(txtTimkiem);
+		txtTimkiem.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.activeCaption);
@@ -226,9 +281,29 @@ public class FrmHoaDon extends JFrame {
 		lblNewLabel_5.setBounds(56, 10, 78, 19);
 		panel_4.add(lblNewLabel_5);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(140, 6, 210, 29);
-		panel_4.add(comboBox);
+		cbbMaCuaHang = new JComboBox();
+		cbbMaCuaHang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String maCH = (String) cbbMaCuaHang.getSelectedItem();
+				HoaDon_DAO hdDao = new HoaDon_DAO();
+				List<HoaDon> dsHD = new ArrayList<>();
+				try {
+					dsHD = hdDao.addDshdToCuaHang(maCH);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}		
+				int tblRow = table_1.getRowCount();
+				for (int i = tblRow - 1; i >= 0; i--) {
+					dataModel.removeRow(i);
+				}
+				for (HoaDon hd : dsHD) {
+					dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
+				}
+			}
+		});
+		cbbMaCuaHang.setBounds(140, 6, 210, 29);
+		panel_4.add(cbbMaCuaHang);
 		
 		JLabel lblNewLabel_6 = new JLabel("|");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -259,7 +334,7 @@ public class FrmHoaDon extends JFrame {
 		JButton btnThem = new JButton("Thêm");
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//frmHD_ThemHD.setVisible(true);
+				frmHD_ThemHD.setVisible(true);
 			}
 		});
 		btnThem.setBounds(10, 10, 171, 33);
@@ -282,6 +357,22 @@ public class FrmHoaDon extends JFrame {
 		btnXoa.setEnabled(false);
 		btnXoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int row = table_1.getSelectedRow();
+				String maHD = (String) table_1.getValueAt(row, 0);
+				HoaDon_DAO hdDao = new HoaDon_DAO();
+				if(JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?","Lựa chọn",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				Boolean bXoa = false;
+				try {
+					bXoa = hdDao.xoaHD(maHD);
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(bXoa == true)
+				{
+					JOptionPane.showMessageDialog(null, "Xóa thành công!");
+				}
+			}
 			}
 		});
 		btnXoa.setFont(new Font("Segoe UI", Font.PLAIN, 18));
@@ -352,11 +443,35 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().add(imgdate);
 		imgdate.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/thursday_30px.png")));
 		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					loadCTHD();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton_1.setIcon(new ImageIcon(FrmHoaDon.class.getResource("/image/synchronize_30px.png")));
+		btnNewButton_1.setBackground(SystemColor.activeCaption);
+		btnNewButton_1.setBounds(1307, 254, 43, 40);
+		getContentPane().add(btnNewButton_1);
+		
 		setResizable(false);
 		setBounds(-5, -26, 1372, 710);
 		loadCTHD();
+		loadMaCH();
 	}
 
+//	public FrmHoaDon(Boolean bCheckStatusForm) throws SQLException, PropertyVetoException {
+//		FrmHoaDon frmHoaDon = new FrmHoaDon();
+//		if(bCheckStatusForm == true) {
+//			frmHoaDon.loadCTHD();
+//		}
+//		
+//	}
 	protected void openEdit() {
 		// TODO Auto-generated method stub
 		txtMaKH.setEditable(true);
@@ -370,6 +485,14 @@ public class FrmHoaDon extends JFrame {
 		}
 		for (HoaDon hd : hdDao.getAllHD()) {
 			dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
+		}
+	}
+	
+	private void loadMaCH() throws SQLException {
+		CuaHang_DAO cuaHang_DAO = new CuaHang_DAO();
+		cbbMaCuaHang.removeAllItems();
+		for(CuaHang ch : cuaHang_DAO.getAllCuaHang()) {
+			cbbMaCuaHang.addItem(ch.getMaCuaHang());
 		}
 	}
 }

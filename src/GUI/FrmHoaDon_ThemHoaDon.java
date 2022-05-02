@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.SystemColor;
 import java.awt.TextArea;
+import java.awt.Window;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -79,13 +80,13 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	protected static final String String = null;
 	/**
 	 * Launch the application.
 	 */
 	
 	private JTextPane txtThue;
 	private JFormattedTextField txtDonGia;
-	private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
 	private JComboBox<String> cbbmaCuaHang,cbbMSNV,cbbMaXe;
 	private JTable table;
 	private JTable table_1;
@@ -106,7 +107,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 			public void run() {
 				try {
 					FrmHoaDon_ThemHoaDon frame = new FrmHoaDon_ThemHoaDon();
-					frame.setVisible(true);
+					frame.setVisible(true);				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -424,7 +425,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		});
 		btnLuu.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/btnSave.png")));
 		btnLuu.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnLuu.setBounds(372, 247, 141, 35);
+		btnLuu.setBounds(308, 247, 141, 35);
 		getContentPane().add(btnLuu);
 		
 		JButton btnXa = new JButton("XÓA");
@@ -452,16 +453,37 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 				}
 			}
 		});
+		
 		btnXa.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/btnXoa.png")));
 		btnXa.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnXa.setBounds(559, 247, 141, 35);
+		btnXa.setBounds(480, 247, 141, 35);
 		getContentPane().add(btnXa);
+		
+		JButton btnng = new JButton("ĐÓNG");
+		btnng.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					FrmHoaDon f = new FrmHoaDon();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+			}
+		});
+		btnng.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/cross.png")));
+		btnng.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnng.setBounds(663, 247, 141, 35);
+		getContentPane().add(btnng);
 		loadMaXe();
 		loadMaCH();
 		loadSdtKH();
 		loadMaNV();
 	}
-
+	
 	protected void xoaTrangTatCa() {
 		// TODO Auto-generated method stub
 		dsHD.removeAll(dsHD);
@@ -588,3 +610,4 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		}
 	}
 }
+
