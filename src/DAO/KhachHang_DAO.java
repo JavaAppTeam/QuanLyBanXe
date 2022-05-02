@@ -47,5 +47,21 @@ public class KhachHang_DAO {
 		}
 		return dsKH;
 	}
+	public String getKHTheoSDT(String sdt) {
+		//KhachHang kh;
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select MaKH from KhachHang where SoDienThoai="+"'"+sdt+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maKH = rs.getString("MaKH");
+				return maKH;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

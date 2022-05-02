@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/App/
-/GUI/
-=======
-/GUI/
 /DAO/
+/GUI/
+/image/
 /Entity/
->>>>>>> 2484c7167b02d8488aff2bcea14cd370647d4dad

@@ -8,6 +8,7 @@ public class Xe {
 	private String soKhung, soMay;
 	private String maCTXe;
 	private int soluongMua;
+	
 
 	public int getSoluongMua() {
 		return soluongMua;
