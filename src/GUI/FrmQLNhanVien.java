@@ -4,19 +4,30 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.time.LocalDate;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import DAO.NhanVien_DAO;
+import Entity.NhanVien;
+import javax.swing.JCheckBox;
 
 public class FrmQLNhanVien extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
-	private JTextField txtMaNV;
 	private JTextField txtHoVaTenNV;
 	private JTextField txtNgaySinhNV;
 	private JTextField txtCMNDNV;
@@ -26,9 +37,17 @@ public class FrmQLNhanVien extends JInternalFrame {
 	private JTextField txtBacNV;
 	private JTextField txtTrinhDoHocVanNV;
 	private JTextField txtNgayVaoLamNV;
-	private JTable tblDSNV;
 	private JTextField txtmaChucVuNV;
 	private JTextField txtmaCuaHangNV;
+	private DefaultTableModel tblModelNV;
+	private JTable tblThongTinNV;
+	private JCheckBox chbTrangThai;
+	private JButton btnLuuNV,btnXoaTrangNV,btnXoaNV,btnSuaNV,btnThemNV;
+	private NhanVien_DAO nvDAO = new NhanVien_DAO();
+	String[] col = { "Mã nhân viên", "Họ và tên", "CMND", "Ngày sinh", "SDT", "Mã chức vụ", "Ngày vào làm",
+			"Trình độ học vấn", "Bậc","Năm kinh nghiệm","Trạng thái","Mã cửa hàng" };
+	private JLabel lblTrngThi;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -58,6 +77,7 @@ public class FrmQLNhanVien extends JInternalFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+//		-======== INPUT ======================
 		JPanel lblTieuDe = new JPanel();
 		lblTieuDe.setBounds(0, 0, 1360, 56);
 		lblTieuDe.setBackground(new Color(255, 192, 203));
@@ -80,56 +100,45 @@ public class FrmQLNhanVien extends JInternalFrame {
 		
 		JLabel lblCMND = new JLabel("CMND");
 		lblCMND.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblCMND.setBounds(5, 85, 120, 24);
+		lblCMND.setBounds(10, 50, 120, 24);
 		pnControlTrai.add(lblCMND);
-		
-		txtMaNV = new JTextField();
-		txtMaNV.setBackground(Color.WHITE);
-		txtMaNV.setBounds(170, 5, 484, 24);
-		pnControlTrai.add(txtMaNV);
-		txtMaNV.setColumns(10);
-		
-		JLabel lblMaNV = new JLabel("Mã nhân viên");
-		lblMaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblMaNV.setBounds(5, 5, 120, 24);
-		pnControlTrai.add(lblMaNV);
 		
 		txtHoVaTenNV = new JTextField();
 		txtHoVaTenNV.setBackground(Color.WHITE);
-		txtHoVaTenNV.setBounds(170, 45, 484, 24);
+		txtHoVaTenNV.setBounds(175, 10, 484, 24);
 		pnControlTrai.add(txtHoVaTenNV);
 		txtHoVaTenNV.setColumns(10);
 		
 		JLabel lblHoTenNV = new JLabel("Họ và tên");
 		lblHoTenNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblHoTenNV.setBounds(5, 45, 120, 24);
+		lblHoTenNV.setBounds(10, 10, 120, 24);
 		pnControlTrai.add(lblHoTenNV);
 		
 		txtNgaySinhNV = new JTextField();
 		txtNgaySinhNV.setBackground(Color.WHITE);
-		txtNgaySinhNV.setBounds(170, 125, 484, 24);
+		txtNgaySinhNV.setBounds(175, 90, 484, 24);
 		txtNgaySinhNV.setColumns(10);
 		pnControlTrai.add(txtNgaySinhNV);
 		
 		JLabel lblNgaySinhNV = new JLabel("Ngày sinh");
 		lblNgaySinhNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNgaySinhNV.setBounds(5, 125, 120, 24);
+		lblNgaySinhNV.setBounds(10, 90, 120, 24);
 		pnControlTrai.add(lblNgaySinhNV);
 		
 		txtCMNDNV = new JTextField();
 		txtCMNDNV.setBackground(Color.WHITE);
-		txtCMNDNV.setBounds(170, 85, 484, 24);
+		txtCMNDNV.setBounds(175, 50, 484, 24);
 		txtCMNDNV.setColumns(10);
 		pnControlTrai.add(txtCMNDNV);
 		
 		JLabel lblSDTNV = new JLabel("SĐT");
 		lblSDTNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSDTNV.setBounds(5, 165, 120, 24);
+		lblSDTNV.setBounds(10, 130, 120, 24);
 		pnControlTrai.add(lblSDTNV);
 		
 		txtSDTNV = new JTextField();
 		txtSDTNV.setBackground(Color.WHITE);
-		txtSDTNV.setBounds(170, 165, 484, 24);
+		txtSDTNV.setBounds(175, 130, 484, 24);
 		txtSDTNV.setColumns(10);
 		pnControlTrai.add(txtSDTNV);
 		
@@ -144,14 +153,25 @@ public class FrmQLNhanVien extends JInternalFrame {
 		
 		JLabel lbmaChucVuNV = new JLabel("Mã chức vụ");
 		lbmaChucVuNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lbmaChucVuNV.setBounds(5, 205, 120, 24);
+		lbmaChucVuNV.setBounds(10, 170, 120, 24);
 		pnControlTrai.add(lbmaChucVuNV);
 		
 		txtmaChucVuNV = new JTextField();
 		txtmaChucVuNV.setColumns(10);
 		txtmaChucVuNV.setBackground(Color.WHITE);
-		txtmaChucVuNV.setBounds(170, 205, 484, 24);
+		txtmaChucVuNV.setBounds(175, 170, 484, 24);
 		pnControlTrai.add(txtmaChucVuNV);
+		
+		lblTrngThi = new JLabel("Trạng thái");
+		lblTrngThi.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblTrngThi.setBounds(10, 204, 120, 24);
+		pnControlTrai.add(lblTrngThi);
+		
+		chbTrangThai = new JCheckBox("Làm");
+		chbTrangThai.setBackground(new Color(255, 192, 203));
+		chbTrangThai.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		chbTrangThai.setBounds(175, 200, 73, 31);
+		pnControlTrai.add(chbTrangThai);
 		pnContext.add(pnControlPhai);
 		
 		JLabel lblNgayVaoLamNV = new JLabel("Ngày vào làm");
@@ -219,42 +239,127 @@ public class FrmQLNhanVien extends JInternalFrame {
 		txtmaCuaHangNV.setBackground(Color.WHITE);
 		txtmaCuaHangNV.setBounds(181, 205, 484, 24);
 		pnControlPhai.add(txtmaCuaHangNV);
+
+		// =================================================
+		// ====================== button
 		
-		JPanel pnTable = new JPanel();
-		pnTable.setBackground(new Color(240, 255, 255));
-		pnTable.setBounds(10, 298, 1340, 317);
-		pnContext.add(pnTable);
-		pnTable.setLayout(null);
-		
-		tblDSNV = new JTable();
-		tblDSNV.setBackground(new Color(238, 130, 238));
-		tblDSNV.setBounds(10, 344, 1320, -331);
-		pnTable.add(tblDSNV);
-		
-		JButton btnThemNV = new JButton("Thêm nhân viên");
+		btnThemNV = new JButton("Thêm nhân viên");
 		btnThemNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThemNV.setBackground(new Color(255, 192, 203));
 		btnThemNV.setBounds(10, 249, 240, 39);
 		pnContext.add(btnThemNV);
 		
-		JButton btnSuaNV = new JButton("Sửa nhân viên");
+		btnSuaNV  = new JButton("Sửa nhân viên");
 		btnSuaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSuaNV.setBackground(new Color(255, 192, 203));
-		btnSuaNV.setBounds(367, 249, 240, 39);
+		btnSuaNV.setBounds(277, 249, 240, 39);
 		pnContext.add(btnSuaNV);
 		
 		
-		JButton btnXoaNV = new JButton("Xoá nhân viên");
+		btnXoaNV = new JButton("Xoá nhân viên");
 		btnXoaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaNV.setBackground(new Color(255, 192, 203));
-		btnXoaNV.setBounds(741, 249, 240, 39);
+		btnXoaNV.setBounds(562, 249, 240, 39);
 		pnContext.add(btnXoaNV);
 		
-		JButton btnXoaTrangNV = new JButton("Xoá trắng");
+		btnXoaTrangNV = new JButton("Xoá trắng");
 		btnXoaTrangNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaTrangNV.setBackground(new Color(255, 192, 203));
-		btnXoaTrangNV.setBounds(1110, 249, 240, 39);
+		btnXoaTrangNV.setBounds(839, 249, 240, 39);
 		pnContext.add(btnXoaTrangNV);
+		
+		btnLuuNV = new JButton("Lưu");
+		btnLuuNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnLuuNV.setBackground(new Color(255, 192, 203));
+		btnLuuNV.setBounds(1110, 249, 240, 39);
+		pnContext.add(btnLuuNV);
+		
+		// ==================== TABLE ==================
+		JPanel pnTable = new JPanel();
+		tblModelNV = new DefaultTableModel(col, 0);
+		pnTable.setBounds(10, 375, 1336, 273);
+		contentPane.add(pnTable);
+		pnTable.setLayout(new BoxLayout(pnTable, BoxLayout.X_AXIS));
+		tblThongTinNV = new JTable(tblModelNV);
+		tblThongTinNV.setFillsViewportHeight(true);
+		tblThongTinNV.setColumnSelectionAllowed(false);
+		tblThongTinNV.setCellSelectionEnabled(true);
+		tblThongTinNV.setRowHeight(25);
+		tblThongTinNV.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		tblThongTinNV.setBackground(Color.WHITE);
+		//pnTable.add(tblThongTinNV);
+		JScrollPane scrollPane = new JScrollPane(tblThongTinNV);
+		pnTable.add(scrollPane);
+		
+//		======= ACTION ===============
+
+//		btnThemNV.addActionListener(this);
+//		btnSuaNV.addActionListener(this);
+//		btnXoaNV.addActionListener(this);
+//		btnXoaTrangNV.addActionListener(this);
+//		btnLuuNV.addActionListener(this);
+//		tblThongTinNV.addMouseListener(this);
+
 	}
 
+	private void showMessage(String message, JTextField txt) {
+		// TODO Auto-generated method stub
+		if (txt != null) {
+			txt.requestFocus();
+			JOptionPane.showMessageDialog(null, message);
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+
+	}
+	public NhanVien taoNhanVien() {
+		String tenNV = txtHoVaTenNV.getText();
+		String cMND = txtCMNDNV.getText();
+		LocalDate ngaySinh = LocalDate.parse(txtNgaySinhNV.getText());
+		String SDT = txtSDTNV.getText();
+		String maChucVu = txtmaChucVuNV.getText();
+		String bacTho = txtBacNV.getText();
+		LocalDate ngayVaoLam = LocalDate.parse(txtNgayVaoLamNV.getText());
+		int trinhDoHocVan = Integer.parseInt(txtTrinhDoHocVanNV.getText());
+		int soNamKinhNghiem = Integer.parseInt(txtNamKinhNghiemNV.getText());
+		boolean trangThai;
+		if (chbTrangThai.isSelected() == true)
+			trangThai = true;
+		else
+			trangThai = false;
+		return (new NhanVien(tenNV, cMND, SDT, maChucVu, bacTho, ngaySinh, ngayVaoLam, trinhDoHocVan,soNamKinhNghiem,trangThai));
+	}
+	
+	public void loadDataToText(NhanVien nhanVien) {
+		txtHoVaTenNV.setText(nhanVien.getTenNhanVien());
+		txtCMNDNV.setText(nhanVien.getCmnd());
+		txtNgaySinhNV.setText(nhanVien.getNgaySinh()+"");
+		txtSDTNV.setText(nhanVien.getSdt());
+		txtmaChucVuNV.setText(nhanVien.getMaChucVu());
+		txtBacNV.setText(nhanVien.getBacTho());
+		txtNgayVaoLamNV.setText(nhanVien.getNgayVaoLam()+"");
+		txtTrinhDoHocVanNV.setText(nhanVien.getTrinhDoHocVan()+"");
+		txtNamKinhNghiemNV.setText(nhanVien.getSoNamKinhNghiem()+"");
+
+		if (nhanVien.isTrangThai())
+			chbTrangThai.setSelected(true);
+		else
+			chbTrangThai.setSelected(false);
+
+	}
+
+	public void loadDatatoTable() throws Exception {
+		tblThongTinNV.setModel(tblModelNV = new DefaultTableModel(col, 0));
+
+		for (NhanVien nhanVien : nvDAO.getalltbNhanVien()) {
+			String trangThai = "Còn bán";
+
+			if (!nhanVien.isTrangThai())
+				trangThai = "Nghỉ việc";
+
+			Object[] obj = { nhanVien.getTenNhanVien(), nhanVien.getCmnd(), nhanVien.getNgaySinh(), nhanVien.getSdt(), nhanVien.getMaChucVu(),
+					nhanVien.getBacTho(), nhanVien.getNgayVaoLam(), nhanVien.getTrinhDoHocVan(), nhanVien.getSoNamKinhNghiem(), trangThai };
+			tblModelNV.addRow(obj);
+		}
+	}
 }

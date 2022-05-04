@@ -1,45 +1,50 @@
 package DAO;
 
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 import ConnectDB.connectDB;
 import Entity.NhanVien;
 
 public class NhanVien_DAO {
+
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 	Connection conn;
-	Statement stmt;
+	PreparedStatement preStm;
 	ResultSet rs;
 	private void closeConnection() throws SQLException {
 		if (rs != null) {
 			rs.close();
 		}
-		if (stmt != null) {
-			stmt.close();
+		if (preStm != null) {
+			preStm.close();
 		}
 		if (conn != null) {
 			conn.close();
 		}
 	}
-	public NhanVien_DAO() {
-			
-	}
-	public ArrayList<NhanVien> getalltbNhanVien() throws ClassNotFoundException{
-		ArrayList<NhanVien> dsNV = new ArrayList<NhanVien>();
+	public List<NhanVien> getalltbNhanVien() throws SQLException {
+		List<NhanVien> dsNV = null;
 		try {
-			connectDB.getInstance();
-			Connection con = connectDB.getConnection();
+			conn = connectDB.getConnection();
 			String sql = "Select * from NhanVien";
-			java.sql.Statement statement =  con.createStatement();
-			ResultSet rs = ((java.sql.Statement) statement).executeQuery(sql);
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			dsNV = new ArrayList<>();
+			
+			
 			
 			while (rs.next()) {
 				
@@ -61,8 +66,10 @@ public class NhanVien_DAO {
 				dsNV.add(NV);
 				
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection();
 		}
 		return dsNV;
 	}
@@ -72,7 +79,7 @@ public class NhanVien_DAO {
 		try {
 			conn = connectDB.getConnection();
 			String sql = "select MaSoNhanVien from NhanVien";
-			stmt = conn.createStatement();
+			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String maNV = rs.getString("MaSoNhanVien");
