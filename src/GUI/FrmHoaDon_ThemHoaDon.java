@@ -159,7 +159,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		
 		JLabel lblNewLabel_4_2 = new JLabel("Đơn giá:");
 		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4_2.setBounds(98, 62, 63, 31);
+		lblNewLabel_4_2.setBounds(98, 56, 63, 31);
 		panel.add(lblNewLabel_4_2);
 		
 		NumberFormat format = NumberFormat.getInstance();
@@ -172,18 +172,18 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		txtDonGia = new JFormattedTextField(formatter);
 		txtDonGia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtDonGia.setText("15,000,000");
-		txtDonGia.setBounds(168, 65, 273, 28);
+		txtDonGia.setBounds(168, 59, 273, 28);
 		panel.add(txtDonGia);
 		
 		JLabel lblNewLabel_4_3 = new JLabel("Thuế:");
 		lblNewLabel_4_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4_3.setBounds(108, 110, 49, 23);
+		lblNewLabel_4_3.setBounds(108, 104, 49, 23);
 		panel.add(lblNewLabel_4_3);
 		
 		txtThue = new JTextPane();
 		txtThue.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtThue.setText("0.15");
-		txtThue.setBounds(168, 107, 273, 28);
+		txtThue.setBounds(168, 101, 273, 28);
 		panel.add(txtThue);
 		
 		date = new java.util.Date();
@@ -234,7 +234,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		lblTongTien.setVerticalAlignment(SwingConstants.CENTER);
 		lblTongTien.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTongTien.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-		lblTongTien.setBounds(168, 149, 273, 39);
+		lblTongTien.setBounds(168, 143, 273, 39);
 		panel.add(lblTongTien);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -320,7 +320,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		JLabel lblNewLabel_4_3_1 = new JLabel("Tổng Tiền:");
 		lblNewLabel_4_3_1.setForeground(Color.RED);
 		lblNewLabel_4_3_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_4_3_1.setBounds(55, 158, 96, 23);
+		lblNewLabel_4_3_1.setBounds(55, 152, 96, 23);
 		panel.add(lblNewLabel_4_3_1);
 		
 		JLabel clock = new JLabel("clock");
@@ -462,15 +462,6 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		JButton btnng = new JButton("ĐÓNG");
 		btnng.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					FrmHoaDon f = new FrmHoaDon();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (PropertyVetoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				dispose();
 			}
 		});

@@ -116,6 +116,21 @@ public class HoaDon_DAO {
 		}
 		return null;
 	}
+	public int getIDHD() {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "SELECT TOP 1 * FROM HoaDon ORDER BY IDHoaDon DESC";
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				int idHD = rs.getInt("IDHoaDon");
+				return idHD;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public Boolean suaHD(String maKH, String maHD) throws ClassNotFoundException, SQLException {
 		Connection conn = connectDB.getConnection();
 		PreparedStatement statement = null;

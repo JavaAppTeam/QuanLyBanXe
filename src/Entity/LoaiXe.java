@@ -4,7 +4,7 @@ public class LoaiXe {
 
 	private int maLoai;
 	private String tenLoai;
-	
+	private boolean trangThai;
 	public LoaiXe() {
 		// TODO Auto-generated constructor stub
 	}
@@ -14,10 +14,26 @@ public class LoaiXe {
 		this.maLoai = maLoai;
 		this.tenLoai = tenLoai;
 	}
+	
+	
+
+	public LoaiXe(int maLoai, String tenLoai, boolean trangThai) {
+		super();
+		this.maLoai = maLoai;
+		this.tenLoai = tenLoai;
+		this.trangThai = trangThai;
+	}
 
 	public LoaiXe(String tenLoai) {
 		super();
 		this.tenLoai = tenLoai;
+	}
+	
+
+	public LoaiXe(String tenLoai, boolean trangThai) {
+		super();
+		this.tenLoai = tenLoai;
+		this.trangThai = trangThai;
 	}
 
 	public int getMaLoai() {
@@ -36,5 +52,11 @@ public class LoaiXe {
 		this.tenLoai = tenLoai;
 	}
 
-	
+	public boolean isTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(boolean trangThai) {
+		this.trangThai = trangThai;
+	}
 }
