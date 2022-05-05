@@ -42,6 +42,8 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	private JPanel contentPane;
 	private JTextField txtHoVaTenNV;
 	private JTextField txtNgaySinhNV;
@@ -457,7 +459,38 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		}
 		if (obj.equals(btnLuuNV)) {
 			NhanVien_DAO nvDao = new NhanVien_DAO();
-			
+			if(kiemTraRong()) {
+				NhanVien nvm = taoNhanVien();
+				String nSinhTemp = nvm.getNgaySinh()+"";
+				String nSinh = LocalDate.parse(nSinhTemp, formatter)+"";
+				String nVaoLamTemp = nvm.getNgayVaoLam()+"";
+				String nVaoLam = LocalDate.parse(nVaoLamTemp, formatter)+"";
+				try {
+					nvDao.themNV(nvm.getTenNhanVien(),nvm.getCmnd(),nvm.getSdt(),nvm.getMaChucVu(),nvm.getBacTho(),nSinh,nVaoLam,nvm.getTrinhDoHocVan(),nvm.getSoNamKinhNghiem(),nvm.isTrangThai());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					
+				}
+			try {
+				loadDatatoTable();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+			else
+			{
+		        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		        JOptionPane.showMessageDialog(frame,
+		                "Bạn không được để rỗng",
+		                "Thêm Thất Bại",
+		                JOptionPane.ERROR_MESSAGE);
+			}
 			
 		}
 		
