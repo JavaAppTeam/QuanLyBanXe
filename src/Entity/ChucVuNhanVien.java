@@ -21,6 +21,13 @@ public class ChucVuNhanVien {
 		this.tenChucVu = tenChucVu;
 	}
 
+
+
+	public ChucVuNhanVien(String maKyTu) {
+		super();
+		this.maKyTu = maKyTu;
+	}
+
 	public int getMaChucVu() {
 		return maChucVu;
 	}

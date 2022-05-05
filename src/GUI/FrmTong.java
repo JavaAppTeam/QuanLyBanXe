@@ -52,8 +52,9 @@ public class FrmTong extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public FrmTong(String maNV, String chucVu) {
+	public FrmTong(String maNV, String chucVu) throws Exception {
 		setTitle("Qu\u1EA3n l\u00FD b\u00E1n xe");
 		setForeground(UIManager.getColor("inactiveCaptionBorder"));
 		// new
