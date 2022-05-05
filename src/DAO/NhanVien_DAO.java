@@ -94,7 +94,6 @@ public class NhanVien_DAO {
 		}
 		return null;
 	}
-<<<<<<< HEAD
 	public String getTenNVFormMaNV(String maNV) {
 		try {
 			conn = connectDB.getConnection();
@@ -109,26 +108,17 @@ public class NhanVien_DAO {
 			e.printStackTrace();
 		}
 		return null;
-=======
+	}
 	public boolean themNV(String tenNV,String cMND,String sDT,String maChucVu,String bacTho,LocalDate ngaySinh, LocalDate ngayVaoLam,int trinhDoHocVan,int soNamKinhNghiem,boolean trangThai) throws ClassNotFoundException, SQLException {
 		conn = connectDB.getConnection();
 		PreparedStatement statement = null;
 		int n = 0;
 		java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 		try {
-			String sql = "insert into NhanVien values (Default,?,?,?,?,?,?,?,?,?,?,?)";
-			statement = conn.prepareStatement(sql);
-			statement.setString(1,);
-			statement.setTimestamp(2,date);
-			statement.setString(3, maNV);
-			statement.setString(4, maKH);
-			statement.setString(5, maCH);
 			
-			n = statement.executeUpdate();
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
 		return n > 0;	
->>>>>>> e8d593b1e3ce34e0f733b6e5bd4800cc32f3be45
 	}
 }
