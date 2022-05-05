@@ -31,10 +31,11 @@ import Entity.Xe;
 import Support.CheckInput;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 
-public class FrmPhuTung extends JInternalFrame implements MouseListener, ActionListener {
+public class FrmPhuTung extends JFrame implements MouseListener, ActionListener {
 
 	/**
 	 *  Tên: Võ Thị Trà Giang Ngày tạo: 16/04/2022
@@ -131,7 +132,7 @@ public class FrmPhuTung extends JInternalFrame implements MouseListener, ActionL
 		pnImage.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(FrmPhuTung.class.getResource("/image/Untitled-2.png")));
+		//lblNewLabel.setIcon(new ImageIcon(FrmPhuTung.class.getResource("/image/Untitled-2.png")));
 		pnImage.add(lblNewLabel, BorderLayout.CENTER);
 
 //		================== BUTTON =================

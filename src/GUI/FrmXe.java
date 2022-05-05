@@ -35,7 +35,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 
-public class FrmXe extends JInternalFrame implements ActionListener, MouseListener {
+public class FrmXe extends JFrame implements ActionListener, MouseListener {
 
 	/**
 	 *  Tên: Võ Thị Trà Giang Ngày tạo: 16/04/2022
@@ -176,7 +176,7 @@ public class FrmXe extends JInternalFrame implements ActionListener, MouseListen
 		pnImage.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon(FrmXe.class.getResource("/image/picXe1.png")));
+		//lblNewLabel_5.setIcon(new ImageIcon(FrmXe.class.getResource("/image/picXe1.png")));
 		pnImage.add(lblNewLabel_5, BorderLayout.CENTER);
 
 		// =================================================

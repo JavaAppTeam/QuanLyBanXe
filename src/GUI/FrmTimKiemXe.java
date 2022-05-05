@@ -175,14 +175,14 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 		panel_3.setLayout(null);
 
 		btnTimKiem = new JButton("Tìm kiếm");
-		btnTimKiem.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/search32.png")));
+		//btnTimKiem.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/search32.png")));
 		btnTimKiem.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		btnTimKiem.setBounds(1165, 10, 218, 52);
 		panel_3.add(btnTimKiem);
 
 		btnLoad = new JButton("");
 		btnLoad.setBackground(Color.WHITE);
-		btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/loading32.png")));
+		//btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/loading32.png")));
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		btnLoad.setBounds(1393, 10, 102, 52);
 		panel_3.add(btnLoad);

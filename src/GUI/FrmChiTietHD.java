@@ -240,12 +240,10 @@ public class FrmChiTietHD extends JInternalFrame {
 		KhachHang_DAO  khDAO = new KhachHang_DAO();
 		NhanVien_DAO nvDAO = new NhanVien_DAO();
 		List<Xe> dsXe = new ArrayList<>();
-		System.out.println(maHDFrmHD);
 		dsXe = xe.getListXeOnMaHD(maHDFrmHD);
 		int tblRow = table.getRowCount();
 		lblMaHD.setText(maHDFrmHD);
 		String tenKH = khDAO.getTenToMaKH(maKHFrmHD);
-		System.out.println(maNVToCTHD);
 		String tenNV = nvDAO.getTenNVFormMaNV(maNVToCTHD);
 		lblTenKH.setText(tenKH);
 		lblTenNV.setText(tenNV);

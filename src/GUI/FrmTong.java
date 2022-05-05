@@ -93,7 +93,7 @@ public class FrmTong extends JFrame {
 		desktopPane.add(frmTrangChu);
 		
 		frmQLNhanVien = new FrmQLNhanVien();
-		desktopPane.add(frmQLNhanVien);
+		//desktopPane.add(frmQLNhanVien);
 		
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
