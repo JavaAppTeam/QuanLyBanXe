@@ -23,6 +23,7 @@ import DAO.CuaHang_DAO;
 import DAO.HoaDon_DAO;
 import Entity.CuaHang;
 import Entity.HoaDon;
+import GUI.FrmChiTietHD.FrmChiTietHDResponse;
 
 import java.awt.Font;
 import javax.swing.JTextPane;
@@ -58,11 +59,14 @@ public class FrmHoaDon extends JFrame {
 	private JScrollPane scroll;
 	private JTextField txtTimkiem;
 	private FrmHoaDon_ThemHoaDon frmHD_ThemHD;
+	private FrmChiTietHD frmChiTietHD;
 	private HoaDon_DAO hdDao = new HoaDon_DAO();
 	private JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
 	private JDateChooser dtNgayLap;
-	private JButton btnLuu, btnSua, btnXoa;
+	private JButton btnLuu, btnSua, btnXoa, btnChiTietHD;
 	private JComboBox cbbMaCuaHang;
+	private String maHDToCTHD = "";
+	public static JPanel pnShowCTHD;
 	/**
 	 * Launch the application.
 	 */
@@ -82,8 +86,9 @@ public class FrmHoaDon extends JFrame {
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public FrmHoaDon() throws SQLException, PropertyVetoException {
+	public FrmHoaDon() throws SQLException, PropertyVetoException, ClassNotFoundException {
 		setFont(new Font("Dialog", Font.PLAIN, 15));
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 15));
 		getContentPane().setBackground(Color.PINK);
@@ -95,8 +100,14 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setLayout(null);
 		
 		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
-		frmHD_ThemHD.setBounds(158, 36, 1139, 510);
+		frmHD_ThemHD.setBounds(204, 43, 1139, 510);
 		getContentPane().add(frmHD_ThemHD);
+		
+		pnShowCTHD = new JPanel();
+		pnShowCTHD.setBounds(420, 20, 619, 608);
+		getContentPane().add(pnShowCTHD);
+		pnShowCTHD.setLayout(new BorderLayout(0, 0));
+		pnShowCTHD.setVisible(false);
 		
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -189,6 +200,7 @@ public class FrmHoaDon extends JFrame {
 				txtMaCH.setText(maCH);
 				txtMaKH.setText(maKH);
 				txtMaNV.setText(maNV);
+				maHDToCTHD = maHD;
 			}
 		});
 		
@@ -219,7 +231,6 @@ public class FrmHoaDon extends JFrame {
 				int iMaHD = 0;
 				try {
 					iMaHD = Integer.parseInt(strMaHD);
-					System.out.println(iMaHD);
 				} catch (Exception e2) {
 					// TODO: handle exception
 				}				
@@ -281,7 +292,7 @@ public class FrmHoaDon extends JFrame {
 		lblNewLabel_5.setBounds(56, 10, 78, 19);
 		panel_4.add(lblNewLabel_5);
 		
-		cbbMaCuaHang = new JComboBox();
+		cbbMaCuaHang = new JComboBox<String>();
 		cbbMaCuaHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String maCH = (String) cbbMaCuaHang.getSelectedItem();
@@ -310,16 +321,11 @@ public class FrmHoaDon extends JFrame {
 		lblNewLabel_6.setBounds(46, 2, 10, 33);
 		panel_4.add(lblNewLabel_6);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "alo");
-			}
-		});
-		btnNewButton.setBackground(SystemColor.activeCaption);
-		btnNewButton.setIcon(new ImageIcon(FrmHoaDon.class.getResource("/image/icons8_bill_32.png")));
-		btnNewButton.setBounds(0, 0, 46, 40);
-		panel_4.add(btnNewButton);
+		btnChiTietHD = new JButton();
+		btnChiTietHD.setBackground(SystemColor.activeCaption);
+		btnChiTietHD.setIcon(new ImageIcon(FrmHoaDon.class.getResource("/image/icons8_bill_32.png")));
+		btnChiTietHD.setBounds(0, 0, 46, 40);
+		panel_4.add(btnChiTietHD);
 		
 		JCalendar calendar_1 = new JCalendar();
 		calendar_1.setBounds(10, 486, 195, 177);
@@ -340,6 +346,29 @@ public class FrmHoaDon extends JFrame {
 		btnThem.setBounds(10, 10, 171, 33);
 		panel_2.add(btnThem);
 		btnThem.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		
+		btnChiTietHD.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub	
+				if(maHDToCTHD.equals("")) {
+					JOptionPane.showMessageDialog(null, "Chọn một hóa đơn để xem chi tiết hóa đơn!");
+				}
+				else {
+					try {
+						pnShowCTHD.setVisible(true);
+						frmChiTietHD = new FrmChiTietHD(new FrmChiTietHDResomseImpl(), maHDToCTHD);
+						frmChiTietHD.setBounds(400, 0, 619, 608);
+						pnShowCTHD.add(frmChiTietHD, BorderLayout.CENTER);
+					} catch (ClassNotFoundException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					frmChiTietHD.setVisible(true);
+				}
+			}
+		});
 		
 		btnSua = new JButton("Sửa");
 		btnSua.setEnabled(false);
@@ -477,6 +506,18 @@ public class FrmHoaDon extends JFrame {
 		txtMaKH.setEditable(true);
 	}
 
+	private class FrmChiTietHDResomseImpl implements FrmChiTietHDResponse{
+
+		@Override
+		public void getResponse(boolean bStatusPnCTHD) {
+			// TODO Auto-generated method stub
+			if(bStatusPnCTHD == true) {
+				pnShowCTHD.setVisible(false);
+			}
+		}
+		
+	}
+	
 	private void loadCTHD() throws SQLException {
 		// TODO Auto-generated method stub
 		int tblRow = table_1.getRowCount();
