@@ -8,6 +8,7 @@ public class ChiTietXe {
 	private String maCTXe, soKhung, soMay;
 	private int maXe, thoiGianBH;
 	private boolean trangThai;
+	private String mx;
 
 	public ChiTietXe() {
 		// TODO Auto-generated constructor stub
@@ -50,6 +51,19 @@ public class ChiTietXe {
 		this.maXe = maXe;
 		this.thoiGianBH = thoiGianBH;
 		this.trangThai = trangThai;
+	}
+
+	public ChiTietXe(String maXe) {
+		// TODO Auto-generated constructor stub
+		this.mx = maXe;
+	}
+
+	public String getMx() {
+		return mx;
+	}
+
+	public void setMx(String mx) {
+		this.mx = mx;
 	}
 
 	public String getMaCTXe() {

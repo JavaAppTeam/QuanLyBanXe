@@ -94,4 +94,19 @@ public class NhanVien_DAO {
 		}
 		return null;
 	}
+	public String getTenNVFormMaNV(String maNV) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select TenNhanVien from NhanVien where MaSoNhanVien="+"'"+maNV+"'";
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String tenNV = rs.getString("TenNhanVien");
+				return tenNV;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

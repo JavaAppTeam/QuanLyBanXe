@@ -156,5 +156,12 @@ public class FrmCuaHang extends JInternalFrame {
 		setResizable(true);
 		setBounds(-5, -26, 1372, 710);
 
+		
+		loadCuaHang();
+	}
+
+	private void loadCuaHang() {
+		// TODO Auto-generated method stub
+		
 	}
 }

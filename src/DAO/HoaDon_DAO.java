@@ -233,5 +233,20 @@ public class HoaDon_DAO {
 		}
 		return dsHD;
 	}
+	public Date getDayFromHD(String maHD) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "Select NgayLapHoaDon from HoaDon where MaHoaDon='" +maHD+"'";
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Date ngayLap = rs.getDate("NgayLapHoaDon");
+				return ngayLap;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

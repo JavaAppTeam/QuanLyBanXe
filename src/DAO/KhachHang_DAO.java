@@ -63,5 +63,50 @@ public class KhachHang_DAO {
 		}
 		return null;
 	}
+	public String getTenToMaKH(String maKH) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select TenKH from KhachHang where MaKH="+"'"+maKH+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String tenKH = rs.getString("TenKH");
+				return tenKH;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String getMaHDFromSDT(String sdt) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select MaKH from KhachHang where SoDienThoai="+"'"+sdt+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maKH = rs.getString("MaKH");
+				return maKH;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String getTenFormSDT(String sDT) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select TenKH from KhachHang where SoDienThoai="+"'"+sDT+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String tenKH = rs.getString("TenKH");
+				return tenKH;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

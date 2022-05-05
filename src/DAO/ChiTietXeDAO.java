@@ -27,7 +27,7 @@ public class ChiTietXeDAO {
 		}
 	}
 	public List<ChiTietXe> getAllMaXe() throws SQLException {
-		List<ChiTietXe> ctx = null;
+		List<ChiTietXe> ctx = new ArrayList<ChiTietXe>();
 		ChiTietXe chiTietXe;
 		try {
 			conn = connectDB.getConnection();

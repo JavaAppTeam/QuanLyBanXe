@@ -65,7 +65,7 @@ public class FrmHoaDon extends JFrame {
 	private JDateChooser dtNgayLap;
 	private JButton btnLuu, btnSua, btnXoa, btnChiTietHD;
 	private JComboBox cbbMaCuaHang;
-	private String maHDToCTHD = "";
+	private String maHDToCTHD = "", maKHToCTHD = "", maNVToCTHD = "";
 	public static JPanel pnShowCTHD;
 	/**
 	 * Launch the application.
@@ -201,6 +201,8 @@ public class FrmHoaDon extends JFrame {
 				txtMaKH.setText(maKH);
 				txtMaNV.setText(maNV);
 				maHDToCTHD = maHD;
+				maKHToCTHD = maKH;
+				maNVToCTHD = maNV;
 			}
 		});
 		
@@ -358,7 +360,7 @@ public class FrmHoaDon extends JFrame {
 				else {
 					try {
 						pnShowCTHD.setVisible(true);
-						frmChiTietHD = new FrmChiTietHD(new FrmChiTietHDResomseImpl(), maHDToCTHD);
+						frmChiTietHD = new FrmChiTietHD(new FrmChiTietHDResomseImpl(), maHDToCTHD, maKHToCTHD,maNVToCTHD);
 						frmChiTietHD.setBounds(400, 0, 619, 608);
 						pnShowCTHD.add(frmChiTietHD, BorderLayout.CENTER);
 					} catch (ClassNotFoundException | SQLException e1) {

@@ -363,6 +363,26 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		lblNewLabel_2.setBounds(271, 12, 30, 28);
 		panel.add(lblNewLabel_2);
 		
+		JButton btnCheckSDT = new JButton("");
+		btnCheckSDT.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				KhachHang_DAO khDao = new KhachHang_DAO();
+				String SDT = (java.lang.String) cbbSdtKH.getSelectedItem();
+				String tenKH = khDao.getTenFormSDT(SDT);
+				if(tenKH == null)
+				{
+					JOptionPane.showMessageDialog(null, "Số điện thoại chưa tồn tại! Hãy thêm một khách hàng mới!");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Tên khách hàng: " + tenKH);
+				}
+			}
+		});
+		btnCheckSDT.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/Check Circle_30px.png")));
+		btnCheckSDT.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnCheckSDT.setBounds(1018, 115, 37, 33);
+		panel.add(btnCheckSDT);
+		
 		
 		
 		JPanel panel_1 = new JPanel();
@@ -393,22 +413,34 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		JButton btnLuu = new JButton("LƯU");
 		btnLuu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean themHD = false;
 				boolean btnThemCTHD = false;
 				try {
 					HoaDon_DAO hdDao = new HoaDon_DAO();
+					KhachHang_DAO khDao = new KhachHang_DAO();
 					ChiTietHoaDon_DAO cthdDao = new ChiTietHoaDon_DAO();
 					String maHD = "";
-					//Boolean bthemHD = hdDao.themHD(msNV,maKH,maCH);	
-					for(int i = 0; i < dsHD.size(); i++) {
-						themHD = hdDao.themHD(dsHD.get(i).getMaNV(), dsHD.get(i).getMaKH(), dsHD.get(i).getMaCH());
-						if(themHD == true)
-						{
-							maHD = hdDao.getMaHD();	
-							btnThemCTHD = cthdDao.themCTHD(maHD,dsHD.get(i).getMaxe(),dsHD.get(i).getDongia(),dsHD.get(i).getThue(),dsHD.get(i).getSoluong());
+					Boolean bthemHD = false;
+					String msNV = (java.lang.String) cbbMSNV.getSelectedItem();
+					String sdt = (java.lang.String) cbbSdtKH.getSelectedItem();
+					String bCheckSdt = khDao.getKHTheoSDT(sdt);
+					if(bCheckSdt == null) {
+						JOptionPane.showMessageDialog(null, "Số điện thoại chưa tồn tại! Hãy thêm một khách hàng mới!");
+						return;
+					}
+					else {
+						String maKH = khDao.getMaHDFromSDT(sdt);
+						String maCH = (java.lang.String) cbbmaCuaHang.getSelectedItem();
+						bthemHD = hdDao.themHD(msNV,maKH,maCH);	
+						//themHD = hdDao.themHD(dsHD.get(i).getMaNV(), dsHD.get(i).getMaKH(), dsHD.get(i).getMaCH());
+						for(int i = 0; i < dsHD.size(); i++) {
+							if(bthemHD == true)
+							{
+								maHD = hdDao.getMaHD();	
+								btnThemCTHD = cthdDao.themCTHD(maHD,dsHD.get(i).getMaxe(),dsHD.get(i).getDongia(),dsHD.get(i).getThue(),dsHD.get(i).getSoluong());
+							}
 						}
 					}
-					if(themHD == true && btnThemCTHD == true)
+					if(bthemHD == true && btnThemCTHD == true)
 					{
 						JOptionPane.showMessageDialog(null, "Thêm hóa đơn thành công");
 						xoaTrangTatCa();
@@ -597,7 +629,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		ChiTietXeDAO chiTietXe = new ChiTietXeDAO();
 		cbbMaXe.removeAllItems();
 		for (ChiTietXe ctxe : chiTietXe.getAllMaXe()) {
-			cbbMaXe.addItem(ctxe.getMaCTXe());
+			cbbMaXe.addItem(ctxe.getMx());
 		}
 	}
 }

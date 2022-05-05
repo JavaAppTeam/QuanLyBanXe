@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import java.awt.SystemColor;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,12 +18,15 @@ import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 import DAO.HoaDon_DAO;
+import DAO.KhachHang_DAO;
+import DAO.NhanVien_DAO;
 import DAO.Xe_DAO;
 import Entity.HoaDon;
 import Entity.Xe;
@@ -35,14 +39,17 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class FrmChiTietHD extends JInternalFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
+	private JLabel lblMaHD, lblTenKH,lblTenNV;
 	private DefaultTableModel dataModel;
 	private Locale localeVN = new Locale("vi", "VN");
 	private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 	private boolean bStatus = false;
+	private JLabel lblTong,lblNgayLap;
 
 	/**
 	 * Launch the application.
@@ -56,7 +63,7 @@ public class FrmChiTietHD extends JInternalFrame {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public FrmChiTietHD(FrmChiTietHDResponse frmChiTietHDResponse, String maHDFrmHD) throws ClassNotFoundException, SQLException {
+	public FrmChiTietHD(FrmChiTietHDResponse frmChiTietHDResponse, String maHDFrmHD, String maKHFrmHD, String maNVToCTHD) throws ClassNotFoundException, SQLException {
 		getContentPane().setBackground(SystemColor.inactiveCaption);
 		setForeground(SystemColor.activeCaption);
 		getContentPane().setForeground(SystemColor.activeCaption);
@@ -84,13 +91,13 @@ public class FrmChiTietHD extends JInternalFrame {
 		lblNewLabel_3.setBounds(395, 37, 54, 20);
 		getContentPane().add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("2425");
-		lblNewLabel_4.setFont(new Font("Dialog", Font.BOLD, 15));
-		lblNewLabel_4.setBounds(459, 37, 121, 24);
-		getContentPane().add(lblNewLabel_4);
+		lblNgayLap = new JLabel("2425");
+		lblNgayLap.setFont(new Font("Dialog", Font.BOLD, 15));
+		lblNgayLap.setBounds(459, 37, 121, 24);
+		getContentPane().add(lblNgayLap);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(13, 152, 582, 270);
+		panel.setBounds(13, 152, 582, 242);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -143,23 +150,23 @@ public class FrmChiTietHD extends JInternalFrame {
 		
 		JLabel lblNewLabel_7 = new JLabel("Mã HD:");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_7.setBounds(63, 122, 60, 20);
+		lblNewLabel_7.setBounds(96, 122, 54, 20);
 		getContentPane().add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel("MaHD");
-		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_8.setBounds(127, 122, 96, 20);
-		getContentPane().add(lblNewLabel_8);
+		lblMaHD = new JLabel("MaHD");
+		lblMaHD.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblMaHD.setBounds(158, 122, 78, 20);
+		getContentPane().add(lblMaHD);
 		
 		JLabel lblNewLabel_7_1 = new JLabel("Khách Hàng:");
 		lblNewLabel_7_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_7_1.setBounds(375, 122, 102, 20);
+		lblNewLabel_7_1.setBounds(311, 122, 96, 20);
 		getContentPane().add(lblNewLabel_7_1);
 		
-		JLabel lblNewLabel_8_1 = new JLabel("Tên KH");
-		lblNewLabel_8_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_8_1.setBounds(474, 122, 121, 20);
-		getContentPane().add(lblNewLabel_8_1);
+		lblTenKH = new JLabel("Tên KH");
+		lblTenKH.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTenKH.setBounds(408, 122, 187, 20);
+		getContentPane().add(lblTenKH);
 		
 		JLabel lblNewLabel_9 = new JLabel("");
 		lblNewLabel_9.setIcon(new ImageIcon(FrmChiTietHD.class.getResource("/image/logo45.png")));
@@ -178,23 +185,76 @@ public class FrmChiTietHD extends JInternalFrame {
 		btnNewButton.setBounds(577, 0, 30, 26);
 		getContentPane().add(btnNewButton);
 		
-		loadCTHD(maHDFrmHD);
+		lblTenNV = new JLabel("New label");
+		lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTenNV.setBounds(359, 530, 170, 20);
+		getContentPane().add(lblTenNV);
+		lblTenNV.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTenNV.setVerticalAlignment(SwingConstants.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(13, 391, 582, 43);
+		getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_5_2 = new JLabel("TỔNG TIỀN:");
+		lblNewLabel_5_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_5_2.setBounds(321, 10, 96, 26);
+		panel_1.add(lblNewLabel_5_2);
+		
+		lblTong = new JLabel("Tien");
+		lblTong.setForeground(Color.RED);
+		lblTong.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblTong.setBounds(431, 10, 141, 26);
+		panel_1.add(lblTong);
+		
+		loadCTHD(maHDFrmHD, maKHFrmHD,maNVToCTHD);
+		loadTongTien();
+		loadNgayLapHD();
 
 	}
 
-	private void loadCTHD(String maHDFrmHD) throws ClassNotFoundException, SQLException {
+	private void loadNgayLapHD() {
+		// TODO Auto-generated method stub
+		HoaDon_DAO hdDao = new HoaDon_DAO();
+		String maHD = lblMaHD.getText();
+		Date dateHD = hdDao.getDayFromHD(maHD.trim()); 
+		lblNgayLap.setText(dateHD+"");
+	}
+
+	private void loadTongTien() {
+		// TODO Auto-generated method stub
+		int iTong = 0;
+		int row = table.getRowCount();
+		for(int i = 0; i < row; i++ ) {
+			int iSL = (int) table.getValueAt(i, 2);
+			int iDonGia = (int) table.getValueAt(i, 3);
+			iTong += iSL*iDonGia;
+		}
+		lblTong.setText(currencyVN.format(iTong) + "");
+	}
+
+	private void loadCTHD(String maHDFrmHD, String maKHFrmHD, String maNVToCTHD) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Xe_DAO xe = new Xe_DAO();
+		KhachHang_DAO  khDAO = new KhachHang_DAO();
+		NhanVien_DAO nvDAO = new NhanVien_DAO();
 		List<Xe> dsXe = new ArrayList<>();
 		System.out.println(maHDFrmHD);
 		dsXe = xe.getListXeOnMaHD(maHDFrmHD);
 		int tblRow = table.getRowCount();
+		lblMaHD.setText(maHDFrmHD);
+		String tenKH = khDAO.getTenToMaKH(maKHFrmHD);
+		System.out.println(maNVToCTHD);
+		String tenNV = nvDAO.getTenNVFormMaNV(maNVToCTHD);
+		lblTenKH.setText(tenKH);
+		lblTenNV.setText(tenNV);
 		for (int i = tblRow - 1; i >= 0; i--) {
 			dataModel.removeRow(i);
 		}
 		//dataModel.addRow(new Object[] {hd.getMaHoaDon(), hd.getNgayLap(), hd.getMaKH(),hd.getMaNV(),hd.getMaCH()});
 		for(Xe x : dsXe) {
-			dataModel.addRow(new Object[] {x.getStt(),x.getTenXe(),x.getSoluongMua(),x.getDonGia(),currencyVN.format(x.getSoluongMua()*x.getDonGia())});
+			dataModel.addRow(new Object[] {x.getStt(),x.getTenXe(),x.getSoluongMua(),(int)x.getDonGia(),currencyVN.format(x.getSoluongMua()*x.getDonGia())});
 		}
 	}
 }
