@@ -10,6 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -94,31 +97,83 @@ public class NhanVien_DAO {
 		}
 		return null;
 	}
-	public String getTenNVFormMaNV(String maNV) {
-		try {
-			conn = connectDB.getConnection();
-			String sql = "select TenNhanVien from NhanVien where MaSoNhanVien="+"'"+maNV+"'";
-			Statement stmt = conn.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				String tenNV = rs.getString("TenNhanVien");
-				return tenNV;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	public boolean themNV(String tenNV,String cMND,String sDT,String maChucVu,String bacTho,LocalDate ngaySinh, LocalDate ngayVaoLam,int trinhDoHocVan,int soNamKinhNghiem,boolean trangThai) throws ClassNotFoundException, SQLException {
+	public boolean themNV(String tenNV,String cMND,String sDT,String maChucVu,String bacTho,String ngaySinh, 
+			String ngayVaoLam,int trinhDoHocVan,int soNamKinhNghiem,boolean trangThai) throws ClassNotFoundException, SQLException {
 		conn = connectDB.getConnection();
 		PreparedStatement statement = null;
 		int n = 0;
 		java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 		try {
+			String sql = "insert into NhanVien values (Default,?,?,?,?,?,?,?,?,?,?,?)";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1,tenNV);
+			statement.setString(2,cMND);
+			statement.setString(3, ngaySinh);
+			statement.setString(4, sDT);
+			statement.setString(5, maChucVu);
+			statement.setString(6, "CH01");
+			statement.setString(7, ngayVaoLam);
+			statement.setInt(8, trinhDoHocVan);
+			statement.setString(9, bacTho);
+			statement.setInt(10, soNamKinhNghiem);
+			statement.setBoolean(11, trangThai);
 			
+			n = statement.executeUpdate();
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+	        JOptionPane.showMessageDialog(frame,
+	                "Trùng thông tin ",
+	                "Thêm Thất Bại",
+	                JOptionPane.ERROR_MESSAGE);
 		}
 		return n > 0;	
+	}
+	public String getMaNV(String SDT) throws SQLException {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select MaSoNhanVien from NhanVien where SDT='"+SDT+"'";
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+			String maNV = rs.getString("MaSoNhanVien");	
+			System.out.println(maNV);
+			return maNV;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			closeConnection();
+		}
+		return null;
+	}
+	public Boolean suanv(String maNV, String tenNV,String cMND,String sDT,String maChucVu,String bacTho,String ngaySinh, 
+			String ngayVaoLam,int trinhDoHocVan,int soNamKinhNghiem,boolean trangThai ) throws ClassNotFoundException, SQLException {
+		Connection conn = connectDB.getConnection();
+		PreparedStatement statement = null;
+		int i = 0;
+		try {
+			String sql = "update NhanVien set TenNhanVien=N'"+tenNV+"', MaChucVu='"+maChucVu+"'"  + ",BacTho=N'"+bacTho+"'" +",SoNamKinhNghiem='"+soNamKinhNghiem+"'" + ",TrangThai='"+trangThai+"'" + ",NgaySinh='"+ngaySinh+"'"+ ",NgayVaoLam='"+ngayVaoLam+"'" +  ",SDT='"+sDT+"'" +" where MaSoNhanVien='"+maNV+"'";
+			statement = conn.prepareStatement(sql);
+			
+			i = statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i > 0;
+	}
+	public Boolean xoaNV(String maNV) throws ClassNotFoundException, SQLException {
+		conn = connectDB.getConnection();
+		PreparedStatement statement = null;
+		int i = 0;
+		try {
+			String sql = "delete from NhanVien where MaSoNhanVien='"+maNV+"'";
+			statement = conn.prepareStatement(sql);
+			
+			i = statement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i > 0;
 	}
 }

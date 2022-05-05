@@ -1,4 +1,7 @@
-/GUI/
-/Support/
+/App/
+/ConnectDB/
 /DAO/
 /Entity/
+/GUI/
+/Support/
+/image/
