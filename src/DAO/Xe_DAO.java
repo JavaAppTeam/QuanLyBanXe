@@ -41,7 +41,7 @@ public class Xe_DAO {
 				String sokhung = rs.getString("SoKhung");
 				String somay = rs.getString("SoMay");
 				String dungtich = rs.getString("DungTich");
-				xe = new Xe(maxes,tenxe,soluong,sokhung,somay,dungtich,giatien*1.0);
+				xe = new Xe(maxes,tenxe,soluong,sokhung,somay,dungtich,giatien);
 				}
 			return xe;
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
@@ -127,7 +127,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
@@ -160,7 +160,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
@@ -193,7 +193,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
@@ -226,7 +226,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
@@ -297,7 +297,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				xe = new Xe(idXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai);
@@ -326,7 +326,7 @@ public class Xe_DAO {
 				String idLoaiXe = rs.getString(4);
 				double mucTieuThu = rs.getDouble(5);
 				double dungTich = rs.getDouble(6);
-				long giaTien = rs.getLong(7);
+				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
 				boolean trangThai = rs.getBoolean(9);
 				xe = new Xe(idXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai);

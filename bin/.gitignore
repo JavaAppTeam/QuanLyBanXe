@@ -1,8 +1,4 @@
 /GUI/
-/DAO/
-<<<<<<< HEAD
-/Entity/
 /Support/
-/image/
-=======
->>>>>>> e8d593b1e3ce34e0f733b6e5bd4800cc32f3be45
+/DAO/
+/Entity/

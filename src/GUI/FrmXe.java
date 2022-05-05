@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -35,7 +36,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 
-public class FrmXe extends JFrame implements ActionListener, MouseListener {
+public class FrmXe extends JInternalFrame implements ActionListener, MouseListener {
 
 	/**
 	 *  Tên: Võ Thị Trà Giang Ngày tạo: 16/04/2022
@@ -71,7 +72,7 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 	 */
 	public FrmXe() {
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
-		setBounds(-5, -26, 1372, 710);
+		setBounds(-5, -26, 1600, 780);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 192, 203));
 		contentPane.setForeground(Color.BLACK);
@@ -84,155 +85,168 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 		panel.setBackground(new Color(255, 192, 203));
 		panel.setBorder(
 				new TitledBorder(null, "Th\u00F4ng tin xe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 807, 311);
+		panel.setBounds(10, 11, 994, 382);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 //		-======== INPUT ======================
 		JLabel lblNewLabel = new JLabel("M\u1EE9c ti\u00EAu th\u1EE5 nhi\u00EAn li\u1EC7u:");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(23, 126, 179, 23);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel.setBounds(23, 153, 217, 26);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Dung t\u00EDch: ");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(23, 162, 87, 23);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(23, 200, 179, 23);
 		panel.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("Lo\u1EA1i xe:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_2.setBounds(23, 93, 87, 23);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(23, 109, 179, 23);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("H\u00E3ng xe:");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(23, 58, 87, 23);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_3.setBounds(23, 65, 179, 23);
 		panel.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("T\u00EAn xe:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_4.setBounds(23, 25, 87, 14);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_4.setBounds(23, 21, 179, 23);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Gi\u00E1 ti\u1EC1n:");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(23, 241, 87, 23);
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1_1.setBounds(23, 288, 179, 23);
 		panel.add(lblNewLabel_1_1);
 
 		JLabel lblNewLabel_1_1_1 = new JLabel("S\u1ED1 l\u01B0\u1EE3ng t\u1ED3n: ");
-		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1.setBounds(23, 203, 142, 22);
+		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1_1_1.setBounds(23, 244, 179, 23);
 		panel.add(lblNewLabel_1_1_1);
 
 		txtTenXe = new JTextField();
+		txtTenXe.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtTenXe.setText("SH125i Cao cấp ABS");
-		txtTenXe.setBounds(212, 10, 569, 28);
+		txtTenXe.setBounds(332, 11, 637, 37);
 		panel.add(txtTenXe);
 
 		txtMucTieuThu = new JTextField();
+		txtMucTieuThu.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtMucTieuThu.setText("2.46");
-		txtMucTieuThu.setBounds(212, 124, 569, 28);
+		txtMucTieuThu.setBounds(332, 152, 637, 36);
 		panel.add(txtMucTieuThu);
 
 		txtDungTich = new JTextField();
+		txtDungTich.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtDungTich.setText("7.8");
-		txtDungTich.setBounds(212, 162, 569, 28);
+		txtDungTich.setBounds(332, 199, 637, 36);
 		panel.add(txtDungTich);
 
 		txtSoLuong = new JTextField();
+		txtSoLuong.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtSoLuong.setText("10");
-		txtSoLuong.setBounds(212, 200, 569, 28);
+		txtSoLuong.setBounds(332, 246, 637, 36);
 		panel.add(txtSoLuong);
 
 		txtGiaTien = new JTextField();
+		txtGiaTien.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtGiaTien.setText("79812000");
-		txtGiaTien.setBounds(212, 238, 569, 28);
+		txtGiaTien.setBounds(332, 293, 637, 36);
 		panel.add(txtGiaTien);
 
 		cboHangXe = new JComboBox();
+		cboHangXe.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cboHangXe.setBackground(Color.WHITE);
-		cboHangXe.setBounds(212, 48, 569, 28);
+		cboHangXe.setBounds(332, 58, 637, 36);
 		panel.add(cboHangXe);
 
 		cboLoaiXe = new JComboBox();
-		cboLoaiXe.setBounds(212, 86, 569, 28);
+		cboLoaiXe.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		cboLoaiXe.setBounds(332, 105, 637, 36);
 		panel.add(cboLoaiXe);
 
 		JLabel lblNewLabel_1_1_2 = new JLabel("Trạng Thái:");
-		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_2.setBounds(23, 277, 87, 23);
+		lblNewLabel_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1_1_2.setBounds(23, 332, 179, 23);
 		panel.add(lblNewLabel_1_1_2);
 
 		chbTrangThai = new JCheckBox("");
+		chbTrangThai.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		chbTrangThai.setSelected(true);
-		chbTrangThai.setBounds(212, 276, 21, 24);
+		chbTrangThai.setBounds(332, 340, 21, 24);
 		panel.add(chbTrangThai);
 
 		JPanel pnImage = new JPanel();
 		pnImage.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnImage.setBackground(Color.PINK);
-		pnImage.setBounds(842, 11, 504, 311);
+		pnImage.setBackground(Color.WHITE);
+		pnImage.setBounds(1014, 11, 504, 382);
 		contentPane.add(pnImage);
 		pnImage.setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblNewLabel_5 = new JLabel("");
-		//lblNewLabel_5.setIcon(new ImageIcon(FrmXe.class.getResource("/image/picXe1.png")));
+		lblNewLabel_5.setIcon(new ImageIcon(FrmXe.class.getResource("/image/picXe1.png")));
 		pnImage.add(lblNewLabel_5, BorderLayout.CENTER);
 
 		// =================================================
 		// ====================== button
-
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_1.setBounds(10, 403, 1508, 55);
+		panel_1.setBackground(new Color(255, 192, 203));
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
 		btnThem = new JButton("Thêm");
+		btnThem.setBounds(80, 10, 107, 36);
+		panel_1.add(btnThem);
 		btnThem.setIcon(new ImageIcon(FrmXe.class.getResource("/image/btnThem.png")));
-		btnThem.setBounds(58, 333, 127, 31);
-		contentPane.add(btnThem);
 		btnThem.setFont(new Font("Tahoma", Font.PLAIN, 15));
-
+		
 		btnSua = new JButton("Cập nhật");
+		btnSua.setBounds(267, 10, 134, 36);
+		panel_1.add(btnSua);
 		btnSua.setEnabled(false);
-		btnSua.setBounds(243, 333, 127, 31);
-		contentPane.add(btnSua);
 		btnSua.setIcon(new ImageIcon(FrmPhuTung.class.getResource("/image/btnCapNhat.png")));
 		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		btnXoaTrang = new JButton("Xóa trắng");
+		btnXoaTrang.setBounds(481, 10, 134, 36);
+		panel_1.add(btnXoaTrang);
 		btnXoaTrang.setIcon(new ImageIcon(FrmPhuTung.class.getResource("/image/btnXoaTrang.png")));
-		btnXoaTrang.setBounds(428, 333, 127, 31);
-		contentPane.add(btnXoaTrang);
 		btnXoaTrang.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		btnLuu = new JButton("Lưu");
+		btnLuu.setBounds(695, 10, 107, 36);
+		panel_1.add(btnLuu);
 		btnLuu.setEnabled(false);
 		btnLuu.setIcon(new ImageIcon(FrmPhuTung.class.getResource("/image/btnSave.png")));
 		btnLuu.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnLuu.setBounds(613, 333, 127, 31);
-		contentPane.add(btnLuu);
+
+		btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setBounds(1069, 10, 134, 36);
+		panel_1.add(btnTimKiem);
+		btnTimKiem.setIcon(new ImageIcon(FrmXe.class.getResource("/image/btnTim.png")));
+		btnTimKiem.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		btnDelete = new JButton("Xóa");
+		btnDelete.setBounds(882, 10, 107, 36);
+		panel_1.add(btnDelete);
 		btnDelete.setIcon(new ImageIcon(FrmXe.class.getResource("/image/btnXoa.png")));
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnDelete.setEnabled(false);
-		btnDelete.setBounds(798, 333, 127, 31);
-		contentPane.add(btnDelete);
 
-		btnTimKiem = new JButton("Tìm kiếm");
-		btnTimKiem.setIcon(new ImageIcon(FrmXe.class.getResource("/image/btnTim.png")));
-		btnTimKiem.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnTimKiem.setEnabled(false);
-		btnTimKiem.setBounds(983, 332, 127, 31);
-		contentPane.add(btnTimKiem);
+		btnCT = new JButton("Chi Tiết");
+		btnCT.setBounds(1283, 10, 140, 36);
+		panel_1.add(btnCT);
+		btnCT.setIcon(new ImageIcon(FrmXe.class.getResource("/image/MenuItemTrangChu.png")));
+		btnCT.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnCT.setEnabled(false);
 
 		// ==================== TABLE ==================
 		JPanel pnTable = new JPanel();
 		tblModelXe = new DefaultTableModel(col, 0);
-		
-		btnCT = new JButton("Chi Tiết");
-		btnCT.setIcon(new ImageIcon(FrmXe.class.getResource("/image/MenuItemTrangChu.png")));
-		btnCT.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnCT.setEnabled(false);
-		btnCT.setBounds(1168, 333, 127, 31);
-		contentPane.add(btnCT);
-		pnTable.setBounds(10, 375, 1336, 273);
+		pnTable.setBounds(10, 468, 1508, 273);
 		contentPane.add(pnTable);
 		pnTable.setLayout(new BoxLayout(pnTable, BoxLayout.X_AXIS));
 		tblThongTinXe = new JTable(tblModelXe);
@@ -240,10 +254,12 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 		tblThongTinXe.setColumnSelectionAllowed(false);
 		tblThongTinXe.setCellSelectionEnabled(true);
 		tblThongTinXe.setRowHeight(25);
-		tblThongTinXe.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		tblThongTinXe.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		tblThongTinXe.setBackground(Color.WHITE);
 		JScrollPane scrollPane = new JScrollPane(tblThongTinXe);
 		pnTable.add(scrollPane);
+
+		
 
 //		======= ACTION ===============
 
@@ -275,7 +291,7 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 		String idLoaiXe = getMaLoai((String)cboLoaiXe.getSelectedItem());
 		double mucTieuThu = Double.parseDouble(txtMucTieuThu.getText());
 		double dungTich = Double.parseDouble(txtDungTich.getText());
-		long giaTien = Long.parseLong(txtGiaTien.getText());
+		int giaTien = Integer.parseInt(txtGiaTien.getText());
 		int soLuong = Integer.parseInt(txtSoLuong.getText());
 		boolean trangThai;
 		if (chbTrangThai.isSelected() == true)
@@ -327,7 +343,7 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 	public void loadDataToText(Xe xe) {
 		txtTenXe.setText(xe.getTenXe());
 		txtDungTich.setText(xe.getDungTich()+"");
-		txtGiaTien.setText(xe.getGiaTien() + "");
+		txtGiaTien.setText((int)xe.getGiaTien() + "");
 		txtMucTieuThu.setText(xe.getMucTieuThu()+"");
 		txtSoLuong.setText(xe.getSoLuongTon() + "");
 		// --- set cbo hãng xe
@@ -366,7 +382,7 @@ public class FrmXe extends JFrame implements ActionListener, MouseListener {
 				trangThai = "Không còn bán";
 
 			Object[] obj = { xe.getMaXe(), xe.getTenXe(), xe.getMaHangXe(), xe.getMaLoai(), xe.getMucTieuThu(),
-					xe.getDungTich(), xe.getGiaTien(), xe.getSoLuongTon(), trangThai };
+					xe.getDungTich(), (int)xe.getGiaTien(), xe.getSoLuongTon(), trangThai };
 			tblModelXe.addRow(obj);
 		}
 	}

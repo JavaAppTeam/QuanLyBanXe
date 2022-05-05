@@ -20,6 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
@@ -27,12 +28,16 @@ import javax.swing.JDesktopPane;
 public class FrmTong extends JFrame {
 
 	private JPanel contentPane;
-	private JMenu mnTimKiem, mnHeThong, mnDanhMuc, mnXuLy ;
-	private JMenuItem mntmDangKyCaNhanVien, mntmTrangChu, mntmDM_NV, mntmDM_KH,  mntmTao_DH, mntmTao_HD, mntmTimKiem_KH, mntmTimKiem_SP;
+	private JMenu mnTimKiem, mnHeThong, mnDanhMuc, mnXuLy;
+	private JMenuItem mntmDangKyCaNhanVien, mntmTrangChu, mntmDM_NV, mntmDM_KH, mntmTao_DH, mntmTao_HD, mntmTimKiem_KH,
+			mntmTimKiem_SP;
 	private FrmTrangChu frmTrangChu;
 	private FrmQLNhanVien frmQLNhanVien;
 	private JMenuItem mntmNewMenuItem_2;
 	private JMenuItem mntmBaoHanh;
+	private FrmTimKiemXe frmTiemKiemXe;
+	private FrmPhuTung frmPhuTung;
+	private FrmXe frmXe;
 
 	/**
 	 * Launch the application.
@@ -52,7 +57,8 @@ public class FrmTong extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public FrmTong(String maNV, String chucVu) throws Exception {
 		setTitle("Qu\u1EA3n l\u00FD b\u00E1n xe");
@@ -64,7 +70,6 @@ public class FrmTong extends JFrame {
 		setFocusableWindowState(true);
 		setUndecorated(false);
 
-//		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmTong.class.getResource("image/animal-kingdom.png")));
 		setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
 		setType(Type.POPUP);
 		setBackground(new Color(255, 192, 203));
@@ -77,7 +82,8 @@ public class FrmTong extends JFrame {
 		contentPane.setLayout(null);
 
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(0, 31, 1367, 684);
+		// set size
+		desktopPane.setBounds(0, 31, 1600, 900);
 		contentPane.add(desktopPane);
 		desktopPane.setLayout(null);
 
@@ -87,20 +93,28 @@ public class FrmTong extends JFrame {
 		internalFrame.setVisible(true);
 
 //		===== Xu ly ========
-		//==================Hệ thống==========================-
+		// ==================Hệ thống==========================-
 
 		frmTrangChu = new FrmTrangChu(maNV);
 		desktopPane.add(frmTrangChu);
-		
+
+//		====== xe ===========
+		frmXe = new FrmXe();
+		desktopPane.add(frmXe);
+
+		// === phutung
+		frmPhuTung = new FrmPhuTung();
+		desktopPane.add(frmPhuTung);
+
 		frmQLNhanVien = new FrmQLNhanVien();
-		//desktopPane.add(frmQLNhanVien);
-		
+		// desktopPane.add(frmQLNhanVien);
+
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
 		desktopPane.add(mntmNewMenuItem_2);
 		frmTrangChu.setVisible(true);
 
-		//==============================Menu======================--
+		// ==============================Menu======================--
 
 		JPanel pMenu = new JPanel();
 		pMenu.setBounds(0, 0, 1186, 32);
@@ -122,10 +136,10 @@ public class FrmTong extends JFrame {
 		mntmTrangChu.setBackground(new Color(135, 206, 250));
 		mntmTrangChu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-						anTatCa();
-						chinhMau();
-						frmTrangChu.setVisible(true);
-						mntmTrangChu.setBackground(new Color(135, 206, 250));
+				anTatCa();
+				chinhMau();
+				frmTrangChu.setVisible(true);
+				mntmTrangChu.setBackground(new Color(135, 206, 250));
 			}
 		});
 
@@ -159,6 +173,22 @@ public class FrmTong extends JFrame {
 //		=== xe
 		JMenuItem mntmXe = new JMenuItem("    Xe  ");
 		mntmXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/motorbike.png")));
+		mntmXe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmXe.setVisible(true);
+				frmXe.setBackground(new Color(135, 206, 250));
+				try {
+					frmXe.loadDatatoTable();
+					frmXe.loadCboHangXe();
+					frmXe.loadCboLoaiXe();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
+			}
+		});
 		mnDanhMuc.add(mntmXe);
 //		== item laoi xe
 		JMenuItem mntmLoaiXe = new JMenuItem("Loại xe");
@@ -170,13 +200,27 @@ public class FrmTong extends JFrame {
 		mnDanhMuc.add(mntmHangXe);
 //		==== phụ tụng 
 		JMenuItem mntmPhuTung = new JMenuItem("Phụ tùng");
+		mntmPhuTung.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmPhuTung.setVisible(true);
+				frmPhuTung.setBackground(new Color(135, 206, 250));
+				try {
+					frmPhuTung.loadDatatoTable();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		mntmPhuTung.setIcon(new ImageIcon(FrmTong.class.getResource("/image/helmet.png")));
 		mnDanhMuc.add(mntmPhuTung);
 //		===== Khách hàng
 		mntmDM_KH = new JMenuItem("Khách hàng");
 		mntmDM_KH.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 		mntmDM_KH.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLKH.png")));
@@ -185,13 +229,13 @@ public class FrmTong extends JFrame {
 		mntmDM_NV = new JMenuItem("Nhân viên");
 		mntmDM_NV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				anTatCa();
 				chinhMau();
-				
+
 				frmQLNhanVien.setVisible(true);
 				frmQLNhanVien.setBackground(new Color(135, 206, 250));
-				
+
 			}
 		});
 		mntmDM_NV.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLNV.png")));
@@ -223,7 +267,7 @@ public class FrmTong extends JFrame {
 			}
 		});
 		mnXuLy.add(mntmTao_HD);
-		
+
 		mntmBaoHanh = new JMenuItem("Thêm bảo hành");
 		mntmBaoHanh.setIcon(new ImageIcon(FrmTong.class.getResource("/image/car-insurance.png")));
 		mnXuLy.add(mntmBaoHanh);
@@ -237,7 +281,23 @@ public class FrmTong extends JFrame {
 		mntmTimKiem_SP = new JMenuItem("Tìm kiếm Xe");
 		mntmTimKiem_SP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				FrmTimKiemXe frmTimKiem = new FrmTimKiemXe();
+				frmTimKiem.pack();
+				frmTimKiem.setBounds(0, 20, 1600, 800);
+				frmTimKiem.setBackground(new Color(135, 206, 250));
+				frmTimKiem.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+				frmTimKiem.setFocusCycleRoot(true);
+				frmTimKiem.setFocusableWindowState(true);
+				frmTimKiem.setVisible(true);
+				frmTimKiem.loadCboGiaTien();
+				frmTimKiem.loadCboHangXe();
+				frmTimKiem.loadCboLoaiXe();
+				try {
+					frmTimKiem.loadDatatoTable();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		mntmTimKiem_SP.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemTKS.png")));
@@ -250,7 +310,6 @@ public class FrmTong extends JFrame {
 
 			}
 		});
-
 
 //		=== item tim kiem khach hang
 		mntmTimKiem_KH = new JMenuItem("Tìm kiếm khách hàng");
@@ -266,17 +325,18 @@ public class FrmTong extends JFrame {
 
 	void anTatCa() {
 		frmTrangChu.setVisible(false);
-
+		frmXe.setVisible(false);
+		frmPhuTung.setVisible(false);
 	}
-	
+
 	void chinhMau() {
-		//mntmDangKyCaNhanVien.setBackground(new Color(240,240,240));
-		mntmTrangChu.setBackground(new Color(240,240,240));
-		mntmDM_NV.setBackground(new Color(240,240,240));
-		mntmDM_KH.setBackground(new Color(240,240,240));
-		mntmTao_DH.setBackground(new Color(240,240,240));
-		mntmTao_HD.setBackground(new Color(240,240,240));
-		mntmTimKiem_KH.setBackground(new Color(240,240,240));
-		mntmTimKiem_SP.setBackground(new Color(240,240,240));
+		// mntmDangKyCaNhanVien.setBackground(new Color(240,240,240));
+		mntmTrangChu.setBackground(new Color(240, 240, 240));
+		mntmDM_NV.setBackground(new Color(240, 240, 240));
+		mntmDM_KH.setBackground(new Color(240, 240, 240));
+		mntmTao_DH.setBackground(new Color(240, 240, 240));
+		mntmTao_HD.setBackground(new Color(240, 240, 240));
+		mntmTimKiem_KH.setBackground(new Color(240, 240, 240));
+		mntmTimKiem_SP.setBackground(new Color(240, 240, 240));
 	}
 }

@@ -4,7 +4,7 @@ public class Xe {
 
 	private int maXe,soLuongTon;
 	private double mucTieuThu,dungTich;
-	private double giaTien;
+	private int giaTien;
 	private String soKhung, soMay;
 	private String maCTXe;
 	private int soluongMua;
@@ -25,7 +25,7 @@ public class Xe {
 		// TODO Auto-generated constructor stub
 	}
 	public Xe(int maXe, int soLuongTon, String tenXe, String maHangXe, String maLoai, String mucTieuThu,
-			String dungTich, double giaTien) {
+			String dungTich, int giaTien) {
 		super();
 		this.maXe = maXe;
 		this.soLuongTon = soLuongTon;
@@ -37,7 +37,7 @@ public class Xe {
 		this.giaTien = giaTien;
 	}
 	public Xe(int maXe, int soLuongTon, String tenXe, String maHangXe, String maLoai, double mucTieuThu,
-			double dungTich, long giaTien, boolean trangThai) {
+			double dungTich, int giaTien, boolean trangThai) {
 		super();
 		this.maXe = maXe;
 		this.soLuongTon = soLuongTon;
@@ -50,7 +50,7 @@ public class Xe {
 		this.trangThai = trangThai;
 	}
 	public Xe(int soLuongTon, String tenXe, String maHangXe, String maLoai, double mucTieuThu, double dungTich,
-			long giaTien,boolean trangThai) {
+			int giaTien,boolean trangThai) {
 		super();
 		this.soLuongTon = soLuongTon;
 		this.tenXe = tenXe;
@@ -62,7 +62,7 @@ public class Xe {
 		this.trangThai = trangThai;
 	}
 	public Xe(int soLuongTon, String tenXe, String maHangXe, String maLoai, String mucTieuThu, String dungTich,
-			double giaTien) {
+			int giaTien) {
 		super();
 		this.soLuongTon = soLuongTon;
 		this.tenXe = tenXe;
@@ -72,7 +72,7 @@ public class Xe {
 		this.dungTichh = dungTich;
 		this.giaTien = giaTien;
 	}
-	public Xe(String maCTXe,String tenxe,Integer soluongMua, String sokhung, String somay, String dungtich, Double giatien) {
+	public Xe(String maCTXe,String tenxe,Integer soluongMua, String sokhung, String somay, String dungtich, int giatien) {
 		// TODO Auto-generated constructor stub
 		this.maCTXe = maCTXe;
 		this.tenXe = tenxe;
@@ -189,7 +189,7 @@ public class Xe {
 	public double getGiaTien() {
 		return giaTien;
 	}
-	public void setGiaTien(double giaTien) {
+	public void setGiaTien(int giaTien) {
 		this.giaTien = giaTien;
 	}
 }

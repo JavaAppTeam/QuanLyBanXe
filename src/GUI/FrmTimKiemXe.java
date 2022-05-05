@@ -107,24 +107,24 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 28));
 
 		txtTenXe = new JTextField();
-		txtTenXe.setBounds(345, 43, 369, 28);
+		txtTenXe.setBounds(345, 31, 369, 43);
 		panel_1.add(txtTenXe);
 		txtTenXe.setFont(new Font("Dialog", Font.PLAIN, 28));
 		txtTenXe.setText("");
 
 		cboHangXe = new JComboBox();
-		cboHangXe.setBounds(345, 114, 369, 28);
+		cboHangXe.setBounds(345, 105, 369, 43);
 		panel_1.add(cboHangXe);
 		cboHangXe.setFont(new Font("Dialog", Font.PLAIN, 28));
 		cboHangXe.setBackground(Color.WHITE);
 
 		cboLoaiXe = new JComboBox();
-		cboLoaiXe.setBounds(345, 185, 369, 28);
+		cboLoaiXe.setBounds(345, 179, 369, 43);
 		panel_1.add(cboLoaiXe);
 		cboLoaiXe.setFont(new Font("Dialog", Font.PLAIN, 28));
 
 		txtMucTieuThu = new JTextField();
-		txtMucTieuThu.setBounds(345, 256, 369, 28);
+		txtMucTieuThu.setBounds(345, 253, 369, 43);
 		panel_1.add(txtMucTieuThu);
 		txtMucTieuThu.setFont(new Font("Dialog", Font.PLAIN, 28));
 		txtMucTieuThu.setText("");
@@ -151,13 +151,13 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 		lblNewLabel_1_1_2.setFont(new Font("Dialog", Font.PLAIN, 28));
 
 		txtDungTich = new JTextField();
-		txtDungTich.setBounds(289, 62, 422, 28);
+		txtDungTich.setBounds(289, 48, 422, 43);
 		panel_2.add(txtDungTich);
 		txtDungTich.setFont(new Font("Dialog", Font.PLAIN, 28));
 		txtDungTich.setText("");
 
 		chbTrangThai = new JCheckBox("");
-		chbTrangThai.setBounds(289, 242, 21, 24);
+		chbTrangThai.setBounds(289, 248, 21, 24);
 		panel_2.add(chbTrangThai);
 		chbTrangThai.setFont(new Font("Dialog", Font.PLAIN, 28));
 		chbTrangThai.setSelected(true);
@@ -165,7 +165,7 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 		cboGiaTien = new JComboBox();
 		cboGiaTien.setFont(new Font("Dialog", Font.PLAIN, 28));
 		cboGiaTien.setBackground(Color.WHITE);
-		cboGiaTien.setBounds(289, 152, 422, 28);
+		cboGiaTien.setBounds(289, 143, 422, 43);
 		panel_2.add(cboGiaTien);
 //		====== BUTTON ==================
 		JPanel panel_3 = new JPanel();
@@ -175,16 +175,16 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 		panel_3.setLayout(null);
 
 		btnTimKiem = new JButton("Tìm kiếm");
-		//btnTimKiem.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/search32.png")));
+		btnTimKiem.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/search32.png")));
 		btnTimKiem.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		btnTimKiem.setBounds(1165, 10, 218, 52);
+		btnTimKiem.setBounds(1208, 10, 218, 52);
 		panel_3.add(btnTimKiem);
 
 		btnLoad = new JButton("");
 		btnLoad.setBackground(Color.WHITE);
-		//btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/loading32.png")));
+		btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/loading32.png")));
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		btnLoad.setBounds(1393, 10, 102, 52);
+		btnLoad.setBounds(1436, 10, 59, 52);
 		panel_3.add(btnLoad);
 
 		// ================= TABLE ===============
