@@ -1,4 +1,4 @@
-package dao;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -44,7 +44,7 @@ public class KhachHangDAO {
 		return rs ==1?true:false;
 	}
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		KhachHangDAO khDAO = new KhachHangDAO();
+		KhachHang_DAO khDAO = new KhachHang_DAO();
 		KhachHang kh = new KhachHang("KH018", "Dat", Date.valueOf("2012-01-01"), "12312", "123", "false");
 		System.out.println(khDAO.addKH(kh));
 		
