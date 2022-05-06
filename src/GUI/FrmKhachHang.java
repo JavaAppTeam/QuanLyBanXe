@@ -94,8 +94,9 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		setFocusCycleRoot(true);
 		getContentPane().setEnabled(false);
 		setResizable(true);
-		setBounds(-5, -26, 1372, 710);
-		
+		// set size
+		setBounds(-5, -26, 1600, 780);
+
 		JPanel pnKhachHang = new JPanel();
 		pnKhachHang.setBackground(Color.WHITE);
 		pnKhachHang.setBounds(0, 0, 1186, 654);
@@ -103,12 +104,11 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		pnKhachHang.setLayout(null);
 		
 		
-		
 	
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.PINK);
-		panel.setBounds(0, 0, 1360, 60);
+		panel.setBounds(0, 0, 1588, 60);
 		pnKhachHang.add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Quản lý khách hàng");
@@ -118,7 +118,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.PINK);
 		panel_1.setBorder(new EmptyBorder(2, 2, 2, 2));
-		panel_1.setBounds(0, 60, 1360, 243);
+		panel_1.setBounds(0, 60, 1588, 243);
 		pnKhachHang.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -177,29 +177,29 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		
 		btnXoa = new JButton("Xóa khách hàng");
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXoa.setBounds(620, 180, 138, 50);
+		btnXoa.setBounds(665, 180, 138, 50);
 		panel_1.add(btnXoa);
 		
 		btnXT = new JButton("Xóa Trắng");
 		btnXT.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXT.setBounds(869, 180, 138, 50);
+		btnXT.setBounds(981, 180, 138, 50);
 		panel_1.add(btnXT);
 		
 		btnTADD = new JButton("Thay ảnh đại diện");
 		btnTADD.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTADD.setBounds(1145, 180, 159, 50);
+		btnTADD.setBounds(1370, 180, 159, 50);
 		panel_1.add(btnTADD);
 		
 		txtTen = new JTextField();
 		txtTen.setText("Dat");
 		txtTen.setColumns(10);
-		txtTen.setBounds(640, 3, 388, 50);
+		txtTen.setBounds(864, 3, 388, 50);
 		panel_1.add(txtTen);
 		
 		txtNS = new JTextField();
 		txtNS.setText("2001-10-10");
 		txtNS.setColumns(10);
-		txtNS.setBounds(640, 60, 388, 50);
+		txtNS.setBounds(864, 60, 388, 50);
 		panel_1.add(txtNS);
 		
 		cboGT = new JComboBox();
@@ -207,30 +207,30 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		cboGT.addItem("Nam");
 		
 		cboGT.setBorder(new EmptyBorder(2, 2, 2, 2));
-		cboGT.setBounds(640, 120, 388, 50);
+		cboGT.setBounds(864, 120, 388, 50);
 		panel_1.add(cboGT);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("Giới Tính: ");
 		lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3_2.setBounds(521, 120, 120, 50);
+		lblNewLabel_3_2.setBounds(745, 120, 120, 50);
 		panel_1.add(lblNewLabel_3_2);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Ngày Sinh: ");
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_2_2.setBounds(521, 60, 120, 50);
+		lblNewLabel_2_2.setBounds(745, 60, 120, 50);
 		panel_1.add(lblNewLabel_2_2);
 		
 		JLabel lblHVTn = new JLabel("Họ và tên : ");
 		lblHVTn.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblHVTn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHVTn.setBounds(521, 0, 120, 50);
+		lblHVTn.setBounds(745, 0, 120, 50);
 		panel_1.add(lblHVTn);
 		
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 301, 1360, 380);
+		panel_2.setBounds(0, 301, 1588, 450);
 		pnKhachHang.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 

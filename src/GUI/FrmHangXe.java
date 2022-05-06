@@ -34,8 +34,8 @@ public class FrmHangXe extends JInternalFrame {
 		});
 	}
 
-	private JTextField textField_9;
-	private JTextField textField;
+	private JTextField txtTen;
+	private JTextField txtMaHX;
 
 	/**
 	 * Create the frame.
@@ -46,8 +46,9 @@ public class FrmHangXe extends JInternalFrame {
 		setFocusCycleRoot(true);
 		getContentPane().setEnabled(false);
 		setResizable(true);
-		setBounds(-5, -26, 1372, 710);
-		
+		// set size
+		setBounds(-5, -26, 1600, 780);
+
 		JPanel pnKhachHang = new JPanel();
 		pnKhachHang.setBackground(Color.WHITE);
 		pnKhachHang.setBounds(0, 0, 1186, 654);
@@ -56,11 +57,12 @@ public class FrmHangXe extends JInternalFrame {
 		
 		
 		
+		
 	
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.PINK);
-		panel.setBounds(0, 0, 1360, 60);
+		panel.setBounds(0, 0, 1588, 60);
 		pnKhachHang.add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Quản lý hãng xe");
@@ -70,61 +72,64 @@ public class FrmHangXe extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.PINK);
 		panel_1.setBorder(new EmptyBorder(2, 2, 2, 2));
-		panel_1.setBounds(0, 60, 1360, 136);
+		panel_1.setBounds(0, 60, 1588, 136);
 		pnKhachHang.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Mã khách hàng: ");
+		JLabel lblNewLabel = new JLabel("Mã hãng xe: ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(10, 0, 120, 50);
 		panel_1.add(lblNewLabel);
-		textField = new JTextField();
-		lblNewLabel.setLabelFor(textField);
-		textField.setBounds(132, 0, 388, 50);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtMaHX = new JTextField();
+		lblNewLabel.setLabelFor(txtMaHX);
+		txtMaHX.setBounds(132, 0, 388, 50);
+		panel_1.add(txtMaHX);
+		txtMaHX.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Thêm hãng xe");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnThem = new JButton("Thêm hãng xe");
+		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBounds(187, 60, 170, 50);
-		panel_1.add(btnNewButton);
+		btnThem.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnThem.setBounds(187, 60, 170, 50);
+		panel_1.add(btnThem);
 		
-		JButton btnNewButton_1 = new JButton("Sửa hãng xe");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnSua = new JButton("Sửa hãng xe");
+		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(470, 60, 138, 50);
-		panel_1.add(btnNewButton_1);
+		btnSua.setBounds(470, 60, 138, 50);
+		panel_1.add(btnSua);
 		
-		JButton btnNewButton_1_1 = new JButton("Xóa hãng xe");
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_1.setBounds(723, 60, 138, 50);
-		panel_1.add(btnNewButton_1_1);
+		JButton btnXoa = new JButton("Xóa hãng xe");
+		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnXoa.setBounds(723, 60, 138, 50);
+		panel_1.add(btnXoa);
 		
-		JButton btnNewButton_1_2 = new JButton("Xóa Trắng");
-		btnNewButton_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton_1_2.setBounds(975, 60, 138, 50);
-		panel_1.add(btnNewButton_1_2);
+		JButton btnXT = new JButton("Xóa Trắng");
+		btnXT.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnXT.setBounds(975, 60, 138, 50);
+		panel_1.add(btnXT);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(926, 0, 388, 50);
-		panel_1.add(textField_9);
+		txtTen = new JTextField();
+		txtTen.setColumns(10);
+		txtTen.setBounds(926, 0, 388, 50);
+		panel_1.add(txtTen);
 		
-		JLabel lblHVTn = new JLabel("Họ và tên : ");
+		JLabel lblHVTn = new JLabel("Tên hãng xe: ");
 		lblHVTn.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblHVTn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHVTn.setBounds(807, 0, 120, 50);
+		lblHVTn.setBounds(804, 0, 120, 50);
 		panel_1.add(lblHVTn);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 196, 1588, 555);
+		pnKhachHang.add(panel_2);
 		
 
 	}
-
 }
