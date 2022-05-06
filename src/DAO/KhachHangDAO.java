@@ -5,8 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +44,7 @@ public class KhachHangDAO {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		KhachHang_DAO khDAO = new KhachHang_DAO();
 		KhachHang kh = new KhachHang("KH018", "Dat", Date.valueOf("2012-01-01"), "12312", "123", "false");
-		System.out.println(khDAO.addKH(kh));
-		
-		
+		System.out.println(khDAO.addKH(kh));	
 	}
 	
 }
