@@ -6,15 +6,26 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import DAO.HangXe_DAO;
+import DAO.KhachHang_DAO;
+import Model.KhachHangModel;
 
 public class FrmHangXe extends JInternalFrame {
 
@@ -36,6 +47,11 @@ public class FrmHangXe extends JInternalFrame {
 
 	private JTextField txtTen;
 	private JTextField txtMaHX;
+	private Object table;
+	private JScrollPane scroll;
+	private HangXe_DAO hxDAO;
+	private DefaultTableModel dataModel;
+	private JTable table_1;
 
 	/**
 	 * Create the frame.
@@ -98,10 +114,7 @@ public class FrmHangXe extends JInternalFrame {
 		
 		JButton btnSua = new JButton("Sửa hãng xe");
 		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+	
 		btnSua.setBounds(470, 60, 138, 50);
 		panel_1.add(btnSua);
 		
@@ -129,7 +142,38 @@ public class FrmHangXe extends JInternalFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 196, 1588, 555);
 		pnKhachHang.add(panel_2);
+		hxDAO = new HangXe_DAO();
 		
-
+		
+//		panel_2.add(scroll = new JScrollPane(table = new JTable(tbl = new DefaultTableModel(header,0))));
+		table = new JTable();
+		JTableHeader header = ((JTable) table).getTableHeader();
+		header.setFont(new Font("Segoe UI", Font.BOLD , 26));
+		String[] tieude = {"Mã hãng xe","Tên hãng xe"};
+		panel_1.add(scroll = new JScrollPane(table_1 = new JTable(dataModel = new DefaultTableModel(tieude, 0))));
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnXoa.setEnabled(true);
+				int rowSelect = table_1.getSelectedRow();
+				String maHX = (String) table_1.getValueAt(rowSelect, 0);
+				String Ten = (String) table_1.getValueAt(rowSelect, 1);
+				
+				txtMaHX.setText(maHX);
+				txtTen.setText(Ten);
+				
+			}
+		});
+		table_1.setRowHeight(30);
+		scroll.setFont(new Font("Tahoma", Font.BOLD, 15));
+		JTableHeader tableHeader = table_1.getTableHeader();
+		tableHeader.setFont(new Font("Segoe UI", Font.BOLD , 16));
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		table_1.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		table_1.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		
+		
 	}
 }
