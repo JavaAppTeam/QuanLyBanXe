@@ -158,7 +158,7 @@ public class FrmTimKiemXe extends JFrame implements ActionListener, MouseListene
 
 		btnLoad = new JButton("");
 		btnLoad.setBackground(Color.WHITE);
-		btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/loading32.png")));
+		btnLoad.setIcon(new ImageIcon(FrmTimKiemXe.class.getResource("/image/synchronize_30px.png")));
 		btnLoad.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		btnLoad.setBounds(1436, 10, 59, 52);
 		panel_3.add(btnLoad);

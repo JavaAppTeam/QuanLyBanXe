@@ -193,7 +193,7 @@ public class FrmXe extends JInternalFrame implements ActionListener, MouseListen
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_1.setBounds(10, 403, 1508, 55);
-		panel_1.setBackground(new Color(255, 192, 203));
+		panel_1.setBackground(SystemColor.activeCaption);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
