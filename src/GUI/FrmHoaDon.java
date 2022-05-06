@@ -99,14 +99,13 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(null);
 		
-		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
-		frmHD_ThemHD.setBounds(204, 43, 1139, 510);
-		getContentPane().add(frmHD_ThemHD);
-		
 		pnShowCTHD = new JPanel();
 		pnShowCTHD.setBounds(420, 20, 619, 608);
 		getContentPane().add(pnShowCTHD);
 		pnShowCTHD.setLayout(new BorderLayout(0, 0));
+		
+		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
+		pnShowCTHD.add(frmHD_ThemHD, BorderLayout.NORTH);
 		pnShowCTHD.setVisible(false);
 		
 		JPanel panel = new JPanel();

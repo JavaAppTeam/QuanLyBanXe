@@ -17,6 +17,7 @@ public class Xe_DAO {
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
+
 	private void closeConnection() throws SQLException {
 		if (rs != null) {
 			rs.close();
@@ -28,29 +29,32 @@ public class Xe_DAO {
 			conn.close();
 		}
 	}
+
 	public Xe getXeMaXe(String maxe, int soluong, int giatien) throws SQLException {
 		Xe xe = null;
 		try {
 			conn = connectDB.getConnection();
-			String sql = "select x.TenXe, x.DungTich, ctx.SoKhung, ctx.SoMay, ctx.MaXe from Xe x join ChiTietXe ctx on x.IDXe = ctx.IDXe  where ctx.MaXe="+"'"+maxe+"'";
+			String sql = "select x.TenXe, x.DungTich, ctx.SoKhung, ctx.SoMay, ctx.MaXe from Xe x join ChiTietXe ctx on x.IDXe = ctx.IDXe  where ctx.MaXe="
+					+ "'" + maxe + "'";
 			stmt = conn.createStatement();
-			rs =stmt.executeQuery(sql);
+			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				String maxes = rs.getString("MaXe");
 				String tenxe = rs.getString("TenXe");
 				String sokhung = rs.getString("SoKhung");
 				String somay = rs.getString("SoMay");
 				String dungtich = rs.getString("DungTich");
-				xe = new Xe(maxes,tenxe,soluong,sokhung,somay,dungtich,giatien);
-				}
+				xe = new Xe(maxes, tenxe, soluong, sokhung, somay, dungtich, giatien);
+			}
 			return xe;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			closeConnection();
 		}
 		return null;
 	}
+
 	public List<Xe> getListXeOnMaHD(String maHDFrmHD) throws ClassNotFoundException, SQLException {
 		Xe xe = null;
 		List<Xe> dsXe = new ArrayList<Xe>();
@@ -61,17 +65,17 @@ public class Xe_DAO {
 					+ "						   join ChiTietHoaDon cthd on hd.MaHoaDon=cthd.MaHoaDon\r\n"
 					+ "						   join ChiTietXe ctx on cthd.MaXe=ctx.MaXe\r\n"
 					+ "						   join Xe x on x.IDXe=ctx.IDXe\r\n"
-					+ "						   where cthd.MaHoaDon="+"'"+maHDFrmHD+"'";
-			
+					+ "						   where cthd.MaHoaDon=" + "'" + maHDFrmHD + "'";
+
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			while(rs.next()) {
+			while (rs.next()) {
 				stt += 1;
 				String tenXe = rs.getString("TenXe");
 				int soLuong = rs.getInt("SoLuong");
 				float donGia = rs.getFloat("DonGia");
 				String tenKH = rs.getString("TenKH");
-				xe = new Xe(stt,tenXe,soLuong,donGia,tenKH);
+				xe = new Xe(stt, tenXe, soLuong, donGia, tenKH);
 				dsXe.add(xe);
 			}
 			return dsXe;
@@ -80,7 +84,7 @@ public class Xe_DAO {
 		}
 		return null;
 	}
-	
+
 	public List<Xe> getallSP() throws Exception {
 		List<Xe> lstXe = null;
 		try {
@@ -108,15 +112,26 @@ public class Xe_DAO {
 		}
 		return lstXe;
 	}
-	public List<Xe> getXeTheoDanhMuc(String tenXeTK, String maHangTK, String maLoaiXeTK) throws Exception {
+
+	public List<Xe> getXeTheoDanhMuc(String tenXeTK, String maHangTK, String maLoaiXeTK, boolean trangThai)
+			throws Exception {
 		List<Xe> lstXe = null;
+		int flat = 1;
+		String sql;
 		try {
 			Connection con = connectDB.getConnection();
-			String sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
-					+ " WHERE  (TenXe LIKE N'%"+ tenXeTK +"') AND"
-					+ " (MaHangXe LIKE '%"+ maHangTK +"') AND"
-					+ " (IDLoaiXe = "+ maLoaiXeTK +") AND"
-					+ " (trangthai = 1)";
+			if (!trangThai)
+				flat = 0;
+			if (maLoaiXeTK.isEmpty()) {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "%') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND"
+						+ " (trangthai = " + flat + ")";
+			} else {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND"
+						+ " (IDLoaiXe = " + maLoaiXeTK + ") AND" + " (trangthai = " + flat + ")";
+			}
+
 			java.sql.Statement statement = con.createStatement();
 			rs = ((java.sql.Statement) statement).executeQuery(sql);
 			lstXe = new ArrayList<>();
@@ -129,8 +144,8 @@ public class Xe_DAO {
 				double dungTich = rs.getDouble(6);
 				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
-				boolean trangThai = rs.getBoolean(9);
-				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
+				boolean trangThaiXe = rs.getBoolean(9);
+				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThaiXe));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -139,50 +154,27 @@ public class Xe_DAO {
 		}
 		return lstXe;
 	}
-	
-	public List<Xe> getXeTheoGiaTienDuoi20(String tenXeTK, String maHangTK, String maLoaiXeTK) throws Exception {
+
+	public List<Xe> getXeTheoGiaTienDuoi20(String tenXeTK, String maHangTK, String maLoaiXeTK, boolean trangThai) throws Exception {
 		List<Xe> lstXe = null;
+		int flat = 1;
+		String sql;
 		try {
 			Connection con = connectDB.getConnection();
-			String sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
-					+ " WHERE  (TenXe LIKE N'%"+ tenXeTK +"') AND"
-					+ " (MaHangXe LIKE '%"+ maHangTK +"') AND"
-					+ " (IDLoaiXe = "+ maLoaiXeTK +") AND"
-					+ " (GiaTien <= 20000000) AND"
-					+ " (trangthai = 1)";
-			java.sql.Statement statement =  con.createStatement();
-			rs = ((java.sql.Statement) statement).executeQuery(sql);
-			lstXe = new ArrayList<>();
-			while (rs.next()) {
-				int maXe = rs.getInt(1);
-				String tenXe = rs.getString(2);
-				String maHangXe = rs.getString(3);
-				String idLoaiXe = rs.getString(4);
-				double mucTieuThu = rs.getDouble(5);
-				double dungTich = rs.getDouble(6);
-				int giaTien = rs.getInt(7);
-				int soLuong = rs.getInt(8);
-				boolean trangThai = rs.getBoolean(9);
-				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
+			if (!trangThai)
+				flat = 0;
+			if (maLoaiXeTK.isEmpty() || maLoaiXeTK == null) {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "%') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND" +
+						" (GiaTien <= 20000000) AND"
+						+ " (trangthai = " + flat + ")";
+			} else {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND"
+						+ " (IDLoaiXe = " + maLoaiXeTK + ") AND" +
+						" (GiaTien <= 20000000) AND"+ 
+						" (trangthai = " + flat + ")";
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeConnection();
-		}
-		return lstXe;
-	}
-	
-	public List<Xe> getXeTheoGiaTienTu20TDen100T(String tenXeTK, String maHangTK, String maLoaiXeTK) throws Exception {
-		List<Xe> lstXe = null;
-		try {
-			Connection con = connectDB.getConnection();
-			String sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
-					+ " WHERE  (TenXe LIKE N'%"+ tenXeTK +"') AND"
-					+ " (MaHangXe LIKE '%"+ maHangTK +"') AND"
-					+ " (IDLoaiXe = "+ maLoaiXeTK +") AND"
-					+ " (GiaTien >= 20000000 AND GiaTien <= 100000000) AND"
-					+ " (trangthai = 1)";
 			java.sql.Statement statement = con.createStatement();
 			rs = ((java.sql.Statement) statement).executeQuery(sql);
 			lstXe = new ArrayList<>();
@@ -195,8 +187,8 @@ public class Xe_DAO {
 				double dungTich = rs.getDouble(6);
 				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
-				boolean trangThai = rs.getBoolean(9);
-				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
+				boolean trangThaiXe = rs.getBoolean(9);
+				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThaiXe));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,17 +197,27 @@ public class Xe_DAO {
 		}
 		return lstXe;
 	}
-	
-	public List<Xe> getXeTheoGiaTienTren100T(String tenXeTK, String maHangTK, String maLoaiXeTK) throws Exception {
+
+	public List<Xe> getXeTheoGiaTienTu20TDen100T(String tenXeTK, String maHangTK, String maLoaiXeTK, boolean trangThai) throws Exception {
 		List<Xe> lstXe = null;
+		int flat = 1;
+		String sql;
 		try {
 			Connection con = connectDB.getConnection();
-			String sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
-					+ " WHERE  (TenXe LIKE N'%"+ tenXeTK +"') AND"
-					+ " (MaHangXe LIKE '%"+ maHangTK +"') AND"
-					+ " (IDLoaiXe = "+ maLoaiXeTK +") AND"
-					+ " (GiaTien > 100000000) AND"
-					+ " (trangthai = 1)";
+			if (!trangThai)
+				flat = 0;
+			if (maLoaiXeTK.equals("")) {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "%') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND" +
+						" (GiaTien >= 20000000 AND GiaTien <= 100000000) AND"
+						+ " (trangthai = " + flat + ")";
+			} else {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND"
+						+ " (IDLoaiXe = " + maLoaiXeTK + ") AND" +
+						" (GiaTien >= 20000000 AND GiaTien <= 100000000) AND"+ 
+						" (trangthai = " + flat + ")";
+			}
 			java.sql.Statement statement = con.createStatement();
 			rs = ((java.sql.Statement) statement).executeQuery(sql);
 			lstXe = new ArrayList<>();
@@ -228,8 +230,51 @@ public class Xe_DAO {
 				double dungTich = rs.getDouble(6);
 				int giaTien = rs.getInt(7);
 				int soLuong = rs.getInt(8);
-				boolean trangThai = rs.getBoolean(9);
-				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThai));
+				boolean trangThaiXe = rs.getBoolean(9);
+				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThaiXe));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection();
+		}
+		return lstXe;
+	}
+
+	public List<Xe> getXeTheoGiaTienTren100T(String tenXeTK, String maHangTK, String maLoaiXeTK, boolean trangThai) throws Exception {
+		List<Xe> lstXe = null;
+		int flat = 1;
+		String sql;
+		try {
+			Connection con = connectDB.getConnection();
+			if (!trangThai)
+				flat = 0;
+			if (maLoaiXeTK.isEmpty()) {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "%') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND" +
+						" (GiaTien > 100000000) AND"
+						+ " (trangthai = " + flat + ")";
+			} else {
+				sql = "SELECT IDXe, TenXe, MaHangXe, IDLoaiXe, MucTieuThuNhienLieu, DungTich, GiaTien, SoLuongTon, trangthai FROM Xe"
+						+ " WHERE  (TenXe LIKE N'%" + tenXeTK + "') AND" + " (MaHangXe LIKE '%" + maHangTK + "') AND"
+						+ " (IDLoaiXe = " + maLoaiXeTK + ") AND" +
+						" (GiaTien > 100000000) AND"+ 
+						" (trangthai = " + flat + ")";
+			}
+			java.sql.Statement statement = con.createStatement();
+			rs = ((java.sql.Statement) statement).executeQuery(sql);
+			lstXe = new ArrayList<>();
+			while (rs.next()) {
+				int maXe = rs.getInt(1);
+				String tenXe = rs.getString(2);
+				String maHangXe = rs.getString(3);
+				String idLoaiXe = rs.getString(4);
+				double mucTieuThu = rs.getDouble(5);
+				double dungTich = rs.getDouble(6);
+				int giaTien = rs.getInt(7);
+				int soLuong = rs.getInt(8);
+				boolean trangThaiXe = rs.getBoolean(9);
+				lstXe.add(new Xe(maXe, soLuong, tenXe, maHangXe, idLoaiXe, mucTieuThu, dungTich, giaTien, trangThaiXe));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -118,8 +118,9 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public FrmHoaDon_ThemHoaDon() throws PropertyVetoException, SQLException {
+	public FrmHoaDon_ThemHoaDon() throws PropertyVetoException, SQLException, ClassNotFoundException {
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setTitle("Thêm Hóa Đơn");
 		this.setClosable(true);
@@ -253,7 +254,12 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		JButton btnNewButton_1_1 = new JButton("");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addHoaDonList();
+				try {
+					addHoaDonList();
+				} catch (ClassNotFoundException | SQLException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
 				NumberFormat format = NumberFormat.getInstance(Locale.US);    
 				Number number = null;
 				int giaTien = 0;
@@ -366,7 +372,13 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		JButton btnCheckSDT = new JButton("");
 		btnCheckSDT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				KhachHang_DAO khDao = new KhachHang_DAO();
+				KhachHang_DAO khDao = null;
+				try {
+					khDao = new KhachHang_DAO();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				String SDT = (java.lang.String) cbbSdtKH.getSelectedItem();
 				String tenKH = khDao.getTenFormSDT(SDT);
 				if(tenKH == null)
@@ -518,7 +530,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		}
 	}
 
-	protected void addHoaDonList() {
+	protected void addHoaDonList() throws SQLException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		HoaDon hDon;
 		KhachHang_DAO khDAO = new KhachHang_DAO();
@@ -602,7 +614,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		}
 	}
 
-	private void loadSdtKH() throws SQLException {
+	private void loadSdtKH() throws SQLException, ClassNotFoundException {
 		KhachHang_DAO kh = new KhachHang_DAO();
 		cbbSdtKH.removeAllItems();
 		for(KhachHang khachHang : kh.getAllSdtKH()) {
