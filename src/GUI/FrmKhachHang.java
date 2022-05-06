@@ -19,7 +19,6 @@ import DAO.KhachHangDAO;
 import DAO.KhachHang_DAO;
 import Entity.KhachHang;
 import Model.KhachHangModel;
-import entity.Sinhvien;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
