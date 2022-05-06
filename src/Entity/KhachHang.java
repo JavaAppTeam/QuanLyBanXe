@@ -1,68 +1,101 @@
 package Entity;
 
-import java.time.LocalDate;
+
+import java.sql.Date;
+import java.util.Objects;
 
 public class KhachHang {
+	String MaKH;
+	String TenKH;
+	Date NgaySinh;
+	String sdt;
+	String CMND;
+	String GioiTinh;
+	
+	@Override
+	public String toString() {
+		return "KhachHang [MaKH=" + MaKH + ", TenKH=" + TenKH + ", NgaySinh=" + NgaySinh + ", sdt=" + sdt + ", CMND="
+				+ CMND + ", GioiTinh=" + GioiTinh + "]";
+	}
 
-	private String maKH, tenKH, sdt,cmnd,gioiTinh;
-	private LocalDate ngaySinh;
-	public KhachHang() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public int hashCode() {
+		return Objects.hash(MaKH);
 	}
-	public KhachHang(String maKH, String tenKH, String sdt, String cmnd, String gioiTinh, LocalDate ngaySinh) {
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		KhachHang other = (KhachHang) obj;
+		return Objects.equals(MaKH, other.MaKH);
+	}
+
+	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {
 		super();
-		this.maKH = maKH;
-		this.tenKH = tenKH;
+		MaKH = maKH;
+		TenKH = tenKH;
+		NgaySinh = ngaySinh;
 		this.sdt = sdt;
-		this.cmnd = cmnd;
-		this.gioiTinh = gioiTinh;
-		this.ngaySinh = ngaySinh;
+		CMND = cMND;
+		GioiTinh = gioiTinh;
 	}
-	public KhachHang(String tenKH, String sdt, String cmnd, String gioiTinh, LocalDate ngaySinh) {
-		super();
-		this.tenKH = tenKH;
-		this.sdt = sdt;
-		this.cmnd = cmnd;
-		this.gioiTinh = gioiTinh;
-		this.ngaySinh = ngaySinh;
-	}
+
 	public String getMaKH() {
-		return maKH;
+		return MaKH;
 	}
+
 	public void setMaKH(String maKH) {
-		this.maKH = maKH;
+		MaKH = maKH;
 	}
+
 	public String getTenKH() {
-		return tenKH;
+		return TenKH;
 	}
+
 	public void setTenKH(String tenKH) {
-		this.tenKH = tenKH;
+		TenKH = tenKH;
 	}
+
+	public Date getNgaySinh() {
+		return NgaySinh;
+	}
+
+	public void setNgaySinh(Date ngaySinh) {
+		NgaySinh = ngaySinh;
+	}
+
 	public String getSdt() {
 		return sdt;
 	}
+
 	public void setSdt(String sdt) {
 		this.sdt = sdt;
 	}
-	public String getCmnd() {
-		return cmnd;
+
+	public String getCMND() {
+		return CMND;
 	}
-	public void setCmnd(String cmnd) {
-		this.cmnd = cmnd;
+
+	public void setCMND(String cMND) {
+		CMND = cMND;
 	}
+
 	public String getGioiTinh() {
-		return gioiTinh;
+		return GioiTinh;
 	}
+
 	public void setGioiTinh(String gioiTinh) {
-		this.gioiTinh = gioiTinh;
+		GioiTinh = gioiTinh;
 	}
-	public LocalDate getNgaySinh() {
-		return ngaySinh;
-	}
-	public void setNgaySinh(LocalDate ngaySinh) {
-		this.ngaySinh = ngaySinh;
-	}
+
 	
+
+
 	
 
 }

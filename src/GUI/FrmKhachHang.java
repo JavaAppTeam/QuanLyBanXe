@@ -14,8 +14,17 @@ import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import Entity.KhachHang;
+import dao.KhachHangDAO;
+import model.KhachHangModel;
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -29,34 +38,42 @@ public class FrmKhachHang extends JInternalFrame {
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
-	private JTextField textField;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_9;
-	private JTextField textField_10;
+	private JTextField txtKh;
+	private JTextField txtCMND;
+	private JTextField txtSDT;
+	private JTextField txtTen;
+	private JTextField txtNS;
 	private JTable table;
-	private DefaultTableModel dataModel;
+	private KhachHangModel dataModel;
+	private JScrollPane scroll;
+	private JComboBox cboGT;
 
 	/**
 	 * Launch the application.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					FrmKhachHang frame = new FrmKhachHang();
 					frame.setVisible(true);
+					System.out.println("hi");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
 	}
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public FrmKhachHang() {
+	public FrmKhachHang() throws ClassNotFoundException, SQLException {
 		setFocusCycleRoot(true);
 		setFocusable(true);
 		setFocusCycleRoot(true);
@@ -95,11 +112,12 @@ public class FrmKhachHang extends JInternalFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(10, 0, 120, 50);
 		panel_1.add(lblNewLabel);
-		textField = new JTextField();
-		lblNewLabel.setLabelFor(textField);
-		textField.setBounds(132, 0, 388, 50);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		txtKh = new JTextField();
+		txtKh.setText("KH021");
+		lblNewLabel.setLabelFor(txtKh);
+		txtKh.setBounds(132, 0, 388, 50);
+		panel_1.add(txtKh);
+		txtKh.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("CMND: ");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -107,11 +125,12 @@ public class FrmKhachHang extends JInternalFrame {
 		lblNewLabel_2.setBounds(10, 60, 120, 50);
 		panel_1.add(lblNewLabel_2);
 		
-		textField_4 = new JTextField();
-		lblNewLabel_2.setLabelFor(textField_4);
-		textField_4.setColumns(10);
-		textField_4.setBounds(132, 60, 388, 50);
-		panel_1.add(textField_4);
+		txtCMND = new JTextField();
+		txtCMND.setText("123123123");
+		lblNewLabel_2.setLabelFor(txtCMND);
+		txtCMND.setColumns(10);
+		txtCMND.setBounds(132, 60, 388, 50);
+		panel_1.add(txtCMND);
 		
 		JLabel lblNewLabel_3 = new JLabel("Số điện thoại: ");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -119,13 +138,23 @@ public class FrmKhachHang extends JInternalFrame {
 		lblNewLabel_3.setBounds(10, 120, 120, 50);
 		panel_1.add(lblNewLabel_3);
 		
-		textField_5 = new JTextField();
-		lblNewLabel_3.setLabelFor(textField_5);
-		textField_5.setColumns(10);
-		textField_5.setBounds(132, 120, 388, 50);
-		panel_1.add(textField_5);
+		txtSDT = new JTextField();
+		txtSDT.setText("0913121213");
+		lblNewLabel_3.setLabelFor(txtSDT);
+		txtSDT.setColumns(10);
+		txtSDT.setBounds(132, 120, 388, 50);
+		panel_1.add(txtSDT);
 		
 		JButton btnNewButton = new JButton("Thêm khách hàng");
+		btnNewButton.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				String gt = cboGT.getSelectedIndex()==0?"Nam":"Nữ";
+				KhachHang  kh = new KhachHang(txtKh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+				System.out.println(kh);
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.setBounds(132, 180, 170, 50);
 		panel_1.add(btnNewButton);
@@ -154,20 +183,24 @@ public class FrmKhachHang extends JInternalFrame {
 		btnNewButton_1_4.setBounds(1128, 180, 159, 50);
 		panel_1.add(btnNewButton_1_4);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(640, 0, 388, 50);
-		panel_1.add(textField_9);
+		txtTen = new JTextField();
+		txtTen.setText("Dat");
+		txtTen.setColumns(10);
+		txtTen.setBounds(640, 3, 388, 50);
+		panel_1.add(txtTen);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(640, 60, 388, 50);
-		panel_1.add(textField_10);
+		txtNS = new JTextField();
+		txtNS.setText("2001-10-10");
+		txtNS.setColumns(10);
+		txtNS.setBounds(640, 60, 388, 50);
+		panel_1.add(txtNS);
 		
-		JList list = new JList();
-		list.setBorder(new EmptyBorder(2, 2, 2, 2));
-		list.setBounds(640, 120, 388, 50);
-		panel_1.add(list);
+		cboGT = new JComboBox();
+		cboGT.addItem("Nam");
+		cboGT.addItem("Nữ");
+		cboGT.setBorder(new EmptyBorder(2, 2, 2, 2));
+		cboGT.setBounds(640, 120, 388, 50);
+		panel_1.add(cboGT);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("Giới Tính: ");
 		lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -187,13 +220,20 @@ public class FrmKhachHang extends JInternalFrame {
 		lblHVTn.setBounds(521, 0, 120, 50);
 		panel_1.add(lblHVTn);
 		
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 301, 1360, 380);
+		pnKhachHang.add(panel_2);
+		panel_2.setLayout(new BorderLayout(0, 0));
 
-		table = new JTable();
-		JTableHeader tableHeader = table.getTableHeader();
-		tableHeader.setFont(new Font("Segoe UI", Font.BOLD , 16));
-		String[] tieuDe = { "Mã khách hàng ", "CMND", "Số điện thoại", "Họ và tên", "Ngày sinh", "Giới tính"};
-		JScrollPane scroll;
-		panel_1.add(scroll = new JScrollPane(table = new JTable(dataModel = new DefaultTableModel(tieuDe, 0))));
+		KhachHangDAO khDAO = new KhachHangDAO();
+		panel_2.add(scroll = new JScrollPane(table = new JTable(dataModel = new KhachHangModel(khDAO.getAll()))));
+		table.setBackground(Color.WHITE);
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
+		table.setFillsViewportHeight(true);
+		
+		
+		
 		
 
 	}

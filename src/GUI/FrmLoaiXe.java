@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.sql.Connection;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
@@ -39,6 +41,18 @@ public class FrmLoaiXe extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FrmLoaiXe() {
+		doShow();
+		addControl();
+		
+
+	}
+
+	private void addControl() {
+		
+		
+	}
+
+	private void doShow() {
 		setTitle("Quản lý loại xe");
 		getContentPane().setBackground(new Color(255, 192, 203));
 		setFocusCycleRoot(true);
@@ -121,7 +135,7 @@ public class FrmLoaiXe extends JInternalFrame {
 		pnTable.add(tblLoaiXe);
 		setResizable(true);
 		setBounds(-5, -26, 1372, 710);
-
+		
 	}
 
 }
