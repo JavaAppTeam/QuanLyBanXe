@@ -45,6 +45,12 @@ public class KhachHang {
 		GioiTinh = gioiTinh;
 	}
 
+	public KhachHang(String ma,String sdt) {
+		this.MaKH  = ma;
+	}
+	public KhachHang(String sdt) {
+		this.sdt  = sdt;
+	}
 	public String getMaKH() {
 		return MaKH;
 	}

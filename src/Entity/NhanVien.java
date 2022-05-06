@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class NhanVien {
 
-	private String maNhanVien,tenNhanVien,cmnd,sdt,maChucVu,hinhAnh,bacTho;
+	private String maNhanVien,tenNhanVien,cmnd,sdt,maChucVu,bacTho;
 	private LocalDate ngaySinh,ngayVaoLam;
 	private int trinhDoHocVan,soNamKinhNghiem;
 	private boolean trangThai;
@@ -13,7 +13,7 @@ public class NhanVien {
 		// TODO Auto-generated constructor stub
 	}
 
-	public NhanVien(String maNhanVien, String tenNhanVien, String cmnd, String sdt, String maChucVu, String hinhAnh,
+	public NhanVien(String maNhanVien, String tenNhanVien, String cmnd, String sdt, String maChucVu,
 			String bacTho, LocalDate ngaySinh, LocalDate ngayVaoLam, int trinhDoHocVan, int soNamKinhNghiem,
 			boolean trangThai) {
 		super();
@@ -22,7 +22,6 @@ public class NhanVien {
 		this.cmnd = cmnd;
 		this.sdt = sdt;
 		this.maChucVu = maChucVu;
-		this.hinhAnh = hinhAnh;
 		this.bacTho = bacTho;
 		this.ngaySinh = ngaySinh;
 		this.ngayVaoLam = ngayVaoLam;
@@ -31,20 +30,23 @@ public class NhanVien {
 		this.trangThai = trangThai;
 	}
 
-	public NhanVien(String tenNhanVien, String cmnd, String sdt, String maChucVu, String hinhAnh, String bacTho,
+	public NhanVien(String tenNhanVien, String cmnd, String sdt, String maChucVu, String bacTho,
 			LocalDate ngaySinh, LocalDate ngayVaoLam, int trinhDoHocVan, int soNamKinhNghiem, boolean trangThai) {
 		super();
 		this.tenNhanVien = tenNhanVien;
 		this.cmnd = cmnd;
 		this.sdt = sdt;
 		this.maChucVu = maChucVu;
-		this.hinhAnh = hinhAnh;
 		this.bacTho = bacTho;
 		this.ngaySinh = ngaySinh;
 		this.ngayVaoLam = ngayVaoLam;
 		this.trinhDoHocVan = trinhDoHocVan;
 		this.soNamKinhNghiem = soNamKinhNghiem;
 		this.trangThai = trangThai;
+	}
+
+	public NhanVien(String maNV) {
+		this.maNhanVien = maNV;
 	}
 
 	public String getMaNhanVien() {
@@ -85,14 +87,6 @@ public class NhanVien {
 
 	public void setMaChucVu(String maChucVu) {
 		this.maChucVu = maChucVu;
-	}
-
-	public String getHinhAnh() {
-		return hinhAnh;
-	}
-
-	public void setHinhAnh(String hinhAnh) {
-		this.hinhAnh = hinhAnh;
 	}
 
 	public String getBacTho() {

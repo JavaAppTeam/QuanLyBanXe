@@ -26,6 +26,10 @@ public class CuaHang {
 		this.hotLine = hotLine;
 	}
 
+	public CuaHang(String maCH) {
+		this.maCuaHang = maCH;
+	}
+
 	public String getMaCuaHang() {
 		return maCuaHang;
 	}
