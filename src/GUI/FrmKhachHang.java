@@ -15,7 +15,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import DAO.KhachHangDAO;
 import DAO.KhachHang_DAO;
 import Entity.KhachHang;
 import Model.KhachHangModel;
