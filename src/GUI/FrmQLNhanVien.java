@@ -42,6 +42,8 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	private JPanel contentPane;
 	private JTextField txtHoVaTenNV;
 	private JTextField txtNgaySinhNV;
@@ -55,11 +57,12 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 	private JTable tblThongTinNV;
 	private JCheckBox chbTrangThai;
 	private JComboBox cbbChucVu;
-	private JButton btnLuuNV,btnXoaTrangNV,btnXoaNV,btnSuaNV,btnThemNV;
+	private JButton btnTimNV,btnXoaTrangNV,btnXoaNV,btnSuaNV,btnThemNV;
 	private NhanVien_DAO nvDAO = new NhanVien_DAO();
 	String[] col = {"Họ và tên", "CMND", "Ngày sinh", "SDT", "Mã chức vụ", "Bậc", "Ngày vào làm",
 			"Trình độ học vấn","Năm kinh nghiệm","Trạng thái" };
 	private JLabel lblTrngThi;
+	private JTextField txtTimKiem;
 	
 	/**
 	 * Launch the application.
@@ -115,7 +118,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnSuaNV.addActionListener(this);
 		btnXoaNV.addActionListener(this);
 		btnXoaTrangNV.addActionListener(this);
-		btnLuuNV.addActionListener(this);
+		btnTimNV.addActionListener(this);
 	
 
 	}
@@ -147,7 +150,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		
 		JPanel pnControlTrai = new JPanel();
 		pnControlTrai.setBackground(new Color(255, 192, 203));
-		pnControlTrai.setBounds(0, 0, 668, 220);
+		pnControlTrai.setBounds(0, 0, 668, 206);
 		pnControlTrai.setLayout(null);
 		
 		JLabel lblCMND = new JLabel("CMND");
@@ -196,7 +199,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		
 		JPanel pnControlPhai = new JPanel();
 		pnControlPhai.setBackground(new Color(255, 192, 203));
-		pnControlPhai.setBounds(669, 0, 681, 220);
+		pnControlPhai.setBounds(669, 0, 681, 206);
 		pnControlPhai.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		pnControlPhai.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		pnControlPhai.setLayout(null);
@@ -274,14 +277,14 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnThemNV = new JButton("Thêm nhân viên");
 		btnThemNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThemNV.setBackground(Color.LIGHT_GRAY);
-		btnThemNV.setBounds(10, 249, 240, 39);
+		btnThemNV.setBounds(10, 216, 240, 39);
 		pnContext.add(btnThemNV);
 		
 		btnSuaNV  = new JButton("Sửa nhân viên");
 		btnSuaNV.setEnabled(false);
 		btnSuaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSuaNV.setBackground(Color.LIGHT_GRAY);
-		btnSuaNV.setBounds(277, 249, 240, 39);
+		btnSuaNV.setBounds(10, 260, 240, 39);
 		pnContext.add(btnSuaNV);
 		
 		
@@ -289,20 +292,26 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnXoaNV.setEnabled(false);
 		btnXoaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaNV.setBackground(Color.LIGHT_GRAY);
-		btnXoaNV.setBounds(562, 249, 240, 39);
+		btnXoaNV.setBounds(320, 260, 240, 39);
 		pnContext.add(btnXoaNV);
 		
 		btnXoaTrangNV = new JButton("Xoá trắng");
 		btnXoaTrangNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaTrangNV.setBackground(Color.LIGHT_GRAY);
-		btnXoaTrangNV.setBounds(839, 249, 240, 39);
+		btnXoaTrangNV.setBounds(320, 216, 240, 39);
 		pnContext.add(btnXoaTrangNV);
 		
-		btnLuuNV = new JButton("Lưu");
-		btnLuuNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnLuuNV.setBackground(Color.LIGHT_GRAY);
-		btnLuuNV.setBounds(1110, 249, 240, 39);
-		pnContext.add(btnLuuNV);
+		btnTimNV = new JButton("Tìm");
+		btnTimNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnTimNV.setBackground(Color.LIGHT_GRAY);
+		btnTimNV.setBounds(1110, 240, 176, 35);
+		pnContext.add(btnTimNV);
+		
+		txtTimKiem = new JTextField();
+		txtTimKiem.setColumns(10);
+		txtTimKiem.setBackground(Color.WHITE);
+		txtTimKiem.setBounds(672, 240, 428, 35);
+		pnContext.add(txtTimKiem);
 		
 		// ==================== TABLE ==================
 		JPanel pnTable = new JPanel();
@@ -415,23 +424,38 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		Object obj = e.getSource();
 		if (obj.equals(btnThemNV))
 		{
-			try {
-				txtHoVaTenNV.setText(null);
-				txtCMNDNV.setText(null);
-				txtNgaySinhNV.setText(null);
-				txtSDTNV.setText(null);
-				txtBacNV.setText(null);
-				txtNgayVaoLamNV.setText(null);
-				txtTrinhDoHocVanNV.setText(null);
-				txtNamKinhNghiemNV.setText(null);
-	
-	
-				chbTrangThai.setSelected(false);
-				btnSuaNV.setEnabled(false);
-				btnXoaNV.setEnabled(false);
-				} catch (Exception e1) {
+			NhanVien_DAO nvDao = new NhanVien_DAO();
+			if(kiemTraRong()) {
+				NhanVien nvm = taoNhanVien();
+				String nSinhTemp = nvm.getNgaySinh()+"";
+				String nSinh = LocalDate.parse(nSinhTemp, formatter)+"";
+				String nVaoLamTemp = nvm.getNgayVaoLam()+"";
+				String nVaoLam = LocalDate.parse(nVaoLamTemp, formatter)+"";
+				try {
+					nvDao.themNV(nvm.getTenNhanVien(),nvm.getCmnd(),nvm.getSdt(),nvm.getMaChucVu(),nvm.getBacTho(),nSinh,nVaoLam,nvm.getTrinhDoHocVan(),nvm.getSoNamKinhNghiem(),nvm.isTrangThai());
+				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					
+				}
+			try {
+				loadDatatoTable();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+			else
+			{
+		        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		        JOptionPane.showMessageDialog(frame,
+		                "Bạn không được để rỗng",
+		                "Thêm Thất Bại",
+		                JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if (obj.equals(btnXoaTrangNV))
@@ -455,12 +479,53 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 					e1.printStackTrace();
 			}
 		}
-		if (obj.equals(btnLuuNV)) {
+		if (obj.equals(btnSuaNV)) {
 			NhanVien_DAO nvDao = new NhanVien_DAO();
+			if(kiemTraRong()) {
+				NhanVien nvm = taoNhanVien();
+				String maNV = null;
+				try {
+					maNV = nvDao.getMaNV(txtSDTNV.getText());
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				String nSinhTemp = nvm.getNgaySinh()+"";
+				String nSinh = LocalDate.parse(nSinhTemp, formatter)+"";
+				String nVaoLamTemp = nvm.getNgayVaoLam()+"";
+				String nVaoLam = LocalDate.parse(nVaoLamTemp, formatter)+"";
+				try {
+					nvDao.suanv(maNV,nvm.getTenNhanVien(),nvm.getCmnd(),nvm.getSdt(),nvm.getMaChucVu(),nvm.getBacTho(),nSinh,nVaoLam,nvm.getTrinhDoHocVan(),nvm.getSoNamKinhNghiem(),nvm.isTrangThai());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					
+				}
+			try {
+				loadDatatoTable();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			}
+			else
+			{
+		        JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+		        JOptionPane.showMessageDialog(frame,
+		                "Bạn không được để rỗng",
+		                "Thêm Thất Bại",
+		                JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+		if (obj.equals(btnTimNV)) {
 			
 			
 		}
 		
 	}
-	
 }

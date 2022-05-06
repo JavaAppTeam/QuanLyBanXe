@@ -1,6 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,10 @@ public class KhachHang_DAO {
 	Connection conn;
 	Statement stmt;
 	ResultSet rs;
+	List<KhachHang> lstKhachHang;
+	public KhachHang_DAO() throws ClassNotFoundException, SQLException {
+		lstKhachHang = new ArrayList<KhachHang>();
+	}
 	private void closeConnection() throws SQLException {
 		if (rs != null) {
 			rs.close();
@@ -24,6 +29,18 @@ public class KhachHang_DAO {
 		if (conn != null) {
 			conn.close();
 		}
+	}
+	public List<KhachHang> getAll() throws SQLException, ClassNotFoundException {
+		conn = connectDB.getConnection();
+		PreparedStatement ps = conn.prepareStatement("select * from [QuanLyCuaHangXe].[dbo].[KhachHang]");
+		ResultSet rs  = ps.executeQuery();
+		while(rs.next()) {
+			String gt =  rs.getBoolean("GioiTinh")?"Nam":"Nữ";
+			KhachHang kh= new KhachHang(rs.getString("MaKH"), rs.getString("TenKH"), rs.getDate("NgaySinh"),  rs.getString("SoDienThoai"),  rs.getString("CMND"), gt); 
+			this.lstKhachHang.add(kh);
+		}
+		closeConnection();
+		return this.lstKhachHang;
 	}
 	public List<KhachHang> getAllSdtKH() throws SQLException {
 		// TODO Auto-generated method stub
@@ -47,7 +64,46 @@ public class KhachHang_DAO {
 		}
 		return dsKH;
 	}
-	public String getKHTheoSDT(String sdt) {
+	public boolean addKH(KhachHang kh) throws SQLException, ClassNotFoundException {
+		conn = connectDB.getConnection();
+		PreparedStatement ps = conn.prepareStatement("insert into [QuanLyCuaHangXe].[dbo].[KhachHang] values (?,?,?,?,?,?)");
+		ps.setString(1, kh.getMaKH());
+		ps.setString(2, kh.getTenKH());
+		ps.setString(3, kh.getNgaySinh().toString());
+		ps.setString(4, kh.getSdt());
+		ps.setString(5, kh.getCMND());
+		String gt = kh.getGioiTinh()=="Nam"?"true":"false";
+		ps.setString(6, gt);
+		
+		int rs = ps.executeUpdate();
+		closeConnection();
+		return rs ==1?true:false;
+	}
+	public boolean updateKH(KhachHang kh) throws SQLException, ClassNotFoundException {
+		conn = connectDB.getConnection();
+		PreparedStatement ps = conn.prepareStatement("update [QuanLyCuaHangXe].[dbo].[KhachHang] set TenKH = ?,NgaySinh = ?, SoDienThoai = ?, CMND = ?, GioiTinh =? where MaKH ='KH008'; ");
+		ps.setString(1, kh.getMaKH());
+		ps.setString(2, kh.getTenKH());
+		ps.setString(3, kh.getNgaySinh().toString());
+		ps.setString(4, kh.getSdt());
+		ps.setString(5, kh.getCMND());
+		String gt = kh.getGioiTinh()=="Nam"?"true":"false";
+		ps.setString(6, gt);
+		
+		int rs = ps.executeUpdate();
+		closeConnection();
+		return rs ==1?true:false;
+		}
+	public boolean deleteKH(String maKH) throws ClassNotFoundException, SQLException {
+		conn = connectDB.getConnection();
+		PreparedStatement ps = conn.prepareStatement("delete * from [QuanLyCuaHangXe].[dbo].[KhachHang] where MaKH = ?");
+		ps.setString(0, maKH);
+		int rs = ps.executeUpdate();
+		closeConnection();
+		return rs ==1?true:false;
+	}
+
+	public String getKHTheoSDT(String sdt) throws SQLException {
 		//KhachHang kh;
 		try {
 			conn = connectDB.getConnection();
@@ -60,10 +116,12 @@ public class KhachHang_DAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			closeConnection();
 		}
 		return null;
 	}
-	public String getTenToMaKH(String maKH) {
+	public String getTenToMaKH(String maKH) throws SQLException {
 		try {
 			conn = connectDB.getConnection();
 			String sql = "select TenKH from KhachHang where MaKH="+"'"+maKH+"'";
@@ -75,6 +133,8 @@ public class KhachHang_DAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			closeConnection();
 		}
 		return null;
 	}
