@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.print.DocFlavor.STRING;
 import javax.swing.BoxLayout;
@@ -56,7 +58,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 	private DefaultTableModel tblModelNV;
 	private JTable tblThongTinNV;
 	private JCheckBox chbTrangThai;
-	private JComboBox cbbChucVu;
+	private JComboBox cbbChucVu, cbbTimKiem;
 	private JButton btnTimNV,btnXoaTrangNV,btnXoaNV,btnSuaNV,btnThemNV;
 	private NhanVien_DAO nvDAO = new NhanVien_DAO();
 	String[] col = {"Họ và tên", "CMND", "Ngày sinh", "SDT", "Mã chức vụ", "Bậc", "Ngày vào làm",
@@ -92,28 +94,9 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		
 		loadDatatoTable();
 		loadCVNhanVien();
-		tblThongTinNV.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				btnThemNV.setEnabled(false);
-				btnSuaNV.setEnabled(true);
-				btnXoaNV.setEnabled(true);
-				int rowSelect = tblThongTinNV.getSelectedRow();
-				NhanVien temp = new NhanVien();
-				
-				temp.setTenNhanVien((String) tblThongTinNV.getValueAt(rowSelect, 0));
-				temp.setCmnd((String) tblThongTinNV.getValueAt(rowSelect, 1)); 
-				temp.setNgaySinh(LocalDate.parse((String) tblThongTinNV.getValueAt(rowSelect, 2).toString()));
-				temp.setSdt((String) tblThongTinNV.getValueAt(rowSelect, 3));
-				temp.setMaChucVu((String) tblThongTinNV.getValueAt(rowSelect, 4));
-				temp.setBacTho((String) tblThongTinNV.getValueAt(rowSelect, 5));
-				temp.setNgayVaoLam(LocalDate.parse((String) tblThongTinNV.getValueAt(rowSelect, 6).toString()));
-				temp.setTrinhDoHocVan( Integer.parseInt((String) tblThongTinNV.getValueAt(rowSelect, 7).toString()));
-				temp.setSoNamKinhNghiem( Integer.parseInt((String) tblThongTinNV.getValueAt(rowSelect, 8).toString()));
-				temp.setTrangThai(Boolean.parseBoolean((String) tblThongTinNV.getValueAt(rowSelect, 9).toString()));
-				loadDataToText(temp);
-			}
-		});
+		loadCBB();
+		ClickTable();
+		
 		btnThemNV.addActionListener(this);
 		btnSuaNV.addActionListener(this);
 		btnXoaNV.addActionListener(this);
@@ -310,8 +293,12 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		txtTimKiem = new JTextField();
 		txtTimKiem.setColumns(10);
 		txtTimKiem.setBackground(Color.WHITE);
-		txtTimKiem.setBounds(672, 240, 428, 35);
+		txtTimKiem.setBounds(669, 222, 428, 35);
 		pnContext.add(txtTimKiem);
+		
+		cbbTimKiem = new JComboBox();
+		cbbTimKiem.setBounds(669, 260, 428, 34);
+		pnContext.add(cbbTimKiem);
 		
 		// ==================== TABLE ==================
 		JPanel pnTable = new JPanel();
@@ -371,7 +358,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		txtTrinhDoHocVanNV.setText(nhanVien.getTrinhDoHocVan()+"");
 		txtNamKinhNghiemNV.setText(nhanVien.getSoNamKinhNghiem()+"");
 
-		if (!nhanVien.isTrangThai())
+		if (nhanVien.isTrangThai())
 			chbTrangThai.setSelected(true);
 		else
 			chbTrangThai.setSelected(false);
@@ -384,7 +371,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		for (NhanVien nhanVien : nvDAO.getalltbNhanVien()) {
 			String trangThai = "Đang làm";
 
-			if (nhanVien.isTrangThai())
+			if (!nhanVien.isTrangThai())
 				trangThai = "Nghỉ việc";
 
 			Object[] obj = { nhanVien.getTenNhanVien(), nhanVien.getCmnd(), nhanVien.getNgaySinh(), nhanVien.getSdt(), nhanVien.getMaChucVu(),
@@ -392,6 +379,37 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 			tblModelNV.addRow(obj);
 		}
 		tblThongTinNV.repaint();
+		
+	}
+	public void loadCBB() {
+		cbbTimKiem.addItem("Họ và tên");
+		cbbTimKiem.addItem("CMND");
+		cbbTimKiem.addItem("SDT");
+	}
+	public void ClickTable() {
+		tblThongTinNV.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnThemNV.setEnabled(false);
+				btnSuaNV.setEnabled(true);
+				btnXoaNV.setEnabled(true);
+				int rowSelect = tblThongTinNV.getSelectedRow();
+				NhanVien temp = new NhanVien();
+				
+				temp.setTenNhanVien((String) tblThongTinNV.getValueAt(rowSelect, 0));
+				temp.setCmnd((String) tblThongTinNV.getValueAt(rowSelect, 1)); 
+				temp.setNgaySinh(LocalDate.parse((String) tblThongTinNV.getValueAt(rowSelect, 2).toString()));
+				temp.setSdt((String) tblThongTinNV.getValueAt(rowSelect, 3));
+				temp.setMaChucVu((String) tblThongTinNV.getValueAt(rowSelect, 4));
+				temp.setBacTho((String) tblThongTinNV.getValueAt(rowSelect, 5));
+				temp.setNgayVaoLam(LocalDate.parse((String) tblThongTinNV.getValueAt(rowSelect, 6).toString()));
+				temp.setTrinhDoHocVan( Integer.parseInt((String) tblThongTinNV.getValueAt(rowSelect, 7).toString()));
+				temp.setSoNamKinhNghiem( Integer.parseInt((String) tblThongTinNV.getValueAt(rowSelect, 8).toString()));
+				boolean TempTrangThai = tblThongTinNV.getValueAt(rowSelect, 9).toString().equals("Đang làm")? true : false; 
+				temp.setTrangThai(TempTrangThai);
+				loadDataToText(temp);
+			}
+		});
 	}
 
 	private void loadCVNhanVien() throws SQLException {
@@ -417,6 +435,22 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		}
 		return true;
 			
+	}
+	public void loadTimKiemtoTable(List<NhanVien>  lstnhanVien) throws Exception {
+		tblThongTinNV.setModel(tblModelNV = new DefaultTableModel(col, 0));
+
+		for (NhanVien nhanVien : lstnhanVien) {
+			String trangThai = "Đang làm";
+
+			if (!nhanVien.isTrangThai())
+				trangThai = "Nghỉ việc";
+
+			Object[] obj = { nhanVien.getTenNhanVien(), nhanVien.getCmnd(), nhanVien.getNgaySinh(), nhanVien.getSdt(), nhanVien.getMaChucVu(),
+					nhanVien.getBacTho(), nhanVien.getNgayVaoLam(), nhanVien.getTrinhDoHocVan(), nhanVien.getSoNamKinhNghiem(), trangThai };
+			tblModelNV.addRow(obj);
+		}
+		tblThongTinNV.repaint();
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -522,10 +556,83 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 			}
 			
 		}
-		if (obj.equals(btnTimNV)) {
+		if (obj.equals(btnXoaNV)) {
+			NhanVien_DAO nvDao = new NhanVien_DAO();
+			String maNV = null;
+			try {
+				maNV = nvDao.getMaNV(txtSDTNV.getText());
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			try {
+				nvDao.xoaNV(maNV);
+			} catch (ClassNotFoundException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (SQLException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}	
+			try {
+				loadDatatoTable();
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 			
 		}
+		if (obj.equals(btnTimNV)) {
+			List<NhanVien> temp = null;
+			NhanVien_DAO nvDao = new NhanVien_DAO();
+			String timKiem = txtTimKiem.getText();
+			int tkiem = cbbTimKiem.getSelectedIndex();
+			if(tkiem==0)
+			{
+				try {
+					temp = nvDao.getTKTenNhanVien(timKiem);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			if(tkiem==1)
+			{
+
+				try {
+					temp = nvDao.getTKCMNDNhanVien(timKiem);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			if(tkiem==2)
+			{
+
+				try {
+					temp = nvDao.getTKSDTNhanVien(timKiem);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			if (temp==null)
+			{
+				showMessage("Không tìm thấy", txtTimKiem);
+			}
+			else
+			{
+				try {
+					loadTimKiemtoTable(temp);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+		}
+		
 		
 	}
 }
