@@ -46,4 +46,8 @@ public class KhachHangModel extends AbstractTableModel{
 		return kh;
 	
 	}
+	public Object getValueAt(int rowIndex) {
+		KhachHang kh = dskh.get(rowIndex);;
+		return kh;
+	}
 }

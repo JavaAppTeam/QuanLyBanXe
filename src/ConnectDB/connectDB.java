@@ -14,7 +14,7 @@ public static Connection getConnection() throws ClassNotFoundException, SQLExcep
 	Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyCuaHangXe","sa","sapassword");
 	if(conn!=null) {
-		System.out.println("Connect success");
+//		System.out.println("Connect success");
 	}
 	return conn;
 }
