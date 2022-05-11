@@ -20,7 +20,7 @@ public class KhachHang {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(MaKH);
+		return Objects.hash(MaKH,CMND,sdt);
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class KhachHang {
 		if (getClass() != obj.getClass())
 			return false;
 		KhachHang other = (KhachHang) obj;
-		return Objects.equals(MaKH, other.MaKH);
+		return Objects.equals(MaKH, other.MaKH)& Objects.equals(CMND, other.CMND)&Objects.equals(sdt, other.sdt);
 	}
 
 	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {

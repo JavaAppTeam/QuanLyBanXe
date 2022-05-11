@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -36,7 +37,7 @@ public class FrmHangXe extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmHangXe frame = new FrmHangXe();
+					FrmHangXe frame= new FrmHangXe();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -72,10 +73,6 @@ public class FrmHangXe extends JInternalFrame {
 		pnKhachHang.setLayout(null);
 		
 		
-		
-		
-	
-		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.PINK);
 		panel.setBounds(0, 0, 1588, 60);
@@ -95,11 +92,11 @@ public class FrmHangXe extends JInternalFrame {
 		JLabel lblNewLabel = new JLabel("Mã hãng xe: ");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(10, 0, 120, 50);
+		lblNewLabel.setBounds(133, 0, 120, 50);
 		panel_1.add(lblNewLabel);
 		txtMaHX = new JTextField();
 		lblNewLabel.setLabelFor(txtMaHX);
-		txtMaHX.setBounds(132, 0, 388, 50);
+		txtMaHX.setBounds(255, 0, 388, 50);
 		panel_1.add(txtMaHX);
 		txtMaHX.setColumns(10);
 		
@@ -130,27 +127,28 @@ public class FrmHangXe extends JInternalFrame {
 		
 		txtTen = new JTextField();
 		txtTen.setColumns(10);
-		txtTen.setBounds(926, 0, 388, 50);
+		txtTen.setBounds(1067, 0, 388, 50);
 		panel_1.add(txtTen);
 		
 		JLabel lblHVTn = new JLabel("Tên hãng xe: ");
 		lblHVTn.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblHVTn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHVTn.setBounds(804, 0, 120, 50);
+		lblHVTn.setBounds(945, 0, 120, 50);
 		panel_1.add(lblHVTn);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 196, 1588, 555);
+		panel_2.setBounds(166, 196, 1274, 555);
 		pnKhachHang.add(panel_2);
+		panel_2.setLayout(null);
 		hxDAO = new HangXe_DAO();
 		
 		
-//		panel_2.add(scroll = new JScrollPane(table = new JTable(tbl = new DefaultTableModel(header,0))));
 		table = new JTable();
 		JTableHeader header = ((JTable) table).getTableHeader();
 		header.setFont(new Font("Segoe UI", Font.BOLD , 26));
 		String[] tieude = {"Mã hãng xe","Tên hãng xe"};
-		panel_1.add(scroll = new JScrollPane(table_1 = new JTable(dataModel = new DefaultTableModel(tieude, 0))));
+		panel_2.add(scroll = new JScrollPane(table_1 = new JTable(dataModel = new DefaultTableModel(tieude, 0))));
+		scroll.setBounds(0, 0, 1558, 555);
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

@@ -21,6 +21,7 @@ import Model.KhachHangModel;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -39,7 +40,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.security.PublicKey;
 
-public class FrmKhachHang extends JInternalFrame implements ActionListener {
+public class FrmKhachHang extends JFrame implements ActionListener {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -60,8 +61,10 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 	private JButton btnSua;
 	private JButton btnXoa;
 	private JButton btnXT;
-	private JButton btnTADD;
+	private JButton btnTK;
 	private KhachHang_DAO khDAO;
+	private KhachHangModel dataModel1;
+	private JTextField txtTK;
 
 	/**
 	 * Launch the application.
@@ -74,7 +77,6 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 				try {
 					FrmKhachHang frame = new FrmKhachHang();
 					frame.setVisible(true);
-					System.out.println("hi");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -128,11 +130,11 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		lblNewLabel.setBounds(10, 0, 120, 50);
 		panel_1.add(lblNewLabel);
 		txtMkh = new JTextField();
+		txtMkh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtMkh.setText("KH021");
 		lblNewLabel.setLabelFor(txtMkh);
-		txtMkh.setBounds(132, 0, 388, 50);
+		txtMkh.setBounds(132, 0, 500, 50);
 		panel_1.add(txtMkh);
-		txtMkh.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("CMND: ");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -141,10 +143,11 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		panel_1.add(lblNewLabel_2);
 		
 		txtCMND = new JTextField();
-		txtCMND.setText("123123123");
+		txtCMND.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtCMND.setText("82181281");
 		lblNewLabel_2.setLabelFor(txtCMND);
 		txtCMND.setColumns(10);
-		txtCMND.setBounds(132, 60, 388, 50);
+		txtCMND.setBounds(132, 60, 500, 50);
 		panel_1.add(txtCMND);
 		
 		JLabel lblNewLabel_3 = new JLabel("Số điện thoại: ");
@@ -154,16 +157,17 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		panel_1.add(lblNewLabel_3);
 		
 		txtSDT = new JTextField();
+		txtSDT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtSDT.setText("0913121213");
 		lblNewLabel_3.setLabelFor(txtSDT);
 		txtSDT.setColumns(10);
-		txtSDT.setBounds(132, 120, 388, 50);
+		txtSDT.setBounds(132, 120, 500, 50);
 		panel_1.add(txtSDT);
 		
 		btnThem = new JButton("Thêm khách hàng");
 		
 		btnThem.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnThem.setBounds(132, 180, 170, 50);
+		btnThem.setBounds(40, 180, 170, 50);
 		panel_1.add(btnThem);
 		
 		btnSua = new JButton("Sửa khách hàng");
@@ -172,82 +176,93 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSua.setBounds(376, 180, 138, 50);
+		btnSua.setBounds(303, 180, 138, 50);
 		panel_1.add(btnSua);
 		
 		btnXoa = new JButton("Xóa khách hàng");
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXoa.setBounds(665, 180, 138, 50);
+		btnXoa.setBounds(530, 180, 138, 50);
 		panel_1.add(btnXoa);
 		
 		btnXT = new JButton("Xóa Trắng");
 		btnXT.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnXT.setBounds(981, 180, 138, 50);
+		btnXT.setBounds(755, 180, 138, 50);
 		panel_1.add(btnXT);
 		
-		btnTADD = new JButton("Thay ảnh đại diện");
-		btnTADD.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTADD.setBounds(1370, 180, 159, 50);
-		panel_1.add(btnTADD);
+		btnTK = new JButton("Tìm kiếm");
+		btnTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnTK.setBounds(1050, 180, 159, 50);
+		panel_1.add(btnTK);
 		
 		txtTen = new JTextField();
+		txtTen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTen.setText("Dat");
 		txtTen.setColumns(10);
-		txtTen.setBounds(864, 3, 388, 50);
+		txtTen.setBounds(1031, 3, 493, 50);
 		panel_1.add(txtTen);
 		
 		txtNS = new JTextField();
+		txtNS.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNS.setText("2001-10-10");
 		txtNS.setColumns(10);
-		txtNS.setBounds(864, 60, 388, 50);
+		txtNS.setBounds(1031, 60, 493, 50);
 		panel_1.add(txtNS);
 		
 		cboGT = new JComboBox();
+		cboGT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cboGT.addItem("Nữ");
 		cboGT.addItem("Nam");
 		
 		cboGT.setBorder(new EmptyBorder(2, 2, 2, 2));
-		cboGT.setBounds(864, 120, 388, 50);
+		cboGT.setBounds(1031, 120, 493, 50);
 		panel_1.add(cboGT);
 		
 		JLabel lblNewLabel_3_2 = new JLabel("Giới Tính: ");
 		lblNewLabel_3_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3_2.setBounds(745, 120, 120, 50);
+		lblNewLabel_3_2.setBounds(912, 120, 120, 50);
 		panel_1.add(lblNewLabel_3_2);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Ngày Sinh: ");
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_2_2.setBounds(745, 60, 120, 50);
+		lblNewLabel_2_2.setBounds(912, 60, 120, 50);
 		panel_1.add(lblNewLabel_2_2);
 		
 		JLabel lblHVTn = new JLabel("Họ và tên : ");
 		lblHVTn.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblHVTn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHVTn.setBounds(745, 0, 120, 50);
+		lblHVTn.setBounds(912, 0, 120, 50);
 		panel_1.add(lblHVTn);
+		
+		txtTK = new JTextField();
+		txtTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtTK.setColumns(10);
+		txtTK.setBounds(1227, 184, 351, 46);
+		panel_1.add(txtTK);
 		
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 301, 1588, 450);
 		pnKhachHang.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
-
+		
 		khDAO = new KhachHang_DAO();
-		panel_2.add(scroll = new JScrollPane(table = new JTable(dataModel = new KhachHangModel(khDAO.getAll()))));
+		panel_2.add(scroll = new JScrollPane(table = new JTable(dataModel = napDataFormSQL())));
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
 					List<KhachHang> dssv = khDAO.getAll();
 					int row  = table.getSelectedRow();
+				
 					if(row >=0 && row < dssv.size()) {
 						KhachHang  kh = dssv.get(row);
 						napKhachHang(kh);
 					}
 				}catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage());
+					System.out.println(ex);
 					return;
 			}
 		}
@@ -259,7 +274,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 				txtCMND.setText(kh.getCMND());
 				txtSDT.setText(kh.getSdt());
 				int inx =  kh.getGioiTinh() =="Nam" ?1:0;
-				cboGT.setSelectedIndex(inx+1);
+				cboGT.setSelectedIndex(inx);
 				
 				}	
 			});
@@ -271,15 +286,47 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		btnXoa.addActionListener(this);
 		btnSua.addActionListener(this);
 		btnXT.addActionListener(this);
-		btnTADD.addActionListener(this);
+		btnTK.addActionListener(this);
 	}
-	public boolean valid() {
-		boolean vlMkh = Pattern.matches("KH[0-9]{3}", txtMkh.getText());
-		boolean vlTen = Pattern.matches("[\\w+]", txtTen.getText());
-		boolean vlNS = Pattern.matches("^([0-9]{4}\\-[0-9]{2}\\-[0-9]{2})", txtNS.getText());
-		boolean vlCMND = Pattern.matches("[0-9]{8}",txtCMND.getText());
-		boolean vlSDT = Pattern.matches("[0-9]{10}", txtSDT.getText());
+	public KhachHangModel napDataFormSQL() throws ClassNotFoundException, SQLException{
+		KhachHang_DAO khDAO = new KhachHang_DAO();
+		dataModel = new KhachHangModel(khDAO.getAll());
+		return dataModel;
+	}
+	public boolean isDuplicate() {
+		String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
+		KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+		List<KhachHang> dssv;
+		try {
+			dssv = khDAO.getAll();
+			for (KhachHang i :dssv) {
+				if (i.equals(kh)) {
+					return true;
+				}
+			}
+		}
+		 catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	return false;
+	
 		
+		
+		
+		
+	}
+	public boolean iValid() {
+		boolean vlMkh = Pattern.matches("KH[0-9]{3}", txtMkh.getText());
+		boolean vlTen = Pattern.matches(".+", txtTen.getText());
+		boolean vlNS = Pattern.matches("^([0-9]{4}\\-[0-9]{2}\\-[0-9]{2})", txtNS.getText());
+		boolean vlCMND = Pattern.matches("[0-9]{8,9}",txtCMND.getText());
+		boolean vlSDT = Pattern.matches("0[0-9]{9}", txtSDT.getText());
+		
+		if(!checknull()) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ");
+		}
 		if (!vlMkh) {
 			JOptionPane.showMessageDialog(this, "Ma khach hang phai bat dau bang KH theo sau 3 ki tu so");
 			return false;
@@ -297,52 +344,78 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			return false;
 		}
 		if (!vlSDT) {
-			JOptionPane.showMessageDialog(this, "So dien thoai phai gom 10 ki tu so");
+			JOptionPane.showMessageDialog(this, "So dien thoai phai bat dau bang 0 va theo sau gom 9 ki tu so");
 			return false;
 		}
 		
+		
 		return true;
 	}
-	
-
+	public boolean checknull() {
+		if( txtMkh.getText()==""|
+			txtTen.getText()==""|
+			txtNS.getText()==""|
+			txtSDT.getText()==""|
+			txtCMND.getText()=="" ) 
+			return false;	
+		return true;
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if (o==btnThem) {
-			if ( valid()) {
-			String gt = cboGT.getSelectedIndex()==0?"Nam":"Nữ";
-			KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
-			try {
-				if(khDAO.addKH(kh)) {
-					JOptionPane.showMessageDialog(this, "Them Thanh Cong");
+			if ( iValid()) {
+				if(isDuplicate()) {
+					JOptionPane.showMessageDialog(this, "Không được trùng Mã khách hàng, CMND, số điện thoại");
 				}else {
-					JOptionPane.showMessageDialog(this, "Them That bai");
+
+			String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
+			KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+				try {
+					if(khDAO.addKH(kh)) {
+						table.setModel(napDataFormSQL());
+						JOptionPane.showMessageDialog(this, "Thêm thành công");
+					}else {
+						JOptionPane.showMessageDialog(this, "Thêm thất bại");
+					}
+				} catch (SQLException | HeadlessException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-			} catch (SQLException | HeadlessException | ClassNotFoundException e1) {
+				}
+			}
+		}
+		if(o == btnXoa) {
+			System.out.println("btnxoa click");
+			int row  = table.getSelectedRow();
+			
+			int col  = 0;
+			String makh = (String) table.getValueAt(row, col);
+			System.out.println(makh);
+			try {
+				if (!isDuplicate()) {
+					JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại");
+				}else {
+					if(khDAO.deleteKH(makh)==true){
+						JOptionPane.showMessageDialog(this, "Xoa Thanh Cong");
+					}else {
+						JOptionPane.showMessageDialog(this, "Xoa That bai");}
+					}
+			} catch (HeadlessException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-			
-		}
-		if(o == btnXoa) {
-			int row  = table.getSelectedRow();
-			String maKH = table.getValueAt(0, row).toString();
 			try {
-				if(khDAO.deleteKH(maKH)){
-					JOptionPane.showMessageDialog(this, "Xoa Thanh Cong");
-				}else {
-					JOptionPane.showMessageDialog(this, "Xoa That bai");
-				}
-			} catch (HeadlessException | ClassNotFoundException | SQLException e1) {
+				table.setModel(napDataFormSQL()); 
+			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		if (o==btnSua) {
-			if (valid()) {
-			String gt = cboGT.getSelectedIndex()==0?"Nam":"Nữ";
-			KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+			if (iValid()) {
+					String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
+					KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
 			try {
 				if(khDAO.updateKH(kh)){
 					JOptionPane.showMessageDialog(this, "Sua Thanh Cong");
@@ -352,9 +425,43 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			} catch (HeadlessException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				}
+			}
+			try {
+				table.setModel(napDataFormSQL()); 
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
+		if (o==btnXT) {
+			clear();
 		}
+		if (o == btnTK) {
+			String maTK = txtTK.getText();
+			if(maTK.equals("")){
+				try {
+					table.setModel(napDataFormSQL());
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+				JOptionPane.showMessageDialog(this, "vui long nhap khach hang muon tim");
+				
+			}else {
+				dataModel = new KhachHangModel(khDAO.findKH(maTK));
+				table.setModel(dataModel); 
+			}
+			
+		}
+	}
+
+	private void clear() {
+		txtMkh.setText("");
+		txtTen.setText("");
+		txtNS.setText("");
+		txtSDT.setText("");
+		txtCMND.setText("");
 		
 	}
 }
