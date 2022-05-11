@@ -61,7 +61,7 @@ public class NhanVien_DAO {
 				String maCuaHang =rs.getString(8);
 				String ngayVaoLam =rs.getString(9);
 				String trinhDoHocVan = rs.getString(10) == null ? "0" : rs.getString(10);
-				String bacTho =rs.getString(11) == null ? "Tho moi" : rs.getString(11);
+				String bacTho =rs.getString(11) == null ? "Thợ Mới" : rs.getString(11);
 				String soNamKinhNghiem = rs.getString(12) == null ? "0" : rs.getString(12);
 				boolean trangThai =rs.getString(13).equals("1")? true : false;
 				
@@ -276,6 +276,11 @@ public class NhanVien_DAO {
 			i = statement.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+			JFrame frame = new JFrame("JOptionPane showMessageDialog example");
+	        JOptionPane.showMessageDialog(frame,
+	                "Cập nhập thông tin ",
+	                "Cập nhập thất Bại",
+	                JOptionPane.ERROR_MESSAGE);
 		}
 		return i > 0;
 	}
