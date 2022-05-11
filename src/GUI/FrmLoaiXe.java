@@ -32,7 +32,7 @@ import DAO.LoaiXeDao;
 import Entity.HangXe;
 import Entity.LoaiXe;
 
-public class FrmLoaiXe extends JFrame implements ActionListener, MouseListener {
+public class FrmLoaiXe extends JInternalFrame implements ActionListener, MouseListener {
 
 	/**
 	 * Launch the application.

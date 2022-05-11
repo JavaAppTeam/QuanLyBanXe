@@ -41,7 +41,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 
-public class FrmQLNhanVien extends JFrame implements ActionListener {
+public class FrmQLNhanVien extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -119,7 +119,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 
 //		-======== INPUT ======================
 		JPanel lblTieuDe = new JPanel();
-		lblTieuDe.setBounds(0, 0, 1530, 62);
+		lblTieuDe.setBounds(0, 0, 1586, 62);
 		lblTieuDe.setBackground(new Color(255, 192, 203));
 		getContentPane().add(lblTieuDe);
 
@@ -129,7 +129,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		lblTieuDe.add(lblNewLabel);
 
 		JPanel pnContext = new JPanel();
-		pnContext.setBounds(10, 61, 1520, 310);
+		pnContext.setBounds(10, 61, 1566, 310);
 		pnContext.setBackground(new Color(255, 192, 203));
 		getContentPane().add(pnContext);
 
@@ -188,7 +188,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 
 		JPanel pnControlPhai = new JPanel();
 		pnControlPhai.setBackground(new Color(255, 192, 203));
-		pnControlPhai.setBounds(777, 0, 733, 206);
+		pnControlPhai.setBounds(777, 0, 779, 206);
 		pnControlPhai.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		pnControlPhai.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		pnControlPhai.setLayout(null);
@@ -230,28 +230,28 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		txtNamKinhNghiemNV.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtNamKinhNghiemNV.setBackground(Color.WHITE);
 		txtNamKinhNghiemNV.setColumns(10);
-		txtNamKinhNghiemNV.setBounds(175, 130, 548, 24);
+		txtNamKinhNghiemNV.setBounds(175, 130, 594, 24);
 		pnControlPhai.add(txtNamKinhNghiemNV);
 
 		txtBacNV = new JTextField();
 		txtBacNV.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtBacNV.setBackground(Color.WHITE);
 		txtBacNV.setColumns(10);
-		txtBacNV.setBounds(175, 90, 548, 24);
+		txtBacNV.setBounds(175, 90, 594, 24);
 		pnControlPhai.add(txtBacNV);
 
 		txtTrinhDoHocVanNV = new JTextField();
 		txtTrinhDoHocVanNV.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtTrinhDoHocVanNV.setBackground(Color.WHITE);
 		txtTrinhDoHocVanNV.setColumns(10);
-		txtTrinhDoHocVanNV.setBounds(175, 50, 548, 24);
+		txtTrinhDoHocVanNV.setBounds(175, 50, 594, 24);
 		pnControlPhai.add(txtTrinhDoHocVanNV);
 
 		txtNgayVaoLamNV = new JTextField();
 		txtNgayVaoLamNV.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtNgayVaoLamNV.setBackground(Color.WHITE);
 		txtNgayVaoLamNV.setColumns(10);
-		txtNgayVaoLamNV.setBounds(175, 10, 548, 24);
+		txtNgayVaoLamNV.setBounds(175, 10, 594, 24);
 		pnControlPhai.add(txtNgayVaoLamNV);
 
 		chbTrangThai = new JCheckBox("Làm");
@@ -272,7 +272,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnThemNV.setIcon(new ImageIcon(FrmQLNhanVien.class.getResource("/image/btnThem.png")));
 		btnThemNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThemNV.setBackground(Color.LIGHT_GRAY);
-		btnThemNV.setBounds(172, 216, 240, 39);
+		btnThemNV.setBounds(172, 216, 280, 39);
 		pnContext.add(btnThemNV);
 
 		btnSuaNV = new JButton("Sửa nhân viên");
@@ -280,7 +280,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnSuaNV.setEnabled(false);
 		btnSuaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSuaNV.setBackground(Color.LIGHT_GRAY);
-		btnSuaNV.setBounds(172, 260, 240, 39);
+		btnSuaNV.setBounds(172, 260, 280, 39);
 		pnContext.add(btnSuaNV);
 
 		btnXoaNV = new JButton("Xoá nhân viên");
@@ -288,21 +288,21 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		btnXoaNV.setEnabled(false);
 		btnXoaNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaNV.setBackground(Color.LIGHT_GRAY);
-		btnXoaNV.setBounds(429, 260, 240, 39);
+		btnXoaNV.setBounds(476, 260, 280, 39);
 		pnContext.add(btnXoaNV);
 
 		btnXoaTrangNV = new JButton("Xoá trắng");
 		btnXoaTrangNV.setIcon(new ImageIcon(FrmQLNhanVien.class.getResource("/image/btnXoaTrang.png")));
 		btnXoaTrangNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnXoaTrangNV.setBackground(Color.LIGHT_GRAY);
-		btnXoaTrangNV.setBounds(429, 216, 240, 39);
+		btnXoaTrangNV.setBounds(476, 216, 280, 39);
 		pnContext.add(btnXoaTrangNV);
 
 		btnTimNV = new JButton("Tìm kiếm");
 		btnTimNV.setIcon(new ImageIcon(FrmQLNhanVien.class.getResource("/image/btnTim.png")));
 		btnTimNV.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnTimNV.setBackground(Color.LIGHT_GRAY);
-		btnTimNV.setBounds(1323, 239, 176, 35);
+		btnTimNV.setBounds(1323, 239, 233, 35);
 		pnContext.add(btnTimNV);
 
 		txtTimKiem = new JTextField();
@@ -320,7 +320,7 @@ public class FrmQLNhanVien extends JFrame implements ActionListener {
 		// ==================== TABLE ==================
 		JPanel pnTable = new JPanel();
 		tblModelNV = new DefaultTableModel(col, 0);
-		pnTable.setBounds(10, 375, 1505, 358);
+		pnTable.setBounds(10, 375, 1566, 358);
 		contentPane.add(pnTable);
 		pnTable.setLayout(new BoxLayout(pnTable, BoxLayout.X_AXIS));
 		tblThongTinNV = new JTable(tblModelNV);
