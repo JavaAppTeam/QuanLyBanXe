@@ -4,6 +4,11 @@ import java.util.Objects;
 
 public class HangXe {
 
+	@Override
+	public String toString() {
+		return "HangXe [maHang=" + maHang + ", tenHang=" + tenHang + ", trangThai=" + trangThai + "]";
+	}
+
 	private String maHang,tenHang;
 	private boolean trangThai;
 	
