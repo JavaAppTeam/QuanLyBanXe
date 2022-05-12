@@ -40,7 +40,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.security.PublicKey;
 
-public class FrmKhachHang extends JFrame implements ActionListener {
+public class FrmKhachHang extends JInternalFrame implements ActionListener {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -288,9 +288,16 @@ public class FrmKhachHang extends JFrame implements ActionListener {
 		btnXT.addActionListener(this);
 		btnTK.addActionListener(this);
 	}
-	public KhachHangModel napDataFormSQL() throws ClassNotFoundException, SQLException{
-		KhachHang_DAO khDAO = new KhachHang_DAO();
-		dataModel = new KhachHangModel(khDAO.getAll());
+	public KhachHangModel napDataFormSQL() {
+		KhachHang_DAO khDAO;
+		try {
+			khDAO = new KhachHang_DAO();
+			dataModel = new KhachHangModel(khDAO.getAll());
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return dataModel;
 	}
 	public boolean isDuplicate() {
@@ -405,12 +412,7 @@ public class FrmKhachHang extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			try {
-				table.setModel(napDataFormSQL()); 
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			table.setModel(napDataFormSQL());
 		}
 		if (o==btnSua) {
 			if (iValid()) {
@@ -427,12 +429,7 @@ public class FrmKhachHang extends JFrame implements ActionListener {
 				e1.printStackTrace();
 				}
 			}
-			try {
-				table.setModel(napDataFormSQL()); 
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			table.setModel(napDataFormSQL());
 		}
 		if (o==btnXT) {
 			clear();
@@ -440,12 +437,7 @@ public class FrmKhachHang extends JFrame implements ActionListener {
 		if (o == btnTK) {
 			String maTK = txtTK.getText();
 			if(maTK.equals("")){
-				try {
-					table.setModel(napDataFormSQL());
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
+				table.setModel(napDataFormSQL()); 
 				JOptionPane.showMessageDialog(this, "vui long nhap khach hang muon tim");
 				
 			}else {
