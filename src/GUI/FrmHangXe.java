@@ -32,8 +32,9 @@ import DAO.HangXe_DAO;
 import DAO.KhachHang_DAO;
 import Entity.HangXe;
 import Model.KhachHangModel;
+import javax.swing.ImageIcon;
 
-public class FrmHangXe extends JFrame implements ActionListener{
+public class FrmHangXe extends JInternalFrame implements ActionListener{
 
 	/**
 	 * Launch the application.
@@ -112,7 +113,8 @@ public class FrmHangXe extends JFrame implements ActionListener{
 		panel_1.add(txtMaHX);
 		txtMaHX.setColumns(10);
 		
-		btnThem = new JButton("Thêm hãng xe");
+		btnThem = new JButton("Thêm ");
+		btnThem.setIcon(new ImageIcon(FrmHangXe.class.getResource("/image/btnThem.png")));
 		btnThem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -121,18 +123,21 @@ public class FrmHangXe extends JFrame implements ActionListener{
 		btnThem.setBounds(187, 60, 170, 50);
 		panel_1.add(btnThem);
 		
-		btnSua = new JButton("Sửa hãng xe");
+		btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon(FrmHangXe.class.getResource("/image/btnSave.png")));
 		btnSua.setFont(new Font("Tahoma", Font.PLAIN, 14));
 	
 		btnSua.setBounds(416, 60, 138, 50);
 		panel_1.add(btnSua);
 		
-		btnXoa = new JButton("Xóa hãng xe");
+		btnXoa = new JButton("Xóa ");
+		btnXoa.setIcon(new ImageIcon(FrmHangXe.class.getResource("/image/btnXoa.png")));
 		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXoa.setBounds(612, 60, 138, 50);
 		panel_1.add(btnXoa);
 		
 		btnXT = new JButton("Xóa Trắng");
+		btnXT.setIcon(new ImageIcon(FrmHangXe.class.getResource("/image/btnXoaTrang.png")));
 		btnXT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXT.setBounds(804, 60, 138, 50);
 		panel_1.add(btnXT);
@@ -155,6 +160,7 @@ public class FrmHangXe extends JFrame implements ActionListener{
 		txtTK.setColumns(10);
 		
 		btnTK = new JButton("Tìm kiếm");
+		btnTK.setIcon(new ImageIcon(FrmHangXe.class.getResource("/image/btnTim.png")));
 		btnTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnTK.setBounds(992, 59, 125, 53);
 		panel_1.add(btnTK);

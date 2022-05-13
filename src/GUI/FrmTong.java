@@ -38,6 +38,8 @@ public class FrmTong extends JFrame {
 	private FrmTimKiemXe frmTiemKiemXe;
 	private FrmPhuTung frmPhuTung;
 	private FrmXe frmXe;
+	private FrmKhachHang frmKhachHang;
+	private FrmHangXe frmHangXe;
 
 	/**
 	 * Launch the application.
@@ -105,10 +107,18 @@ public class FrmTong extends JFrame {
 		// === phutung
 		frmPhuTung = new FrmPhuTung();
 		desktopPane.add(frmPhuTung);
-
+		
+		//=== Nhân viên	
 		frmQLNhanVien = new FrmQLNhanVien();
 		// desktopPane.add(frmQLNhanVien);
-
+		
+		//KhachHang
+		frmKhachHang = new FrmKhachHang();
+		desktopPane.add(frmKhachHang);
+		//=== Hang xe
+		frmHangXe = new FrmHangXe();
+		desktopPane.add(frmHangXe);
+		
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
 		desktopPane.add(mntmNewMenuItem_2);
@@ -196,8 +206,17 @@ public class FrmTong extends JFrame {
 		mnDanhMuc.add(mntmLoaiXe);
 //		==== hãng xe
 		JMenuItem mntmHangXe = new JMenuItem("Hãng xe");
+		mntmHangXe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmHangXe.setVisible(true);
+				frmHangXe.setBackground(new Color(135, 206, 250));
+			}
+		});
 		mntmHangXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDMNCC.png")));
 		mnDanhMuc.add(mntmHangXe);
+		
 //		==== phụ tụng 
 		JMenuItem mntmPhuTung = new JMenuItem("Phụ tùng");
 		mntmPhuTung.addActionListener(new ActionListener() {
@@ -220,7 +239,11 @@ public class FrmTong extends JFrame {
 		mntmDM_KH = new JMenuItem("Khách hàng");
 		mntmDM_KH.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				anTatCa();
+				chinhMau();
+				frmKhachHang.setVisible(true);
+				frmKhachHang.setBackground(new Color(135, 206, 250));
+				
 			}
 		});
 		mntmDM_KH.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLKH.png")));
@@ -327,6 +350,7 @@ public class FrmTong extends JFrame {
 		frmTrangChu.setVisible(false);
 		frmXe.setVisible(false);
 		frmPhuTung.setVisible(false);
+		frmKhachHang.setVisible(false);
 	}
 
 	void chinhMau() {
