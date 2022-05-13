@@ -313,4 +313,19 @@ public class NhanVien_DAO {
 		}
 		return null;
 	}
+	public String getChucVuTheoMa(String maNV) {
+		try {
+			conn = connectDB.getConnection();
+			String sql = "select MaChucVu from NhanVien where MaSoNhanVien="+"'"+maNV+"'";
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				String maChucVu = rs.getString(1);
+				return maChucVu;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

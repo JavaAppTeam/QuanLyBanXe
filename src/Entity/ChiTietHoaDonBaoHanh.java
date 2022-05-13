@@ -3,18 +3,26 @@ package Entity;
 public class ChiTietHoaDonBaoHanh {
 	private String maHoaDon,maBaoHanh;
 	private int soLuong;
-	private double donGia;
+	private int idPhuTung;
 
 	public ChiTietHoaDonBaoHanh() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChiTietHoaDonBaoHanh(String maHoaDon, String maBaoHanh, int soLuong, double donGia) {
+	public ChiTietHoaDonBaoHanh(String maHoaDon, String maBaoHanh,int idPhuTung, int soLuong) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.maBaoHanh = maBaoHanh;
-		this.soLuong = soLuong;
-		this.donGia = donGia;
+		this.soLuong = soLuong; 
+		this.idPhuTung = idPhuTung;
+	}
+
+	public int getIdPhuTung() {
+		return idPhuTung;
+	}
+
+	public void setIdPhuTung(int idPhuTung) {
+		this.idPhuTung = idPhuTung;
 	}
 
 	public String getMaHoaDon() {
@@ -41,13 +49,5 @@ public class ChiTietHoaDonBaoHanh {
 		this.soLuong = soLuong;
 	}
 
-	public double getDonGia() {
-		return donGia;
-	}
 
-	public void setDonGia(double donGia) {
-		this.donGia = donGia;
-	}
-
-	
 }

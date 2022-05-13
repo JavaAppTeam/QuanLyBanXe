@@ -1,6 +1,5 @@
 package Entity;
 
-
 import java.sql.Date;
 import java.util.Objects;
 
@@ -11,28 +10,32 @@ public class KhachHang {
 	String sdt;
 	String CMND;
 	String GioiTinh;
-	
+	Boolean TrangThai;
+
 	@Override
 	public String toString() {
 		return "KhachHang [MaKH=" + MaKH + ", TenKH=" + TenKH + ", NgaySinh=" + NgaySinh + ", sdt=" + sdt + ", CMND="
-				+ CMND + ", GioiTinh=" + GioiTinh + "]";
+				+ CMND + ", GioiTinh=" + GioiTinh + ", TrangThai=" + TrangThai + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(MaKH,CMND,sdt);
+	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh,
+			Boolean trangThai) {
+		super();
+		MaKH = maKH;
+		TenKH = tenKH;
+		NgaySinh = ngaySinh;
+		this.sdt = sdt;
+		CMND = cMND;
+		GioiTinh = gioiTinh;
+		TrangThai = trangThai;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		KhachHang other = (KhachHang) obj;
-		return Objects.equals(MaKH, other.MaKH)& Objects.equals(CMND, other.CMND)&Objects.equals(sdt, other.sdt);
+	public Boolean getTrangThai() {
+		return TrangThai;
+	}
+
+	public void setTrangThai(Boolean trangThai) {
+		TrangThai = trangThai;
 	}
 
 	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {
@@ -44,8 +47,7 @@ public class KhachHang {
 		CMND = cMND;
 		GioiTinh = gioiTinh;
 	}
-	
-	
+
 	public KhachHang(String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {
 		super();
 		TenKH = tenKH;
@@ -53,14 +55,17 @@ public class KhachHang {
 		this.sdt = sdt;
 		CMND = cMND;
 		GioiTinh = gioiTinh;
+		this.TrangThai = true;
 	}
 
-	public KhachHang(String ma,String sdt) {
-		this.MaKH  = ma;
+	public KhachHang(String ma, String sdt) {
+		this.MaKH = ma;
 	}
+
 	public KhachHang(String sdt) {
-		this.sdt  = sdt;
+		this.sdt = sdt;
 	}
+
 	public String getMaKH() {
 		return MaKH;
 	}
@@ -109,9 +114,22 @@ public class KhachHang {
 		GioiTinh = gioiTinh;
 	}
 
-	
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(MaKH, CMND, sdt);
+	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		KhachHang other = (KhachHang) obj;
+		return Objects.equals(MaKH, other.MaKH) & Objects.equals(CMND, other.CMND) & Objects.equals(sdt, other.sdt);
+	}
 
 }

@@ -38,6 +38,11 @@ public class FrmTong extends JFrame {
 	private FrmTimKiemXe frmTiemKiemXe;
 	private FrmPhuTung frmPhuTung;
 	private FrmXe frmXe;
+	private FrmBaoHanh frmBaoHanh;
+	private FrmKhachHang frmKhachHang;
+	private FrmHangXe frmHangXe;
+	private FrmLoaiXe frmLoaiXe;
+	
 
 	/**
 	 * Launch the application.
@@ -46,7 +51,7 @@ public class FrmTong extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmTong frame = new FrmTong("QL1", "Quản lý");
+					FrmTong frame = new FrmTong("HC005", "Quản lý");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -100,9 +105,23 @@ public class FrmTong extends JFrame {
 		// === phutung
 		frmPhuTung = new FrmPhuTung();
 		desktopPane.add(frmPhuTung);
+		// ===
+		frmBaoHanh = new FrmBaoHanh();
+		desktopPane.add(frmBaoHanh);
 
+		// == NhanVien
 		frmQLNhanVien = new FrmQLNhanVien();
-		// desktopPane.add(frmQLNhanVien);
+		desktopPane.add(frmQLNhanVien);
+		// ==LoaiXe
+		frmLoaiXe = new FrmLoaiXe();
+		desktopPane.add(frmLoaiXe);
+
+		// KhachHang
+		frmKhachHang = new FrmKhachHang();
+		desktopPane.add(frmKhachHang);
+		// === Hang xe
+		frmHangXe = new FrmHangXe();
+		desktopPane.add(frmHangXe);
 
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
@@ -189,10 +208,37 @@ public class FrmTong extends JFrame {
 		JMenuItem mntmLoaiXe = new JMenuItem("Loại xe");
 		mntmLoaiXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDMSP.png")));
 		mnDanhMuc.add(mntmLoaiXe);
+		mntmLoaiXe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmLoaiXe.setVisible(true);
+				frmLoaiXe.setBackground(new Color(135, 206, 250));
+				try {
+					
+
+					frmLoaiXe.loadDatatoTable();
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
+			}
+		});
+		
 //		==== hãng xe
 		JMenuItem mntmHangXe = new JMenuItem("Hãng xe");
+		mntmHangXe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmHangXe.setVisible(true);
+				frmHangXe.setBackground(new Color(135, 206, 250));
+			}
+		});
 		mntmHangXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDMNCC.png")));
 		mnDanhMuc.add(mntmHangXe);
+
 //		==== phụ tụng 
 		JMenuItem mntmPhuTung = new JMenuItem("Phụ tùng");
 		mntmPhuTung.addActionListener(new ActionListener() {
@@ -215,6 +261,10 @@ public class FrmTong extends JFrame {
 		mntmDM_KH = new JMenuItem("Khách hàng");
 		mntmDM_KH.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmKhachHang.setVisible(true);
+				frmKhachHang.setBackground(new Color(135, 206, 250));
 
 			}
 		});
@@ -224,14 +274,23 @@ public class FrmTong extends JFrame {
 		mntmDM_NV = new JMenuItem("Nhân viên");
 		mntmDM_NV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				anTatCa();
 				chinhMau();
-
 				frmQLNhanVien.setVisible(true);
 				frmQLNhanVien.setBackground(new Color(135, 206, 250));
+				try {
+					
 
+					frmQLNhanVien.loadDatatoTable();
+					frmQLNhanVien.loadCVNhanVien();
+					frmQLNhanVien.loadCBB();
+					frmQLNhanVien.ClickTable();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
 			}
+
 		});
 		mntmDM_NV.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLNV.png")));
 		mnDanhMuc.add(mntmDM_NV);
@@ -266,6 +325,17 @@ public class FrmTong extends JFrame {
 		mntmBaoHanh = new JMenuItem("Thêm bảo hành");
 		mntmBaoHanh.setIcon(new ImageIcon(FrmTong.class.getResource("/image/car-insurance.png")));
 		mnXuLy.add(mntmBaoHanh);
+		mntmBaoHanh.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anTatCa();
+				chinhMau();
+				frmBaoHanh.setVisible(true);
+				frmBaoHanh.setBackground(new Color(135, 206, 250));
+			}
+		});
 
 //		==== danh mục tìm kiếm thông tin
 		mnTimKiem = new JMenu("Tìm kiếm thông tin");
@@ -322,6 +392,11 @@ public class FrmTong extends JFrame {
 		frmTrangChu.setVisible(false);
 		frmXe.setVisible(false);
 		frmPhuTung.setVisible(false);
+		frmKhachHang.setVisible(false);
+		frmBaoHanh.setVisible(false);
+		frmHangXe.setVisible(false);
+		frmLoaiXe.setVisible(false);
+		frmQLNhanVien.setVisible(false);
 	}
 
 	void chinhMau() {

@@ -39,7 +39,7 @@ public class KhachHang_DAO {
 		ResultSet rs  = ps.executeQuery();
 		while(rs.next()) {
 			String gt =  rs.getBoolean("GioiTinh")?"Nam":"Nữ";
-			KhachHang kh= new KhachHang(rs.getString("MaKH"), rs.getString("TenKH"), rs.getDate("NgaySinh"),  rs.getString("SoDienThoai"),  rs.getString("CMND"), gt); 
+			KhachHang kh= new KhachHang(rs.getString("MaKH"), rs.getString("TenKH"), rs.getDate("NgaySinh"),  rs.getString("SoDienThoai"),  rs.getString("CMND"), gt,rs.getBoolean("TrangThai")); 
 			this.lstKhachHang.add(kh);
 		}
 		closeConnection();
@@ -76,7 +76,7 @@ public class KhachHang_DAO {
 		try {
 			while(rs.next()) {
 				String gt =  rs.getBoolean("GioiTinh")?"Nam":"Nữ";
-				KhachHang rskh= new KhachHang(rs.getString("MaKH"), rs.getString("TenKH"), rs.getDate("NgaySinh"),  rs.getString("SoDienThoai"),  rs.getString("CMND"), gt); 
+				KhachHang rskh= new KhachHang(rs.getString("MaKH"), rs.getString("TenKH"), rs.getDate("NgaySinh"),  rs.getString("SoDienThoai"),  rs.getString("CMND"), gt,rs.getBoolean("TrangThai")); 
 				dsKH.add(rskh);
 			}
 		} catch (SQLException e) {
@@ -88,7 +88,7 @@ public class KhachHang_DAO {
 	public List<KhachHang> getAllSdtKH() throws SQLException {
 		// TODO Auto-generated method stub
 		KhachHang kh = null;
-		List<KhachHang> dsKH = new ArrayList<>();
+		List<KhachHang> dsKH = new ArrayList<KhachHang>();
 		try {
 			conn = connectDB.getConnection();
 			String sql = "select SoDienThoai from KhachHang";
@@ -107,20 +107,27 @@ public class KhachHang_DAO {
 		}
 		return dsKH;
 	}
-	public boolean addKH(KhachHang kh) throws SQLException, ClassNotFoundException {
-		conn = connectDB.getConnection();
-		PreparedStatement ps = conn.prepareStatement("insert into [QuanLyCuaHangXe].[dbo].[KhachHang] values (?,?,?,?,?,?)");
-		ps.setString(1, kh.getMaKH());
-		ps.setString(2, kh.getTenKH());
-		ps.setString(3, kh.getNgaySinh().toString());
-		ps.setString(4, kh.getSdt());
-		ps.setString(5, kh.getCMND());
-		String gt = kh.getGioiTinh()=="Nam"?"True":"False";
-		ps.setString(6, gt);
+	public boolean addKH(KhachHang kh) {
+		int akh = 0;
+		try {
+			conn = connectDB.getConnection();
+			PreparedStatement ps = conn.prepareStatement("insert into [QuanLyCuaHangXe].[dbo].[KhachHang] values (?,?,?,?,?,?,'True')");
+			ps.setString(1, kh.getMaKH());
+			ps.setString(2, kh.getTenKH());
+			ps.setString(3, kh.getNgaySinh().toString());
+			ps.setString(4, kh.getSdt());
+			ps.setString(5, kh.getCMND());
+			String gt = kh.getGioiTinh()=="Nam"?"True":"False";
+			ps.setString(6, gt);
+			
+			akh = ps.executeUpdate();
+			closeConnection();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		int rs = ps.executeUpdate();
-		closeConnection();
-		return rs ==1?true:false;
+		return akh ==1?true:false;
 	}
 	
 	public boolean themKh(KhachHang kh) throws SQLException, ClassNotFoundException {
@@ -164,7 +171,7 @@ public class KhachHang_DAO {
 		}
 	public boolean deleteKH(String maKH) throws ClassNotFoundException, SQLException {
 		conn = connectDB.getConnection();
-		PreparedStatement ps = conn.prepareStatement("delete from [QuanLyCuaHangXe].[dbo].[KhachHang] where MaKH = '"+maKH+"' ");
+		PreparedStatement ps = conn.prepareStatement("update [QuanLyCuaHangXe].[dbo].[KhachHang] set TrangThai = 'False' where MaKH = '"+maKH+"' ");
 //		ps.setString( 1, maKH);
 		int rs = ps.executeUpdate();
 		closeConnection();
