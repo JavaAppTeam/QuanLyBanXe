@@ -61,6 +61,7 @@ public class FrmQLNhanVien extends JInternalFrame implements ActionListener {
 	private JCheckBox chbTrangThai;
 	private JComboBox cbbChucVu, cbbTimKiem;
 	private JButton btnTimNV, btnXoaTrangNV, btnXoaNV, btnSuaNV, btnThemNV;
+	private String SDTTemp = "0";
 	private NhanVien_DAO nvDAO = new NhanVien_DAO();
 	String[] col = { "Họ và tên", "CMND", "Ngày sinh", "SDT", "Mã chức vụ", "Bậc", "Ngày vào làm", "Trình độ học vấn",
 			"Năm kinh nghiệm", "Trạng thái" };
@@ -418,7 +419,7 @@ public class FrmQLNhanVien extends JInternalFrame implements ActionListener {
 				btnXoaNV.setEnabled(true);
 				int rowSelect = tblThongTinNV.getSelectedRow();
 				NhanVien temp = new NhanVien();
-
+				SDTTemp = (String) tblThongTinNV.getValueAt(rowSelect, 3);
 				temp.setTenNhanVien((String) tblThongTinNV.getValueAt(rowSelect, 0));
 				temp.setCmnd((String) tblThongTinNV.getValueAt(rowSelect, 1));
 				temp.setNgaySinh(LocalDate.parse((String) tblThongTinNV.getValueAt(rowSelect, 2).toString()));
@@ -436,7 +437,7 @@ public class FrmQLNhanVien extends JInternalFrame implements ActionListener {
 		});
 	}
 
-	private void loadCVNhanVien() throws SQLException {
+	void loadCVNhanVien() throws SQLException {
 		ChucVuNhanVien_DAO chucVuNhanVien_DAO = new ChucVuNhanVien_DAO();
 		cbbChucVu.removeAllItems();
 		for (ChucVuNhanVien cnnv : chucVuNhanVien_DAO.getAllCVNhanVien()) {
@@ -580,7 +581,7 @@ public class FrmQLNhanVien extends JInternalFrame implements ActionListener {
 					NhanVien nvm = taoNhanVien();
 					String maNV = null;
 					try {
-						maNV = nvDao.getMaNV(txtSDTNV.getText());
+						maNV = nvDao.getMaNV(SDTTemp);
 					} catch (SQLException e2) {
 						// TODO Auto-generated catch block
 						e2.printStackTrace();

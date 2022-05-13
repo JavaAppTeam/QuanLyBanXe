@@ -1,4 +1,4 @@
- package GUI;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -41,6 +41,7 @@ public class FrmTong extends JFrame {
 	private FrmBaoHanh frmBaoHanh;
 	private FrmKhachHang frmKhachHang;
 	private FrmHangXe frmHangXe;
+	private FrmLoaiXe frmLoaiXe;
 
 	/**
 	 * Launch the application.
@@ -108,21 +109,24 @@ public class FrmTong extends JFrame {
 		// === phutung
 		frmPhuTung = new FrmPhuTung();
 		desktopPane.add(frmPhuTung);
-		// === 
+		// ===
 		frmBaoHanh = new FrmBaoHanh();
-		desktopPane.add(frmBaoHanh);		
-		
-		//=== Nhân viên	
+		desktopPane.add(frmBaoHanh);
+
+		// == NhanVien
 		frmQLNhanVien = new FrmQLNhanVien();
-		// desktopPane.add(frmQLNhanVien);
-		
-		//KhachHang
+		desktopPane.add(frmQLNhanVien);
+		// ==LoaiXe
+		frmLoaiXe = new FrmLoaiXe();
+		desktopPane.add(frmLoaiXe);
+
+		// KhachHang
 		frmKhachHang = new FrmKhachHang();
 		desktopPane.add(frmKhachHang);
-		//=== Hang xe
+		// === Hang xe
 		frmHangXe = new FrmHangXe();
 		desktopPane.add(frmHangXe);
-		
+
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
 		desktopPane.add(mntmNewMenuItem_2);
@@ -208,6 +212,24 @@ public class FrmTong extends JFrame {
 		JMenuItem mntmLoaiXe = new JMenuItem("Loại xe");
 		mntmLoaiXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDMSP.png")));
 		mnDanhMuc.add(mntmLoaiXe);
+		mntmLoaiXe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anTatCa();
+				chinhMau();
+				frmLoaiXe.setVisible(true);
+				frmLoaiXe.setBackground(new Color(135, 206, 250));
+				try {
+					
+
+					frmLoaiXe.loadDatatoTable();
+					
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
+			}
+		});
+		
 //		==== hãng xe
 		JMenuItem mntmHangXe = new JMenuItem("Hãng xe");
 		mntmHangXe.addActionListener(new ActionListener() {
@@ -220,7 +242,7 @@ public class FrmTong extends JFrame {
 		});
 		mntmHangXe.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDMNCC.png")));
 		mnDanhMuc.add(mntmHangXe);
-		
+
 //		==== phụ tụng 
 		JMenuItem mntmPhuTung = new JMenuItem("Phụ tùng");
 		mntmPhuTung.addActionListener(new ActionListener() {
@@ -247,7 +269,7 @@ public class FrmTong extends JFrame {
 				chinhMau();
 				frmKhachHang.setVisible(true);
 				frmKhachHang.setBackground(new Color(135, 206, 250));
-				
+
 			}
 		});
 		mntmDM_KH.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLKH.png")));
@@ -256,14 +278,23 @@ public class FrmTong extends JFrame {
 		mntmDM_NV = new JMenuItem("Nhân viên");
 		mntmDM_NV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				anTatCa();
 				chinhMau();
-
 				frmQLNhanVien.setVisible(true);
 				frmQLNhanVien.setBackground(new Color(135, 206, 250));
+				try {
+					
 
+					frmQLNhanVien.loadDatatoTable();
+					frmQLNhanVien.loadCVNhanVien();
+					frmQLNhanVien.loadCBB();
+					frmQLNhanVien.ClickTable();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+				}
 			}
+
 		});
 		mntmDM_NV.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemQLNV.png")));
 		mnDanhMuc.add(mntmDM_NV);
@@ -299,7 +330,7 @@ public class FrmTong extends JFrame {
 		mntmBaoHanh.setIcon(new ImageIcon(FrmTong.class.getResource("/image/car-insurance.png")));
 		mnXuLy.add(mntmBaoHanh);
 		mntmBaoHanh.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub

@@ -50,7 +50,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 	private JComboBox cboTrangThai;
 	JComboBox cboLyDoBaoHanh;
 	private DAO.HoaDonBaoHanhDao baoHanhDao = new HoaDonBaoHanhDao();
-	JButton btnSearch, btnThem, btnXoa, btnUpdate, btnChiTiet;
+	JButton btnSearch, btnThem, btnUpdate, btnChiTiet;
 	String[] colHeader = { "MÃ BẢO HÀNH", "NGÀY LẬP HÓA ĐƠN", "LÍ DO BẢO HÀNH", "GHI CHÚ", "TRẠNG THÁI" };
 	ArrayList<HoaDonBaoHanh> arrHDBH = null;
 	private JButton btnXoaTrang;
@@ -183,7 +183,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		btnThem.setHorizontalAlignment(SwingConstants.LEADING);
 		btnThem.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnThem.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnThem.png")));
-		btnThem.setBounds(25, 10, 112, 38);
+		btnThem.setBounds(40, 10, 112, 38);
 		panel_2.add(btnThem);
 
 		btnUpdate = new JButton("Sửa thông tin");
@@ -194,25 +194,18 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		});
 		btnUpdate.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnSave.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnUpdate.setBounds(147, 10, 181, 38);
+		btnUpdate.setBounds(192, 10, 181, 38);
 		panel_2.add(btnUpdate);
-
-		btnXoa = new JButton("Xóa");
-		btnXoa.setHorizontalAlignment(SwingConstants.LEADING);
-		btnXoa.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnXoa.png")));
-		btnXoa.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnXoa.setBounds(338, 10, 99, 38);
-		panel_2.add(btnXoa);
 
 		btnChiTiet = new JButton("Chi tiết");
 		btnChiTiet.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/MenuItemTrangChu.png")));
 		btnChiTiet.setHorizontalAlignment(SwingConstants.LEADING);
 		btnChiTiet.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnChiTiet.setBounds(447, 10, 134, 38);
+		btnChiTiet.setBounds(413, 10, 134, 38);
 		panel_2.add(btnChiTiet);
 
 		txtSearch = new JTextField();
-		txtSearch.setBounds(836, 16, 405, 32);
+		txtSearch.setBounds(776, 16, 405, 32);
 		panel_2.add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -220,14 +213,14 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		btnSearch.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnTim.png")));
 		btnSearch.setHorizontalAlignment(SwingConstants.LEADING);
 		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnSearch.setBounds(1251, 16, 49, 32);
+		btnSearch.setBounds(1221, 16, 49, 32);
 		panel_2.add(btnSearch);
 
 		btnXoaTrang = new JButton("Xóa trắng");
 		btnXoaTrang.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnXoaTrang.png")));
 		btnXoaTrang.setHorizontalAlignment(SwingConstants.LEADING);
 		btnXoaTrang.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnXoaTrang.setBounds(591, 10, 149, 38);
+		btnXoaTrang.setBounds(587, 10, 149, 38);
 		panel_2.add(btnXoaTrang);
 
 		tblBaoHanh = new JTable();
@@ -265,29 +258,6 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-			}
-		});
-		btnXoa.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				int n = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn XÓA hóa đơn này?",
-						"Thông báo xác nhận XÓA Xe", JOptionPane.YES_NO_OPTION);
-				if (txtMaBaoHanh.getText() == "" || txtMaBaoHanh.getText() == "Default") {
-					JOptionPane.showMessageDialog(null, "Chọn hóa đơn cần xóa !!!!");
-				} else if (n == JOptionPane.YES_OPTION) {
-					try {
-						del();
-						delValuesOnTable();
-						loadDataToTable();
-						JOptionPane.showMessageDialog(null, "Xóa thành công !!!!");
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						JOptionPane.showMessageDialog(null, "Fail !!!!");
-						e1.printStackTrace();
-					}
 				}
 			}
 		});
@@ -347,7 +317,45 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 				}
 			}
 		});
-
+		btnUpdate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					update();
+					delValuesOnTable();
+					loadDataToTable();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	private void update() throws ClassNotFoundException, SQLException {
+		boolean liDo = false;
+		boolean trangThai = false;
+		if(cboLyDoBaoHanh.getSelectedIndex()==0)
+			liDo = false;
+		else 
+			liDo = true;
+		if(cboTrangThai.getSelectedIndex()==0)
+			trangThai = true;
+		else 
+			trangThai = false;
+		if(baoHanhDao.upDateHoaDonBaoHanh(liDo,txtGhiChu.getText().trim(),trangThai,txtMaBaoHanh.getText().trim())) {
+			JOptionPane.showMessageDialog(null, "Sửa thành công");
+		}
+		
+		
+		
 	}
 
 	private HoaDonBaoHanh createHDBH() throws ParseException {
