@@ -11,6 +11,7 @@ import java.util.List;
 
 import ConnectDB.*;
 import Entity.HoaDonBaoHanh;
+import Entity.LoaiXe;
 import Entity.Xe;
 
 public class HoaDonBaoHanhDao {
@@ -157,5 +158,21 @@ public class HoaDonBaoHanhDao {
 		return false;
 	}
 	
+	public boolean upDateHoaDonBaoHanh(boolean liDoBaoHanh, String ghiChu, boolean trangThai,String maBaoHanh) throws ClassNotFoundException, SQLException {
+		Connection con = connectDB.getConnection();
+		PreparedStatement statement = null;
+		int n = 0;
+		try {
+			statement = con.prepareStatement("UPDATE HoaDonBaoHanh SET LyDoBaoHanh = ? ,TrangThai= ?, GhiChu =? WHERE MaBaoHanh=?");
+			statement.setBoolean(1,liDoBaoHanh);
+			statement.setBoolean(2,trangThai);
+			statement.setString(3, ghiChu);
+			statement.setString(4,maBaoHanh);
+			n = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return n > 0;
+	}
 	
 }
