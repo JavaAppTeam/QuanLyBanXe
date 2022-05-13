@@ -300,16 +300,23 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 			}
 		}
 		if (o ==btnTK) {
-			if (!txtTK.getText().equals("")) {
-			deleteAllTableRows(tblHangXe);
 			String mahx = txtTK.getText();
+			if (mahx.equals("")) {
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hãng muốn tìm");
+				
+			}else if(mahx.equals("Trở Về")) {
+				deleteAllTableRows(tblHangXe);
+				loadDataToModel();
+				btnTK.setText("Tìm kiếm");
+				txtTK.setText("");
+			} else{
+			deleteAllTableRows(tblHangXe);
 			for (HangXe i: 	hxDAO.findAll(mahx)) {
 				Object[] objhx = {i.getMaHang(),i.getTenHang()};
 				tblModelHangXe.addRow(objhx);
-			}
-			}else {
-				loadDataToModel();
-				
+				}
+			btnTK.setText("Trở Về");
+			txtTK.setText("Trở Về");
 			}
 			
 		}
