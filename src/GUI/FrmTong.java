@@ -47,7 +47,7 @@ public class FrmTong extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmTong frame = new FrmTong("QL1", "Quản lý");
+					FrmTong frame = new FrmTong("HC005", "Quản lý");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

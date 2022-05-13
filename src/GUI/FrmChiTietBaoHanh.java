@@ -153,6 +153,7 @@ public class FrmChiTietBaoHanh extends JFrame implements MouseListener {
 		txtMaHD.setEnabled(false);
 		txtMaHD.setColumns(10);
 		txtMaHD.setBounds(210, 77, 382, 25);
+		txtMaHD.setText(maHoaDon);
 		panel.add(txtMaHD);
 
 		tblChiTietBaoHanh = new JTable();

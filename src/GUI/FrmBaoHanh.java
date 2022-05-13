@@ -308,11 +308,11 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 //						String m = JOptionPane.showInputDialog(null, "Nhập mã hóa đơn muốn bảo hành", 
 //				                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 						btnThem.setText("Thêm");
-						String m = JOptionPane.showInputDialog(null, "Nhập mã HÓA ĐƠN để bảo hành", 
-				                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//						String m = JOptionPane.showInputDialog(null, "Nhập mã HÓA ĐƠN để bảo hành", 
+//				                "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 						clearConTrol();
-						FrmChiTietBaoHanh frm = new FrmChiTietBaoHanh(txtMaBaoHanh.getText().trim(),m);
-						frm.setVisible(true);			
+//						FrmChiTietBaoHanh frm = new FrmChiTietBaoHanh(txtMaBaoHanh.getText().trim(),m);
+//						frm.setVisible(true);			
 					} catch (ClassNotFoundException | SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
