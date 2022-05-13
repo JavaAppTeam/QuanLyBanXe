@@ -31,7 +31,7 @@ public class ChiTietXeDAO {
 		ChiTietXe chiTietXe;
 		try {
 			conn = connectDB.getConnection();
-			String sql = "select ctx.MaXe from ChiTietXe ctx join Xe x on ctx.IDXe=x.IDXe";
+			String sql = "select ctx.MaXe from ChiTietXe ctx join Xe x on ctx.IDXe=x.IDXe where ctx.TrangThai='True'";
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			ctx = new ArrayList<>();

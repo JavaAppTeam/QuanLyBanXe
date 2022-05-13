@@ -44,6 +44,16 @@ public class KhachHang {
 		CMND = cMND;
 		GioiTinh = gioiTinh;
 	}
+	
+	
+	public KhachHang(String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {
+		super();
+		TenKH = tenKH;
+		NgaySinh = ngaySinh;
+		this.sdt = sdt;
+		CMND = cMND;
+		GioiTinh = gioiTinh;
+	}
 
 	public KhachHang(String ma,String sdt) {
 		this.MaKH  = ma;

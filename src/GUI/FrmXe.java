@@ -430,7 +430,7 @@ public class FrmXe extends JInternalFrame implements ActionListener, MouseListen
 			int n = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn XÓA Xe này?", "Thông báo xác nhận XÓA Xe",
 					JOptionPane.YES_NO_OPTION);
 			if (n == JOptionPane.YES_OPTION) {
-				try {
+				try {	
 					if (item == null)
 						showMessage("Xóa thất bại", null);
 					Xe_DAO.deleteXe(item.getMaXe());
@@ -452,10 +452,7 @@ public class FrmXe extends JInternalFrame implements ActionListener, MouseListen
 						try {
 							Xe_DAO.themSPS(item);
 							showMessage("Thêm thành công!!!", null);
-							Object[] ob = { item.getMaXe(), item.getTenXe(), item.getMaHangXe(), item.getMaLoai(),
-									item.getMucTieuThu(), item.getDungTich(), item.getGiaTien(), item.getSoLuongTon(),
-									item.isTrangThai() };
-							tblModelXe.addRow(ob);
+							loadDatatoTable();
 						} catch (Exception e2) {
 							// TODO: handle exception
 							showMessage("Lưu thất bại!!!", null);

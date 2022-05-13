@@ -131,34 +131,7 @@ public class HoaDon_DAO {
 		}
 		return 0;
 	}
-	public Boolean suaHD(String maKH, String maHD) throws ClassNotFoundException, SQLException {
-		Connection conn = connectDB.getConnection();
-		PreparedStatement statement = null;
-		int i = 0;
-		try {
-			String sql = "update HoaDon set MaKH='"+maKH+"'"+ " where MaHoaDon='"+maHD+"'";
-			statement = conn.prepareStatement(sql);
-			
-			i = statement.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return i > 0;
-	}
-	public Boolean xoaHD(String maHD) throws ClassNotFoundException, SQLException {
-		conn = connectDB.getConnection();
-		PreparedStatement statement = null;
-		int i = 0;
-		try {
-			String sql = "delete from HoaDon where MaHoaDon='"+maHD+"'";
-			statement = conn.prepareStatement(sql);
-			
-			i = statement.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return i > 0;
-	}
+
 	public List<HoaDon> getAllMaHD(String maHd) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		HoaDon hd = null;

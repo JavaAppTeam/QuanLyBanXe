@@ -10,6 +10,7 @@ import java.util.List;
 
 import ConnectDB.connectDB;
 import Entity.KhachHang;
+import Entity.PhuTungXe;
 
 public class KhachHang_DAO {
 	Connection conn;
@@ -19,6 +20,8 @@ public class KhachHang_DAO {
 	public KhachHang_DAO() throws ClassNotFoundException, SQLException {
 		lstKhachHang = new ArrayList<KhachHang>();
 	}
+	
+
 	private void closeConnection() throws SQLException {
 		if (rs != null) {
 			rs.close();
@@ -119,6 +122,31 @@ public class KhachHang_DAO {
 		closeConnection();
 		return rs ==1?true:false;
 	}
+	
+	public boolean themKh(KhachHang kh) throws SQLException, ClassNotFoundException {
+		conn = connectDB.getConnection();
+		PreparedStatement statement = null;
+		int n = 0;
+		try {
+			String sql = "Insert into KhachHang values(Default,?,?,?,?,?,?)";
+			statement = conn.prepareStatement(sql);
+			statement.setString(1, kh.getTenKH());
+			statement.setString(2,kh.getNgaySinh().toString());
+			statement.setString(3, kh.getSdt());
+			statement.setString(4, kh.getCMND());
+			String gt = kh.getGioiTinh()=="Nam"?"True":"False";
+			statement.setString(5, gt);
+			statement.setBoolean(6, true);
+			n = statement.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return n ==1?true:false;
+	}
+	
+	
+
 	public boolean updateKH(KhachHang kh) throws SQLException, ClassNotFoundException {
 		conn = connectDB.getConnection();
 		PreparedStatement ps = conn.prepareStatement("update [QuanLyCuaHangXe].[dbo].[KhachHang] set TenKH = ?,NgaySinh = ?, SoDienThoai = ?, CMND = ?, GioiTinh =? where MaKH =? ");

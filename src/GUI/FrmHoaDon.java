@@ -18,6 +18,7 @@ import javax.swing.table.JTableHeader;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 import DAO.CuaHang_DAO;
 import DAO.HoaDon_DAO;
@@ -51,8 +52,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 
-import com.toedter.calendar.JDateChooser;
-
 public class FrmHoaDon extends JFrame {
 	private JTable table_1;
 	private DefaultTableModel dataModel;
@@ -63,12 +62,13 @@ public class FrmHoaDon extends JFrame {
 	private HoaDon_DAO hdDao = new HoaDon_DAO();
 	private JTextPane txtMaHD, txtMaNV, txtMaCH, txtMaKH;
 	private JDateChooser dtNgayLap;
-	private JButton btnLuu, btnSua, btnXoa, btnChiTietHD;
+	private JButton btnChiTietHD;
 	private JComboBox cbbMaCuaHang;
 	private String maHDToCTHD = "", maKHToCTHD = "", maNVToCTHD = "";
 	public static JPanel pnShowCTHD;
+	
 	/**
-	 * Launch the application.
+	 * Người tạo : Đinh Quang Huy, ngày tạo: 16/04/2022
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -99,13 +99,14 @@ public class FrmHoaDon extends JFrame {
 		getContentPane().setEnabled(false);
 		getContentPane().setLayout(null);
 		
+		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
+		frmHD_ThemHD.setBounds(204, 43, 1139, 510);
+		getContentPane().add(frmHD_ThemHD);
+		
 		pnShowCTHD = new JPanel();
 		pnShowCTHD.setBounds(420, 20, 619, 608);
 		getContentPane().add(pnShowCTHD);
 		pnShowCTHD.setLayout(new BorderLayout(0, 0));
-		
-		frmHD_ThemHD = new FrmHoaDon_ThemHoaDon();
-		pnShowCTHD.add(frmHD_ThemHD, BorderLayout.NORTH);
 		pnShowCTHD.setVisible(false);
 		
 		JPanel panel = new JPanel();
@@ -153,9 +154,6 @@ public class FrmHoaDon extends JFrame {
 		dtNgayLap.setEnabled(false);
 		panel.add(dtNgayLap);
 		
-		dtNgayLap = new JDateChooser();
-		dtNgayLap.setBounds(240, 73, 352, 30);
-		panel.add(dtNgayLap);
 		
 		txtMaNV = new JTextPane();
 		txtMaNV.setEditable(false);
@@ -187,7 +185,7 @@ public class FrmHoaDon extends JFrame {
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				btnSua.setEnabled(true);
+
 				int rowSelect = table_1.getSelectedRow();
 				String maHD = (String) table_1.getValueAt(rowSelect, 0);
 				Date ngayLap = (Date) table_1.getValueAt(rowSelect, 1);
@@ -329,12 +327,12 @@ public class FrmHoaDon extends JFrame {
 		panel_4.add(btnChiTietHD);
 		
 		JCalendar calendar_1 = new JCalendar();
-		calendar_1.setBounds(10, 486, 195, 177);
+		calendar_1.setBounds(10, 425, 195, 215);
 		getContentPane().add(calendar_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(SystemColor.activeCaption);
-		panel_2.setBounds(10, 291, 195, 185);
+		panel_2.setBounds(10, 346, 195, 57);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
@@ -370,68 +368,6 @@ public class FrmHoaDon extends JFrame {
 				}
 			}
 		});
-		
-		btnSua = new JButton("Sửa");
-		btnSua.setEnabled(false);
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openEdit();
-				btnLuu.setEnabled(true);
-			}
-		});
-		btnSua.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		btnSua.setBounds(10, 53, 171, 33);
-		panel_2.add(btnSua);
-		
-		btnXoa = new JButton("Xóa");
-		btnXoa.setEnabled(false);
-		btnXoa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = table_1.getSelectedRow();
-				String maHD = (String) table_1.getValueAt(row, 0);
-				HoaDon_DAO hdDao = new HoaDon_DAO();
-				if(JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?","Lựa chọn",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-				Boolean bXoa = false;
-				try {
-					bXoa = hdDao.xoaHD(maHD);
-				} catch (ClassNotFoundException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				if(bXoa == true)
-				{
-					JOptionPane.showMessageDialog(null, "Xóa thành công!");
-				}
-			}
-			}
-		});
-		btnXoa.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		btnXoa.setBounds(10, 96, 171, 33);
-		panel_2.add(btnXoa);
-		
-		btnLuu = new JButton("Lưu");
-		btnLuu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String maKH = txtMaKH.getText();
-				String maHD = txtMaHD.getText();
-				HoaDon_DAO hoaDon_DAO = new HoaDon_DAO();
-				Boolean bSuaHD;
-				try {
-					bSuaHD = hoaDon_DAO.suaHD(maKH,maHD);
-					if(bSuaHD == true)
-						JOptionPane.showMessageDialog(null, "Sửa thành công.");
-					loadCTHD();
-					btnLuu.setEnabled(true);
-					return;
-				} catch (ClassNotFoundException | SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnLuu.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		btnLuu.setBounds(10, 142, 171, 33);
-		btnLuu.setEnabled(false);
-		panel_2.add(btnLuu);
 		
 		JLabel clock = new JLabel("clock");
 		clock.setBounds(92, 10, 90, 23);
@@ -495,13 +431,6 @@ public class FrmHoaDon extends JFrame {
 		loadMaCH();
 	}
 
-//	public FrmHoaDon(Boolean bCheckStatusForm) throws SQLException, PropertyVetoException {
-//		FrmHoaDon frmHoaDon = new FrmHoaDon();
-//		if(bCheckStatusForm == true) {
-//			frmHoaDon.loadCTHD();
-//		}
-//		
-//	}
 	protected void openEdit() {
 		// TODO Auto-generated method stub
 		txtMaKH.setEditable(true);

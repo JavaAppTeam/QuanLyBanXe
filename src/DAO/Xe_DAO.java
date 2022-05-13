@@ -361,7 +361,7 @@ public class Xe_DAO {
 		Xe xe;
 		try {
 			Connection con = connectDB.getConnection();
-			String sql = "SELECT * FROM Xe WHERE TenXe='" + ten + "'";
+			String sql = "SELECT * FROM Xe WHERE TenXe =N'" + ten + "'";
 			java.sql.Statement statement = con.createStatement();
 			rs = ((java.sql.Statement) statement).executeQuery(sql);
 			while (rs.next()) {

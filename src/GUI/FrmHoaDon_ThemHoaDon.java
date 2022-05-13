@@ -45,6 +45,7 @@ import DAO.HoaDon_DAO;
 import DAO.KhachHang_DAO;
 import DAO.NhanVien_DAO;
 import DAO.Xe_DAO;
+import Entity.ChiTietHoaDon;
 import Entity.ChiTietXe;
 import Entity.CuaHang;
 import Entity.HoaDon;
@@ -53,6 +54,8 @@ import Entity.NhanVien;
 import Entity.Xe;
 
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
+
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.sql.Date;
@@ -81,9 +84,6 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected static final String String = null;
-	/**
-	 * Launch the application.
-	 */
 	
 	private JTextPane txtThue;
 	private JFormattedTextField txtDonGia;
@@ -116,10 +116,9 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * Người tạo : Đinh Quang Huy, ngày tạo: 16/04/2022
 	 */
+	
 	public FrmHoaDon_ThemHoaDon() throws PropertyVetoException, SQLException, ClassNotFoundException {
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setTitle("Thêm Hóa Đơn");
@@ -184,6 +183,7 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		txtThue = new JTextPane();
 		txtThue.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		txtThue.setText("0.15");
+		txtThue.setEditable(false);
 		txtThue.setBounds(168, 101, 273, 28);
 		panel.add(txtThue);
 		
@@ -238,11 +238,24 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 		lblTongTien.setBounds(168, 143, 273, 39);
 		panel.add(lblTongTien);
 		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/btnThem.png")));
-		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_1.setBounds(967, 115, 42, 33);
-		panel.add(btnNewButton_1);
+		JButton btnKhachHang = new JButton("");
+		btnKhachHang.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmKhachHang_ThemMoi frmKhachHang = new frmKhachHang_ThemMoi();
+				frmKhachHang.pack();
+				frmKhachHang.setBounds(0, 20, 642, 432);
+				frmKhachHang.setBackground(new Color(135, 206, 250));
+				frmKhachHang.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+				frmKhachHang.setFocusCycleRoot(true);
+				frmKhachHang.setFocusableWindowState(true);
+				frmKhachHang.setVisible(true);
+			
+			}
+		});
+		btnKhachHang.setIcon(new ImageIcon(FrmHoaDon_ThemHoaDon.class.getResource("/image/btnThem.png")));
+		btnKhachHang.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnKhachHang.setBounds(967, 115, 42, 33);
+		panel.add(btnKhachHang);
 		
 		lblTenXe = new JLabel();
 		lblTenXe.setBounds(801, 28, 156, 29);
@@ -313,6 +326,9 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 							
 				Object[] ob = {xe.getMaCTXe(),xe.getTenXe(),xe.getSoluongMua(),xe.getSoKhung(),xe.getSoMay(),xe.getDungTich(),giaTien};
 				dataModel.addRow(ob);
+				
+				int i = cbbMaXe.getSelectedIndex();
+				cbbMaXe.removeItemAt(i);
 				
 				//ThanhTien
 				thanhTien();
@@ -442,13 +458,19 @@ public class FrmHoaDon_ThemHoaDon extends JInternalFrame {
 					else {
 						String maKH = khDao.getMaHDFromSDT(sdt);
 						String maCH = (java.lang.String) cbbmaCuaHang.getSelectedItem();
+						if(dsXe.size() <= 0) {
+							JOptionPane.showMessageDialog(null, "Vui lòng thêm xe để hoàn tất hóa đơn!");
+							return;
+						}
 						bthemHD = hdDao.themHD(msNV,maKH,maCH);	
-						//themHD = hdDao.themHD(dsHD.get(i).getMaNV(), dsHD.get(i).getMaKH(), dsHD.get(i).getMaCH());
 						for(int i = 0; i < dsHD.size(); i++) {
 							if(bthemHD == true)
 							{
 								maHD = hdDao.getMaHD();	
+								System.out.println(dsHD.get(i).getDongia());
 								btnThemCTHD = cthdDao.themCTHD(maHD,dsHD.get(i).getMaxe(),dsHD.get(i).getDongia(),dsHD.get(i).getThue(),dsHD.get(i).getSoluong());
+								dsHD.get(i).getDongia();
+								
 							}
 						}
 					}
