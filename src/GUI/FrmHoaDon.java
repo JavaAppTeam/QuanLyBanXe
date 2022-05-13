@@ -52,7 +52,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
 
-public class FrmHoaDon extends JFrame {
+public class FrmHoaDon extends JInternalFrame {
 	private JTable table_1;
 	private DefaultTableModel dataModel;
 	private JScrollPane scroll;
@@ -115,7 +115,7 @@ public class FrmHoaDon extends JFrame {
 		panel.setForeground(new Color(220, 20, 60));
 		panel.setBorder(new TitledBorder(null, "Thông tin xe", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 192, 203));
-		panel.setBounds(10, 49, 1340, 195);
+		panel.setBounds(10, 49, 1508, 195);
 		getContentPane().add(panel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Mã Nhân Viên:");
@@ -125,7 +125,7 @@ public class FrmHoaDon extends JFrame {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Mã Khách Hàng:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(700, 55, 106, 33);
+		lblNewLabel_1_1.setBounds(989, 52, 106, 33);
 		panel.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ngày lập hóa đơn:");
@@ -141,7 +141,7 @@ public class FrmHoaDon extends JFrame {
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Mã cửa hàng:");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1_1_1.setBounds(710, 95, 96, 28);
+		lblNewLabel_1_1_1_1.setBounds(999, 92, 96, 28);
 		panel.add(lblNewLabel_1_1_1_1);
 		
 		txtMaHD = new JTextPane();
@@ -162,16 +162,16 @@ public class FrmHoaDon extends JFrame {
 		
 		txtMaKH = new JTextPane();
 		txtMaKH.setEditable(false);
-		txtMaKH.setBounds(818, 55, 350, 28);
+		txtMaKH.setBounds(1107, 52, 350, 28);
 		panel.add(txtMaKH);
 		
 		txtMaCH = new JTextPane();
 		txtMaCH.setEditable(false);
-		txtMaCH.setBounds(817, 92, 350, 28);
+		txtMaCH.setBounds(1106, 89, 350, 28);
 		panel.add(txtMaCH);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(226, 349, 1124, 314);
+		panel_1.setBounds(226, 349, 1292, 374);
 		
 		getContentPane().add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
@@ -214,7 +214,7 @@ public class FrmHoaDon extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("DANH SÁCH HÓA ĐƠN BÁN");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblNewLabel.setBounds(644, 290, 306, 49);
+		lblNewLabel.setBounds(745, 290, 306, 49);
 		getContentPane().add(lblNewLabel);
 		
 		JPanel panel_3 = new JPanel();
@@ -282,7 +282,7 @@ public class FrmHoaDon extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(SystemColor.activeCaption);
-		panel_4.setBounds(990, 294, 360, 40);
+		panel_4.setBounds(1158, 304, 360, 40);
 		getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -327,7 +327,7 @@ public class FrmHoaDon extends JFrame {
 		panel_4.add(btnChiTietHD);
 		
 		JCalendar calendar_1 = new JCalendar();
-		calendar_1.setBounds(10, 425, 195, 215);
+		calendar_1.setBounds(10, 425, 206, 213);
 		getContentPane().add(calendar_1);
 		
 		JPanel panel_2 = new JPanel();
@@ -422,11 +422,11 @@ public class FrmHoaDon extends JFrame {
 		});
 		btnNewButton_1.setIcon(new ImageIcon(FrmHoaDon.class.getResource("/image/synchronize_30px.png")));
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		btnNewButton_1.setBounds(1307, 254, 43, 40);
+		btnNewButton_1.setBounds(1475, 264, 43, 40);
 		getContentPane().add(btnNewButton_1);
 		
 		setResizable(false);
-		setBounds(-5, -26, 1372, 710);
+		setBounds(-5, -26, 1600, 780);
 		loadCTHD();
 		loadMaCH();
 	}

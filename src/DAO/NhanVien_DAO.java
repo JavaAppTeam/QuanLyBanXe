@@ -81,7 +81,7 @@ public class NhanVien_DAO {
 		List<NhanVien> dsNV = null;
 		try {
 			conn = connectDB.getConnection();
-			String sql = "Select * from NhanVien where TenNhanVien like '%" + keyw + "%'";
+			String sql = "Select * from NhanVien where TenNhanVien like N'%" + keyw + "%'";
 			Statement stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
 			dsNV = new ArrayList<>();
