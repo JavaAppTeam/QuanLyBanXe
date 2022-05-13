@@ -84,7 +84,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 	 * @throws Exception
 	 */
 	public FrmBaoHanh() throws Exception {
-		setBounds(100, 100, 993, 452);
+		setBounds(-5, -26, 1600, 780);
 		setFocusCycleRoot(true);
 		setFocusable(true);
 		setFocusCycleRoot(true);
@@ -97,7 +97,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 				"Qu\u1EA3n l\u00FD b\u1EA3o h\u00E0nh", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		Container.setForeground(new Color(220, 20, 60));
 		Container.setBackground(new Color(255, 192, 203));
-		Container.setBounds(10, 10, 1340, 661);
+		Container.setBounds(10, 10, 1508, 731);
 		getContentPane().add(Container);
 		Container.setLayout(null);
 
@@ -108,7 +108,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Th\u00F4ng tin", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		Container.add(panel_1);
-		panel_1.setBounds(20, 21, 770, 227);
+		panel_1.setBounds(20, 21, 929, 227);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Mã bảo hành:");
@@ -133,17 +133,17 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 
 		txtMaBaoHanh = new JTextField();
 		txtMaBaoHanh.setEnabled(false);
-		txtMaBaoHanh.setBounds(220, 17, 524, 25);
+		txtMaBaoHanh.setBounds(247, 17, 627, 25);
 		panel_1.add(txtMaBaoHanh);
 		txtMaBaoHanh.setColumns(10);
 
 		txtGhiChu = new JTextField();
 		txtGhiChu.setColumns(10);
-		txtGhiChu.setBounds(220, 139, 524, 25);
+		txtGhiChu.setBounds(247, 139, 627, 25);
 		panel_1.add(txtGhiChu);
 
 		cboTrangThai = new JComboBox();
-		cboTrangThai.setBounds(220, 181, 524, 25);
+		cboTrangThai.setBounds(247, 181, 627, 25);
 		panel_1.add(cboTrangThai);
 		cboTrangThai.addItem("Hoan thanh");
 		cboTrangThai.addItem("Chua hoan thanh");
@@ -157,13 +157,13 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		txtNgayLapHoaDon = new JTextField();
 		txtNgayLapHoaDon.setEnabled(false);
 		txtNgayLapHoaDon.setColumns(10);
-		txtNgayLapHoaDon.setBounds(220, 59, 524, 25);
+		txtNgayLapHoaDon.setBounds(247, 59, 627, 25);
 		txtNgayLapHoaDon.setText(LocalDate.now().toString());
 		// txtNgayLapHoaDon.setText(now.plusMonths(24).toString());
 		panel_1.add(txtNgayLapHoaDon);
 
 		cboLyDoBaoHanh = new JComboBox();
-		cboLyDoBaoHanh.setBounds(220, 101, 524, 21);
+		cboLyDoBaoHanh.setBounds(247, 101, 627, 21);
 		cboLyDoBaoHanh.addItem("Lỗi của khách hàng");
 		cboLyDoBaoHanh.addItem("Lỗi của nhà sản xuất");
 		cboLyDoBaoHanh.setSelectedIndex(0);
@@ -175,7 +175,7 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2.setForeground(new Color(220, 20, 60));
 		panel_2.setBackground(new Color(255, 192, 203));
-		panel_2.setBounds(20, 276, 1310, 60);
+		panel_2.setBounds(20, 258, 1478, 60);
 		Container.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -194,18 +194,18 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		});
 		btnUpdate.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnSave.png")));
 		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnUpdate.setBounds(192, 10, 181, 38);
+		btnUpdate.setBounds(222, 10, 181, 38);
 		panel_2.add(btnUpdate);
 
 		btnChiTiet = new JButton("Chi tiết");
 		btnChiTiet.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/MenuItemTrangChu.png")));
 		btnChiTiet.setHorizontalAlignment(SwingConstants.LEADING);
 		btnChiTiet.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnChiTiet.setBounds(413, 10, 134, 38);
+		btnChiTiet.setBounds(484, 10, 134, 38);
 		panel_2.add(btnChiTiet);
 
 		txtSearch = new JTextField();
-		txtSearch.setBounds(776, 16, 405, 32);
+		txtSearch.setBounds(969, 18, 405, 32);
 		panel_2.add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -213,14 +213,14 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		btnSearch.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnTim.png")));
 		btnSearch.setHorizontalAlignment(SwingConstants.LEADING);
 		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnSearch.setBounds(1221, 16, 49, 32);
+		btnSearch.setBounds(1384, 16, 49, 32);
 		panel_2.add(btnSearch);
 
 		btnXoaTrang = new JButton("Xóa trắng");
 		btnXoaTrang.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/btnXoaTrang.png")));
 		btnXoaTrang.setHorizontalAlignment(SwingConstants.LEADING);
 		btnXoaTrang.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnXoaTrang.setBounds(587, 10, 149, 38);
+		btnXoaTrang.setBounds(698, 10, 149, 38);
 		panel_2.add(btnXoaTrang);
 
 		tblBaoHanh = new JTable();
@@ -230,16 +230,20 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 		tblBaoHanh.setModel(dtmBaoHanh);
 
 		JScrollPane scrollPane = new JScrollPane(tblBaoHanh);
-		scrollPane.setSize(1310, 274);
-		scrollPane.setLocation(20, 366);
+		scrollPane.setSize(1478, 330);
+		scrollPane.setLocation(20, 391);
 		Container.add(scrollPane);
 
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setIcon(new ImageIcon(FrmBaoHanh.class.getResource("/image/picXe1.png")));
-		lblNewLabel_5.setBounds(839, 21, 462, 227);
+		lblNewLabel_5.setBounds(1005, 21, 462, 227);
 		Container.add(lblNewLabel_5);
+		
+		JLabel lblListHan = new JLabel("List hóa đơn bảo hành");
+		lblListHan.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblListHan.setBounds(607, 339, 289, 42);
+		Container.add(lblListHan);
 		setResizable(true);
-		setBounds(-5, -26, 1372, 710);
 		addEvents();
 	}
 
@@ -350,12 +354,9 @@ public class FrmBaoHanh extends JInternalFrame implements MouseListener {
 			trangThai = true;
 		else 
 			trangThai = false;
-		if(baoHanhDao.upDateHoaDonBaoHanh(liDo,txtGhiChu.getText().trim(),trangThai,txtMaBaoHanh.getText().trim())) {
+		if(baoHanhDao.upDateHoaDonBaoHanh(liDo,txtGhiChu.getText().trim(), trangThai,txtMaBaoHanh.getText().trim()))
 			JOptionPane.showMessageDialog(null, "Sửa thành công");
-		}
-		
-		
-		
+			
 	}
 
 	private HoaDonBaoHanh createHDBH() throws ParseException {
