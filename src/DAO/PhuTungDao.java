@@ -140,5 +140,28 @@ public class PhuTungDao {
 		}
 		return n > 0;
 	}
-	
+	public ArrayList<PhuTungXe> getSPTheoMa(int maPT) throws Exception {
+		ArrayList<PhuTungXe> lstPhuTung = null;
+		try {
+			Connection con = connectDB.getConnection();
+			String sql = "SELECT * FROM PhuTungXe WHERE IDPhuTung="+maPT;
+			java.sql.Statement statement = con.createStatement();
+			rs = ((java.sql.Statement) statement).executeQuery(sql);
+			lstPhuTung = new ArrayList<PhuTungXe>();
+			while (rs.next()) {
+				int  maPhuTung = rs.getInt(1);
+				String tenPhuTung = rs.getString(2);
+				int soLuong = rs.getInt(3);
+				boolean trangThai = rs.getBoolean(4);
+				double giaTien = rs.getDouble(5);
+				lstPhuTung.add(new PhuTungXe(maPhuTung, soLuong, tenPhuTung, giaTien, trangThai));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection();
+		}
+		return lstPhuTung;
+	}
 }

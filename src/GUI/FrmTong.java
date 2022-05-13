@@ -38,6 +38,7 @@ public class FrmTong extends JFrame {
 	private FrmTimKiemXe frmTiemKiemXe;
 	private FrmPhuTung frmPhuTung;
 	private FrmXe frmXe;
+	private FrmBaoHanh frmBaoHanh;
 
 	/**
 	 * Launch the application.
@@ -105,7 +106,9 @@ public class FrmTong extends JFrame {
 		// === phutung
 		frmPhuTung = new FrmPhuTung();
 		desktopPane.add(frmPhuTung);
-
+		// === 
+		frmBaoHanh = new FrmBaoHanh();
+		desktopPane.add(frmBaoHanh);		
 		frmQLNhanVien = new FrmQLNhanVien();
 		// desktopPane.add(frmQLNhanVien);
 
@@ -271,6 +274,17 @@ public class FrmTong extends JFrame {
 		mntmBaoHanh = new JMenuItem("Thêm bảo hành");
 		mntmBaoHanh.setIcon(new ImageIcon(FrmTong.class.getResource("/image/car-insurance.png")));
 		mnXuLy.add(mntmBaoHanh);
+		mntmBaoHanh.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anTatCa();
+				chinhMau();
+				frmBaoHanh.setVisible(true);
+				frmBaoHanh.setBackground(new Color(135, 206, 250));
+			}
+		});
 
 //		==== danh mục tìm kiếm thông tin
 		mnTimKiem = new JMenu("Tìm kiếm thông tin");
