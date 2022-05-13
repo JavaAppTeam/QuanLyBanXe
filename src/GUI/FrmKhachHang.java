@@ -256,11 +256,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		panel_4.add(txtTK);
 		txtTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTK.setColumns(10);
-//		
-//		JButton btnTV = new JButton("Tìm kiếm");
-//		btnTV.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		btnTV.setBounds(746, 10, 159, 50);
-////		panel_4.add(btnTV);
+
 		btnTK.addActionListener(this);
 		btnXT.addActionListener(this);
 		btnXoa.addActionListener(this);
@@ -295,13 +291,10 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					List<KhachHang> dssv = khDAO.getAll();
+					
 					int row  = table.getSelectedRow();
-				
-					if(row >=0 && row < dssv.size()) {
-						KhachHang  kh = dssv.get(row);
-						napKhachHang(kh);
-					}
+					KhachHang kh = (KhachHang) napDataFormSQL().getValueAt(row);
+					napKhachHang(kh);
 				}catch (Exception ex) {
 					System.out.println(ex);
 					return;
@@ -453,6 +446,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 			table.setModel(napDataFormSQL());
+			clear();
 		}
 		if (o==btnSua) {
 			if (iValid()) {
