@@ -42,11 +42,13 @@ public class HangXe_DAO {
 		closeConnection();
 		return lstHangXe;		
 	}
-	public List<HangXe> findAll(String mahx) {
+	public List<HangXe> findAll(HangXe hxc,String tt) {
 		try {
 			conn = connectDB.getConnection();
-			PreparedStatement ps = conn.prepareStatement("select * from [QuanLyCuaHangXe].[dbo].[HangXe] where MaHangXe ='"+mahx+"'");
-//			ps.setString(1, mahx);
+			PreparedStatement ps = conn.prepareStatement("select * from [QuanLyCuaHangXe].[dbo].[HangXe] where MaHangXe =? and TenHang=? and trangthai =?");
+			ps.setString(1, hxc.getMaHang());
+			ps.setString(2, hxc.getTenHang());
+			ps.setString(2, tt);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				HangXe hx = new HangXe(rs.getString("MaHangXe"),rs.getString("TenHang"),rs.getBoolean("trangthai"));
@@ -60,6 +62,7 @@ public class HangXe_DAO {
 		
 		return lstHangXe;
 	}
+	
 	public boolean updateHX(HangXe hx)  {
 		int rs = 0;
 		try {
@@ -80,7 +83,7 @@ public class HangXe_DAO {
 		int rs = 0;
 		try {
 			conn = connectDB.getConnection();
-			PreparedStatement ps = conn.prepareStatement("delete [QuanLyCuaHangXe].[dbo].[HangXe] where MaHangXe =?");
+			PreparedStatement ps = conn.prepareStatement("update [QuanLyCuaHangXe].[dbo].[HangXe] set trangthai ='false' where MaHangXe =?");
 			ps.setString(1, hx.getMaHang());
 			rs = ps.executeUpdate();
 			closeConnection();
@@ -106,5 +109,41 @@ public class HangXe_DAO {
 		}
 		return rs==1?true:false;
 		
+	}
+	public HangXe findAllbyMa(String mahx, String tt) {
+		try {
+			conn = connectDB.getConnection();
+			PreparedStatement ps = conn.prepareStatement("select * from [QuanLyCuaHangXe].[dbo].[HangXe] where MaHangXe =? and trangthai =?");
+			ps.setString(1, mahx);
+			ps.setString(2, tt);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				HangXe hx = new HangXe(rs.getString("MaHangXe"),rs.getString("TenHang"),rs.getBoolean("trangthai"));
+				return hx;
+			}
+			closeConnection();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public HangXe findAllbyTen(String Tenhx, String tt) {
+		try {
+			conn = connectDB.getConnection();
+			PreparedStatement ps = conn.prepareStatement("select * from [QuanLyCuaHangXe].[dbo].[HangXe] where TenHang =? and trangthai =?");
+			ps.setString(1, Tenhx);
+			ps.setString(2, tt);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				HangXe hx = new HangXe(rs.getString("MaHangXe"),rs.getString("TenHang"),rs.getBoolean("trangthai"));
+				return hx;
+			}
+			closeConnection();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

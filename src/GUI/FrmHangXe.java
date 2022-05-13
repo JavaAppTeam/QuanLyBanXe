@@ -249,8 +249,10 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 		try {
 			
 			for (HangXe i : hxDAO.getAll()) {
+				if(i.isTrangThai()) {
 				Object obj[] = {i.getMaHang(),i.getTenHang()};
 				tblModelHangXe.addRow(obj);
+				}
 			}
 			tblHangXe.setModel(tblModelHangXe);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -268,18 +270,33 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 			clear();
 		}
 		if (o == btnThem) {
-			System.out.println(hxDAO.findAll(txtMaHX.getText()).isEmpty());
-			if(!hxDAO.findAll(txtMaHX.getText()).isEmpty()) {
+			
+			HangXe hx = new HangXe(txtMaHX.getText(), txtTen.getText(),true);
+			
+			for(HangXe h:hxDAO.findAll(hx,"False")) {
+				System.out.println(h);
+			}
+			System.out.println("this y befor the test");
+			
+			
+			if(!hxDAO.findAll(hx,"true").isEmpty()) {
 				showmess("Hãng Xe đã tồn tại");
-			}else {
-				HangXe hx = new HangXe(txtMaHX.getText(), txtTen.getText(),true);
-				if (hxDAO.addHX(hx)) {
+			}else 
+			if(!hxDAO.findAll(hx,"False").isEmpty()) {
+				hxDAO.updateHX(hx);
+				showmess("Thêm hãng xe thành công!!");
+			}else if(hxDAO.findAllbyMa(hx.getMaHang(),"false")!= null) {
+				
+			}
+			else	
+			if (hxDAO.addHX(hx)) {
 					showmess("Thêm hãng xe thành công!!");
 					loadDataToModel();
+					
 				}else {
 					showmess("Thêm hãng xe không thành công tên không được trùng");
 				}
-			}
+			clear();
 		}
 		if(o == btnSua) {
 			HangXe hx = new HangXe(txtMaHX.getText(), txtTen.getText(),true);
@@ -296,6 +313,7 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 			if(hxDAO.deleteHX(hx)) {
 				showmess("Xóa Thành Công !!");
 				loadDataToModel();
+				clear();
 			}else {
 				showmess("Xóa không thành công");
 			}
@@ -312,14 +330,14 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 				txtTK.setText("");
 			} else{
 			deleteAllTableRows(tblHangXe);
-			for (HangXe i: 	hxDAO.findAll(mahx)) {
+			 	HangXe i = hxDAO.findAllbyMa(mahx, "true") ;
 				Object[] objhx = {i.getMaHang(),i.getTenHang()};
 				tblModelHangXe.addRow(objhx);
-				}
+				
 			btnTK.setText("Trở Về");
 			txtTK.setText("Trở Về");
 			}
-			
+			clear();
 		}
 		
 	}
