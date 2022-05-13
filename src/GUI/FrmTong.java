@@ -43,6 +43,7 @@ public class FrmTong extends JFrame {
 	private FrmHangXe frmHangXe;
 	private FrmLoaiXe frmLoaiXe;
 	private FrmHoaDon frmHoaDon;
+	private FrmLogin frmLogin;
 	
 
 	/**
@@ -127,6 +128,8 @@ public class FrmTong extends JFrame {
 //		==== hoas don
 		frmHoaDon = new FrmHoaDon();
 		desktopPane.add(frmHoaDon);
+//		== login
+
 		
 		mntmNewMenuItem_2 = new JMenuItem("New menu item");
 		mntmNewMenuItem_2.setBounds(210, 60, 137, 26);
@@ -169,7 +172,9 @@ public class FrmTong extends JFrame {
 		JMenuItem mntmDangXuat = new JMenuItem("\u0110\u0103ng xu\u1EA5t");
 		mntmDangXuat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//					
+				FrmLogin frm = new FrmLogin();
+				frm.setVisible(true);
+				dispose();
 			}
 		});
 		mntmDangXuat.setIcon(new ImageIcon(FrmTong.class.getResource("/image/MenuItemDangXuat.png")));

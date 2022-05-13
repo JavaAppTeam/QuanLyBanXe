@@ -1,9 +1,11 @@
 package App;
 
+import GUI.FrmLogin;
+
 //import GUI.FrmLoading;
 //import GUI.FrmLogin;
 //
-//public class app {
+public class app {
 //	public static void main(String[] args) throws InterruptedException {
 //		try {
 //			FrmLoading formLoading = new FrmLoading();
@@ -21,5 +23,11 @@ package App;
 //			// TODO: handle exception
 //		}
 //	}
-//}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		FrmLogin frm = new FrmLogin();
+		frm.setVisible(true);
+	}
+}
+
 

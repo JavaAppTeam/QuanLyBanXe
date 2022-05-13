@@ -259,6 +259,7 @@ public class FrmChiTietBaoHanh extends JFrame implements MouseListener {
 				if (btnThem.getText() == "Thêm") {
 					clearInput();
 					onInput();
+					setGiaTriMacDinh();
 					btnThem.setText("Lưu");
 				} else if (kiemTraNull() == true) {
 					JOptionPane.showMessageDialog(null, "Không để trống dữ liệu");
@@ -345,7 +346,11 @@ public class FrmChiTietBaoHanh extends JFrame implements MouseListener {
 			}
 		});
 	}
-
+	private void setGiaTriMacDinh() {
+		txtMaHD.setText("HD002");
+		txtIDPhuTung.setText("3");
+		txtSoLuong.setText("2");
+	}
 	private void del() throws SQLException, Exception {
 		boolean kq = chiTietBaoHanhDao.delCTHoaDonBaoHanh(createCTBH());
 		if (kq == true)
