@@ -243,10 +243,10 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		btnXT.setIcon(new ImageIcon(FrmKhachHang.class.getResource("/image/btnXoaTrang.png")));
 		btnXT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		btnTK = new JButton("Trở về");
+		btnTK = new JButton("Tìm kiếm");
 		btnTK.setBounds(746, 10, 159, 50);
 		panel_4.add(btnTK);
-		btnTK.setIcon(new ImageIcon(FrmKhachHang.class.getResource("/image/MenuItemThoat.png")));
+		btnTK.setIcon(new ImageIcon(FrmKhachHang.class.getResource("/image/btnTim.png")));
 		btnTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtTK = new JTextField();
@@ -254,11 +254,11 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		panel_4.add(txtTK);
 		txtTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTK.setColumns(10);
-		
-		JButton btnTV = new JButton("Tìm kiếm");
-		btnTV.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnTV.setBounds(746, 10, 159, 50);
-		panel_4.add(btnTV);
+//		
+//		JButton btnTV = new JButton("Tìm kiếm");
+//		btnTV.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		btnTV.setBounds(746, 10, 159, 50);
+////		panel_4.add(btnTV);
 		btnTK.addActionListener(this);
 		btnXT.addActionListener(this);
 		btnXoa.addActionListener(this);
@@ -368,23 +368,23 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin đầy đủ");
 		}
 		if (!vlMkh) {
-			JOptionPane.showMessageDialog(this, "Ma khach hang phai bat dau bang KH theo sau 3 ki tu so");
+			JOptionPane.showMessageDialog(this, "Mã khách hàng phải bắt đầu bằng KH theo sau 3 kí tự số");
 			return false;
 		}
 		if (!vlTen) {
-			JOptionPane.showMessageDialog(this, "Ten khong chua ki hieu dat biet");
+			JOptionPane.showMessageDialog(this, "Tên không chứa kí hiệu đặt biệt");
 			return false;
 		}
 		if (!vlNS) {
-			JOptionPane.showMessageDialog(this, "Ngay sinh theo format yyyy-mm-dd");
+			JOptionPane.showMessageDialog(this, "Ngày sinh theo format yyyy-mm-dd");
 			return false;
 		}
 		if (!vlCMND) {
-			JOptionPane.showMessageDialog(this, "CMND phai gom 8 ky tu so");
+			JOptionPane.showMessageDialog(this, "CMND phải gồm 8 kí tự số");
 			return false;
 		}
 		if (!vlSDT) {
-			JOptionPane.showMessageDialog(this, "So dien thoai phai bat dau bang 0 va theo sau gom 9 ki tu so");
+			JOptionPane.showMessageDialog(this, "Số điện thoại phải bắt đầu bằng 0 và theo sau là 9 kí tự số");
 			return false;
 		}
 		
@@ -428,6 +428,9 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		if(o == btnXoa) {
 			System.out.println("btnxoa click");
 			int row  = table.getSelectedRow();
+			if (row == -1) {
+				JOptionPane.showMessageDialog(this,"Hãy chọn dòng muốn xóa trước khi xóa" );
+			}
 			
 			int col  = 0;
 			String makh = (String) table.getValueAt(row, col);
@@ -437,9 +440,9 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 					JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại");
 				}else {
 					if(khDAO.deleteKH(makh)==true){
-						JOptionPane.showMessageDialog(this, "Xoa Thanh Cong");
+						JOptionPane.showMessageDialog(this, "Xóa Thành Công");
 					}else {
-						JOptionPane.showMessageDialog(this, "Xoa That bai");}
+						JOptionPane.showMessageDialog(this, "Xóa Thất Bại");}
 					}
 			} catch (HeadlessException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
@@ -453,9 +456,9 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 					KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
 			try {
 				if(khDAO.updateKH(kh)){
-					JOptionPane.showMessageDialog(this, "Sua Thanh Cong");
+					JOptionPane.showMessageDialog(this, "Sửa Thành Công");
 				}else {
-					JOptionPane.showMessageDialog(this, "Sua That bai");
+					JOptionPane.showMessageDialog(this, "Sửa Thất Bại");
 				}
 			} catch (HeadlessException | ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
@@ -471,11 +474,18 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			String maTK = txtTK.getText();
 			if(maTK.equals("")){
 				table.setModel(napDataFormSQL()); 
-				JOptionPane.showMessageDialog(this, "vui long nhap khach hang muon tim");
+				JOptionPane.showMessageDialog(this, "Vui lòng chọn dòng muốn tìm");
 				
-			}else {
+			}if(maTK.equals("Trở Về")) {
+				table.setModel(napDataFormSQL()); 
+				btnTK.setText("Tìm kiếm");
+				txtTK.setText("");
+			}
+			else {
 				dataModel = new KhachHangModel(khDAO.findKH(maTK));
 				table.setModel(dataModel); 
+				btnTK.setText("Trở Về");
+				txtTK.setText("Trở Về");
 			}
 			
 		}

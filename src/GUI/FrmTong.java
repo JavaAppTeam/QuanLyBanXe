@@ -38,6 +38,7 @@ public class FrmTong extends JFrame {
 	private FrmTimKiemXe frmTiemKiemXe;
 	private FrmPhuTung frmPhuTung;
 	private FrmXe frmXe;
+	private FrmBaoHanh frmBaoHanh;
 	private FrmKhachHang frmKhachHang;
 	private FrmHangXe frmHangXe;
 
@@ -48,7 +49,7 @@ public class FrmTong extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmTong frame = new FrmTong("QL1", "Quản lý");
+					FrmTong frame = new FrmTong("HC005", "Quản lý");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -107,6 +108,9 @@ public class FrmTong extends JFrame {
 		// === phutung
 		frmPhuTung = new FrmPhuTung();
 		desktopPane.add(frmPhuTung);
+		// === 
+		frmBaoHanh = new FrmBaoHanh();
+		desktopPane.add(frmBaoHanh);		
 		
 		//=== Nhân viên	
 		frmQLNhanVien = new FrmQLNhanVien();
@@ -294,6 +298,17 @@ public class FrmTong extends JFrame {
 		mntmBaoHanh = new JMenuItem("Thêm bảo hành");
 		mntmBaoHanh.setIcon(new ImageIcon(FrmTong.class.getResource("/image/car-insurance.png")));
 		mnXuLy.add(mntmBaoHanh);
+		mntmBaoHanh.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				anTatCa();
+				chinhMau();
+				frmBaoHanh.setVisible(true);
+				frmBaoHanh.setBackground(new Color(135, 206, 250));
+			}
+		});
 
 //		==== danh mục tìm kiếm thông tin
 		mnTimKiem = new JMenu("Tìm kiếm thông tin");
