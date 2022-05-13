@@ -11,12 +11,43 @@ public class KhachHang {
 	String sdt;
 	String CMND;
 	String GioiTinh;
+	Boolean TrangThai;
 	
+	
+
 	@Override
 	public String toString() {
 		return "KhachHang [MaKH=" + MaKH + ", TenKH=" + TenKH + ", NgaySinh=" + NgaySinh + ", sdt=" + sdt + ", CMND="
-				+ CMND + ", GioiTinh=" + GioiTinh + "]";
+				+ CMND + ", GioiTinh=" + GioiTinh + ", TrangThai=" + TrangThai + "]";
 	}
+
+
+
+	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh,
+			Boolean trangThai) {
+		super();
+		MaKH = maKH;
+		TenKH = tenKH;
+		NgaySinh = ngaySinh;
+		this.sdt = sdt;
+		CMND = cMND;
+		GioiTinh = gioiTinh;
+		TrangThai = trangThai;
+	}
+
+
+
+	public Boolean getTrangThai() {
+		return TrangThai;
+	}
+
+
+
+	public void setTrangThai(Boolean trangThai) {
+		TrangThai = trangThai;
+	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -35,15 +66,6 @@ public class KhachHang {
 		return Objects.equals(MaKH, other.MaKH)& Objects.equals(CMND, other.CMND)&Objects.equals(sdt, other.sdt);
 	}
 
-	public KhachHang(String maKH, String tenKH, Date ngaySinh, String sdt, String cMND, String gioiTinh) {
-		super();
-		MaKH = maKH;
-		TenKH = tenKH;
-		NgaySinh = ngaySinh;
-		this.sdt = sdt;
-		CMND = cMND;
-		GioiTinh = gioiTinh;
-	}
 
 	public KhachHang(String ma,String sdt) {
 		this.MaKH  = ma;
