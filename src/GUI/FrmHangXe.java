@@ -292,6 +292,7 @@ public class FrmHangXe extends JInternalFrame implements ActionListener{
 		}
 		if(o ==btnXoa ) {
 			HangXe hx = new HangXe(txtMaHX.getText(), txtTen.getText(),true);
+			System.out.println(hx);
 			if(hxDAO.deleteHX(hx)) {
 				showmess("Xóa Thành Công !!");
 				loadDataToModel();

@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Array;
 import java.security.PublicKey;
 import javax.swing.border.TitledBorder;
 import javax.swing.ImageIcon;
@@ -254,11 +256,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		panel_4.add(txtTK);
 		txtTK.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTK.setColumns(10);
-//		
-//		JButton btnTV = new JButton("Tìm kiếm");
-//		btnTV.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		btnTV.setBounds(746, 10, 159, 50);
-////		panel_4.add(btnTV);
+
 		btnTK.addActionListener(this);
 		btnXT.addActionListener(this);
 		btnXoa.addActionListener(this);
@@ -293,13 +291,10 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
-					List<KhachHang> dssv = khDAO.getAll();
+					
 					int row  = table.getSelectedRow();
-				
-					if(row >=0 && row < dssv.size()) {
-						KhachHang  kh = dssv.get(row);
-						napKhachHang(kh);
-					}
+					KhachHang kh = (KhachHang) napDataFormSQL().getValueAt(row);
+					napKhachHang(kh);
 				}catch (Exception ex) {
 					System.out.println(ex);
 					return;
@@ -325,7 +320,13 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 		KhachHang_DAO khDAO;
 		try {
 			khDAO = new KhachHang_DAO();
-			dataModel = new KhachHangModel(khDAO.getAll());
+			List<KhachHang> trangthaitrue = new ArrayList<KhachHang>();
+			for (KhachHang i :  khDAO.getAll()) {
+				if (i.getTrangThai()) {
+					trangthaitrue.add(i);
+				}	
+			}
+			dataModel = new KhachHangModel(trangthaitrue);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -335,7 +336,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 	}
 	public boolean isDuplicate() {
 		String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
-		KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+		KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt,true);
 		List<KhachHang> dssv;
 		try {
 			dssv = khDAO.getAll();
@@ -410,23 +411,19 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 				}else {
 
 			String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
-			KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
-				try {
+			KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt,true);
 					if(khDAO.addKH(kh)) {
 						table.setModel(napDataFormSQL());
 						JOptionPane.showMessageDialog(this, "Thêm thành công");
 					}else {
 						JOptionPane.showMessageDialog(this, "Thêm thất bại");
 					}
-				} catch (SQLException | HeadlessException | ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 				}
 			}
 		}
 		if(o == btnXoa) {
-			System.out.println("btnxoa click");
+//			System.out.println("btnxoa click");
 			int row  = table.getSelectedRow();
 			if (row == -1) {
 				JOptionPane.showMessageDialog(this,"Hãy chọn dòng muốn xóa trước khi xóa" );
@@ -434,7 +431,7 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 			
 			int col  = 0;
 			String makh = (String) table.getValueAt(row, col);
-			System.out.println(makh);
+//			System.out.println(makh);
 			try {
 				if (!isDuplicate()) {
 					JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại");
@@ -449,11 +446,12 @@ public class FrmKhachHang extends JInternalFrame implements ActionListener {
 				e1.printStackTrace();
 			}
 			table.setModel(napDataFormSQL());
+			clear();
 		}
 		if (o==btnSua) {
 			if (iValid()) {
 					String gt = cboGT.getSelectedIndex()==0?"Nữ":"Nam";
-					KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt);
+					KhachHang  kh = new KhachHang(txtMkh.getText(),txtTen.getText(),Date.valueOf(txtNS.getText()),txtSDT.getText(),txtCMND.getText(),gt,true);
 			try {
 				if(khDAO.updateKH(kh)){
 					JOptionPane.showMessageDialog(this, "Sửa Thành Công");

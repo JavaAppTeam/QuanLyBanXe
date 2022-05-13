@@ -49,9 +49,5 @@ public class ChiTietHoaDonBaoHanh {
 		this.soLuong = soLuong;
 	}
 
-	
 
- 
-
-	
 }

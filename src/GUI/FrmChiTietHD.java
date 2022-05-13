@@ -44,7 +44,7 @@ import java.awt.Color;
 public class FrmChiTietHD extends JInternalFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
-	private JLabel lblMaHD, lblTenKH,lblTenNV;
+	private JLabel lblMaHD, lblTenKH,lblTenNV,lblTongThue;
 	private DefaultTableModel dataModel;
 	private Locale localeVN = new Locale("vi", "VN");
 	private NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
@@ -97,7 +97,7 @@ public class FrmChiTietHD extends JInternalFrame {
 		getContentPane().add(lblNgayLap);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(13, 152, 582, 242);
+		panel.setBounds(13, 152, 582, 235);
 		getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -127,20 +127,20 @@ public class FrmChiTietHD extends JInternalFrame {
 		
 		JLabel lblNewLabel_5 = new JLabel("Nhân Viên");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_5.setBounds(399, 444, 78, 26);
+		lblNewLabel_5.setBounds(403, 471, 78, 26);
 		getContentPane().add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("Người Mua");
 		lblNewLabel_5_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_5_1.setBounds(96, 444, 98, 26);
+		lblNewLabel_5_1.setBounds(100, 471, 98, 26);
 		getContentPane().add(lblNewLabel_5_1);
 		
 		JLabel lblNewLabel_6 = new JLabel("(Ký ghi rõ họ tên)");
-		lblNewLabel_6.setBounds(395, 468, 98, 13);
+		lblNewLabel_6.setBounds(399, 495, 98, 13);
 		getContentPane().add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_6_1 = new JLabel("(Ký ghi rõ họ tên)");
-		lblNewLabel_6_1.setBounds(92, 468, 102, 13);
+		lblNewLabel_6_1.setBounds(96, 495, 102, 13);
 		getContentPane().add(lblNewLabel_6_1);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Hotline: 0909 829 829");
@@ -193,7 +193,7 @@ public class FrmChiTietHD extends JInternalFrame {
 		lblTenNV.setVerticalAlignment(SwingConstants.CENTER);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(13, 391, 582, 43);
+		panel_1.setBounds(13, 430, 582, 42);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -207,6 +207,22 @@ public class FrmChiTietHD extends JInternalFrame {
 		lblTong.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTong.setBounds(431, 10, 141, 26);
 		panel_1.add(lblTong);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(13, 387, 582, 42);
+		getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblThue = new JLabel("THUẾ:");
+		lblThue.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblThue.setBounds(364, 10, 48, 26);
+		panel_2.add(lblThue);
+		
+		lblTongThue = new JLabel("0 ₫");
+		lblTongThue.setForeground(Color.BLACK);
+		lblTongThue.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblTongThue.setBounds(431, 10, 141, 26);
+		panel_2.add(lblTongThue);
 		
 		loadCTHD(maHDFrmHD, maKHFrmHD,maNVToCTHD);
 		loadTongTien();
@@ -225,13 +241,16 @@ public class FrmChiTietHD extends JInternalFrame {
 	private void loadTongTien() {
 		// TODO Auto-generated method stub
 		int iTong = 0;
+		int iTongThue = 0;
 		int row = table.getRowCount();
 		for(int i = 0; i < row; i++ ) {
 			int iSL = (int) table.getValueAt(i, 2);
 			int iDonGia = (int) table.getValueAt(i, 3);
+			iTongThue += (int)(iDonGia * iSL)*0.15;
 			iTong += iSL*iDonGia;
 		}
-		lblTong.setText(currencyVN.format(iTong) + "");
+		lblTongThue.setText(currencyVN.format(iTongThue) + "");
+		lblTong.setText(currencyVN.format(iTong + iTongThue) + "");
 	}
 
 	private void loadCTHD(String maHDFrmHD, String maKHFrmHD, String maNVToCTHD) throws ClassNotFoundException, SQLException {
